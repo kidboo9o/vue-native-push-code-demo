@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "expo": "^27.0.1",
-    "firebase": "^5.5.0",
     "native-base": "^2.6.1",
     "vue-native-router": "0.0.1-alpha.3",
     "vuex": "3.0.1",

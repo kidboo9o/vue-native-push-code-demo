@@ -1,14 +1,27 @@
 import Vue from "vue-native-core";
 import Vuex from 'vuex'
-import user from './user'
-import shared from './shared'
-
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  strict: true,
-  modules: {
-    user: user,
-    shared: shared
-  }
-})
+    strict: false,
+    namespaced: true,
+    state: {
+        user: 'au dep trai',
+    },
+    getters: {
+        getUser(state){
+            return state.user;
+        }
+    },
+    mutations: {
+        setUser(state, payload){
+            state.user = payload;
+        }
+    },
+    actions: {
+      setUser({commit}, payload){
+          commit('setUser', payload);
+      }
+    },
+
+});
