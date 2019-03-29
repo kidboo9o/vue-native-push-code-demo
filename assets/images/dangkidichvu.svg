@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 144 96" style="enable-background:new 0 0 144 96;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);fill:#C72929;}
+	.st1{fill:#C72929;}
+</style>
+<g>
+	<defs>
+		<rect id="SVGID_1_" width="144" height="96"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<path fill="#C72929" d="M96,79c0,0.6-0.9,2-1.5,2H50.5c-0.6,0-1.5-1.4-1.5-2V20c0-3,2.4-3.5,3.1-3.5h7.6V18H51v61h43V18H84v-2h10
+		c0.6,0,2,1.4,2,2V79z M64.2,24h15.1c1.5,0,4.1-1.7,4.5-3H91v55H54V21h5.6C60.1,22.3,62.6,24,64.2,24 M63,15c0-1,1.4-2,2-2h14
+		c0.6,0,2,1,2,2v4c0,1-1.4,2-2,2H65c-1,0-2-1.4-2-2V15z M95,13H84c-0.5-1.3-1.6-3-3.2-3H64.2c-1.5,0-4.1,2.2-4.5,3.5h-9.1
+		c-1.9,0-4.5,2.6-4.5,4.5v61.5c0,1.9,1.5,4.5,3.5,4.5h46.1c1.9,0,3.5-2.6,3.5-4.5v-63C99,14.6,96.9,13,95,13"/>
+	<path fill="#C72929" d="M72.7,61.6c-3.2,0-5.9-2.6-5.9-5.8v-2.3c0-3.2,2.6-5.5,5.9-5.5c3.2,0,5.9,2.3,5.9,5.5v2.3
+		C78.6,59,76,61.6,72.7,61.6 M72.7,66.6l-2.3-3c0.7,0.2,1.5,0.3,2.3,0.3c0.8,0,1.6-0.1,2.3-0.3L72.7,66.6z M81.4,64.2l-4-1.1l0-0.6
+		c2.1-1.5,4.4-4.2,4.4-7V54c0-4.5-4.6-9-9.1-9c-4.5,0-9.1,4.5-9.1,9v1.5c0,2.8,2.3,5.5,4.4,7V63l-4,1.1C61.6,64.9,59,66.4,59,69v4
+		h27v-4C86,66.4,83.9,64.9,81.4,64.2"/>
+</g>
+<rect x="57" y="27" fill="#C72929" width="31" height="3"/>
+<rect x="57" y="33" fill="#C72929" width="31" height="3"/>
+<rect x="85" y="39" fill="#C72929" width="3" height="3"/>
+<rect x="57" y="39" fill="#C72929" width="25" height="3"/>
+<rect x="109" y="36" fill="#C72929" width="3" height="5"/>
+<rect x="109" y="44" fill="#C72929" width="3" height="5"/>
+<rect x="104" y="41" fill="#C72929" width="5" height="3"/>
+<rect x="112" y="41" fill="#C72929" width="5" height="3"/>
+<rect x="34" y="12" fill="#C72929" width="3" height="5"/>
+<rect x="34" y="20" fill="#C72929" width="3" height="5"/>
+<rect x="29" y="17" fill="#C72929" width="5" height="3"/>
+<rect x="37" y="17" fill="#C72929" width="5" height="3"/>
+<rect x="36" y="55" fill="#C72929" width="3" height="5"/>
+<rect x="36" y="63" fill="#C72929" width="3" height="5"/>
+<rect x="31" y="60" fill="#C72929" width="5" height="3"/>
+<rect x="39" y="60" fill="#C72929" width="5" height="3"/>
+</svg>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 144 96" style="enable-background:new 0 0 144 96;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);fill:#C72929;}
+	.st1{fill:#C72929;}
+</style>
+<g>
+	<defs>
+		<rect id="SVGID_1_" width="144" height="96"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<path fill="#C72929" d="M107.5,81H75.8c0,2.1-2.4,4.4-4.5,4.4c-2.1,0-4.5-2.3-4.5-4.4H33.5V28h5v50h67V30h2V81z M41.5,25h8
+		c-0.2,1.3-0.2,3.6-0.2,4.9c0,10.2,7.1,19.1,17,21.4l5,9.9l4.3-7.2v12h25V46h-15c4.8-4.1,7.7-9.4,7.7-16.1c0-1.3-0.5-3.7-0.7-4.9h10
+		v50H72.8V64.5h-3V75H41.3L41.5,25z M97.5,63h-19V49h19V63z M63.5,39h3v-7h-3v-9h14v15h3v7h-17V39z M71.5,13.5
+		c2.1,0,3.8,1.7,3.8,3.8c0,2.1-1.7,3.8-3.8,3.8c-2.1,0-3.8-1.7-3.8-3.8C67.7,15.2,69.4,13.5,71.5,13.5 M107.5,22h-17
+		c-3.2-8.1-10-14-19.3-14c-9.4,0-17.6,5.7-20.8,14c0.5-0.2-15,0-15,0v3h-5v59c0,0,32.8,0,34.8-0.1c1,2.4,3.3,4.1,6,4.1
+		c2.7,0,5-1.7,6-4c2.1-0.1,33.3,0,33.3,0V25h-3V22z"/>
+</g>
+<polygon fill="#C72929" points="74.5,26 66.6,25.9 66.5,30 69.5,30 69.5,40 66.5,40 66.6,42.1 76.5,42 76.5,40 74.5,40 "/>
+<rect x="44.5" y="66" fill="#C72929" width="22" height="3"/>
+<rect x="44.5" y="58" fill="#C72929" width="21" height="3"/>
+<rect x="75.5" y="69" fill="#C72929" width="25" height="3"/>
+<rect x="119.5" y="42" fill="#C72929" width="3" height="4"/>
+<rect x="122.5" y="46" fill="#C72929" width="4" height="3"/>
+<rect x="119.5" y="49" fill="#C72929" width="3" height="4"/>
+<rect x="115.5" y="46" fill="#C72929" width="4" height="3"/>
+<rect x="21.5" y="9" fill="#C72929" width="3" height="4"/>
+<rect x="24.5" y="13" fill="#C72929" width="4" height="3"/>
+<rect x="21.5" y="16" fill="#C72929" width="3" height="4"/>
+<rect x="17.5" y="13" fill="#C72929" width="4" height="3"/>
+</svg>

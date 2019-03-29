@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 144 96" style="enable-background:new 0 0 144 96;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);fill:#C72929;}
+	.st1{fill:#C72929;}
+</style>
+<g>
+	<defs>
+		<rect id="SVGID_1_" width="144" height="96"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<path fill="#C72929" d="M104,43.5l-4.1,4l-3-3l4.1-4c0.4-0.4,0.9-0.6,1.5-0.6c1.2,0,2.2,1,2.2,2.1C104.6,42.6,104.4,43.1,104,43.5
+		 M72,63h-3v-3h3V63z M73.3,68.6l2.3,2.2l-3.9,1.7L73.3,68.6z M90,48L75,63v-6h-9v9h6l-4.9,10.9L79.6,72L90,62v17c0,0.6-1.4,2-2,2
+		H39c-0.6,0-2-1.4-2-2V17c0-0.6,0.9-2,1.6-2H88c0.6,0,2,1.4,2,2V48z M107,42c0-2.4-2-4.4-4.5-4.4c-1.2,0-2.3,0.5-3.2,1.3L93,45V16
+		c0-1.9-1.7-4-3.7-4H37.5c-1.9,0-3.5,1.6-3.5,3.5v65c0,1.9,1.6,3.5,3.5,3.5h51.8c1.9,0,3.7-2.1,3.7-4V59l12.7-13.9
+		C106.5,44.3,107,43.2,107,42"/>
+	<path fill="#C72929" d="M45,27.1c0-2.6,2.1-4.6,4.6-4.6s4.6,2.1,4.6,4.6c0,2.6-2.1,4.6-4.6,4.6S45,29.7,45,27.1 M56.6,27.1
+		c0-3.8-3.1-7-7-7s-7,3.1-7,7c0,3.8,3.1,7,7,7S56.6,30.9,56.6,27.1"/>
+</g>
+<rect x="45" y="36" fill="#C72929" width="10" height="3"/>
+<path fill="#C72929" d="M51,51h-3v-3h3V51z M54,45h-9v9h9V45z"/>
+<path fill="#C72929" d="M48,60h3v3h-3V60z M45,66h9v-9h-9V66z"/>
+<path fill="#C72929" d="M69,48h3v3h-3V48z M66,54h9v-9h-9V54z"/>
+<rect x="64" y="22" fill="#C72929" width="17" height="3"/>
+<rect x="64" y="30" fill="#C72929" width="22" height="3"/>
+<rect x="64" y="36" fill="#C72929" width="22" height="3"/>
+<rect x="56" y="46" fill="#C72929" width="6" height="3"/>
+<rect x="56" y="51" fill="#C72929" width="6" height="3"/>
+<rect x="77" y="45" fill="#C72929" width="6" height="3"/>
+<rect x="77" y="50" fill="#C72929" width="6" height="3"/>
+<rect x="56" y="60" fill="#C72929" width="6" height="3"/>
+<rect x="45" y="69" fill="#C72929" width="21" height="3"/>
+<rect x="45" y="75" fill="#C72929" width="21" height="3"/>
+<rect x="57" y="36" fill="#C72929" width="3" height="3"/>
+<rect x="85" y="76" fill="#C72929" width="3" height="3"/>
+<rect x="80" y="76" fill="#C72929" width="3" height="3"/>
+<rect x="39" y="75" fill="#C72929" width="3" height="3"/>
+<polygon fill="#C72929" points="108,24 108,20 105,20 105,24 108,24 108,27 105,27 105,31 108,31 108,27 112,27 112,24 "/>
+<rect x="101" y="24" fill="#C72929" width="4" height="3"/>
+<rect x="103.5" y="61.5" fill="#C72929" width="3" height="4.5"/>
+<rect x="106.5" y="66" fill="#C72929" width="4.5" height="3"/>
+<rect x="103.5" y="69" fill="#C72929" width="3" height="4.5"/>
+<rect x="99" y="66" fill="#C72929" width="4.5" height="3"/>
+</svg>

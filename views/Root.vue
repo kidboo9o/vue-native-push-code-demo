@@ -1,20 +1,26 @@
 <template>
-  <view class="container">
-    <app-navigation></app-navigation>
-  </view>
+    <view class="container">
+        <app-navigation></app-navigation>
+    </view>
 </template>
- <script>
-  import { AppNavigation } from "./routes";
+<script>
+    import {AppNavigation} from "./routes";
+    export default {
+        components: {AppNavigation},
+        data: function() {
+            return {
+            };
+        },
+        created: function(){
+        },
+        computed: {},
+        methods: {
 
-  export default {
-
-    components: { AppNavigation },
-    computed: {},
-    methods: {}
-  };
+        }
+    };
 </script>
 <style>
-  .container {
-    flex: 1;
-  }
+    .container {
+        flex: 1;
+    }
 </style>

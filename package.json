@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "axios": "^0.18.0",
     "jest-expo": "~27.0.0",
     "react-native-scripts": "1.14.0",
     "react-test-renderer": "16.3.1",
@@ -14,7 +15,8 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "jest"
+    "test": "jest",
+    "publish": "expo publish"
   },
   "jest": {
     "preset": "jest-expo"
@@ -22,11 +24,16 @@
   "dependencies": {
     "expo": "^27.0.1",
     "native-base": "^2.6.1",
-    "vue-native-router": "0.0.1-alpha.3",
-    "vuex": "3.0.1",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-auto-height-image": "^1.1.0",
+    "react-native-css-gradient": "^0.3.1",
+    "react-native-linear-gradient": "^2.5.4",
+    "react-native-svg-uri": "^1.2.3",
+    "react-native-swiper": "^1.5.14",
     "vue-native-core": "0.0.8",
-    "vue-native-helper": "0.0.9"
+    "vue-native-helper": "0.0.9",
+    "vue-native-router": "0.0.1-alpha.3",
+    "vuex": "3.0.1"
   }
 }

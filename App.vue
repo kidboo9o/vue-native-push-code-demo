@@ -12,6 +12,7 @@
   import { store } from "./store";
   import { Font, AppLoading } from "expo";
   import RootNavigation from "./views/Root.vue";
+  console.disableYellowBox = true
 
   // this allows us access to the vuex-store in all of the components
   Vue.prototype.$store = store;
@@ -37,7 +38,7 @@
                   await Expo.Font.loadAsync({
                       Roboto: require("native-base/Fonts/Roboto.ttf"),
                       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-                      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
+                      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
                   });
                   this.isAppReady = true;
               } catch (error) {
