@@ -1,75 +1,20 @@
 <template>
-    <view class="navbar" :style="{height: viewScreen(30, 'vh')}">
-        <view class="row" :style="{paddingTop: viewScreen(3, 'vw'), paddingBottom: viewScreen(3, 'vw')}">
-            <touchable-opacity class="col-6 nav-item flex-center"
-                  :style="{
-                    marginLeft: viewScreen(3, 'vw'),
-                    marginRight: viewScreen(3, 'vw'),
-
-                  }">
+    <view class="navbar" :style="dataNavbar.style">
+        <view class="row" v-for="rowNav in dataNavbar.row" :style="rowNav.style">
+            <touchable-opacity v-for="col in rowNav.data" class="nav-item flex-center"
+                               :class="col.classObject"
+                               :style="col.style">
                 <SvgUri
-                        :source="require('../assets/images/thongtinbanquanly.svg')"
-                        :width="viewScreen(50, 'vw')"
-                        :height="viewScreen(8, 'vh')"
+                        :source="col.data.svg.src"
+                        :width="col.data.svg.width"
+                        :height="col.data.svg.height"
                 />
                 <nb-text
-                        :style="{fontSize: scaleFontSize(14)}"
-                        class="text-color text-center">Thông báo từ ban quản lý
+                        :style="col.data.text.style"
+                        class="text-color text-center">{{col.data.text.title}}
                 </nb-text>
             </touchable-opacity>
-            <touchable-opacity  class="col-6 nav-item flex-center"
-                  :style="{
-                       marginRight: viewScreen(3, 'vw'),
-
-                  }">
-                <SvgUri
-                        :source="require('../assets/images/hoadondiennuoc.svg')"
-                        :width="viewScreen(45, 'vw')"
-                        :height="viewScreen(8, 'vh')"
-                />
-                <nb-text
-                        :style="{fontSize: scaleFontSize(14)}"
-                        class="text-color text-center">Hóa đơn điện nước
-                </nb-text>
-
-            </touchable-opacity >
         </view>
-        <view class="row" :style="{paddingBottom: viewScreen(3, 'vw')}">
-            <touchable-opacity  class="col-6 nav-item flex-center"
-                  :style="{
-                        marginLeft: viewScreen(3, 'vw'),
-                        marginRight: viewScreen(3, 'vw'),
-
-                  }">
-                <SvgUri
-                        :source="require('../assets/images/phananhgopy.svg')"
-                        :width="viewScreen(45, 'vw')"
-                        :height="viewScreen(8, 'vh')"
-                />
-                <nb-text
-                        :style="{fontSize: scaleFontSize(14)}"
-                        class="text-color text-center">Phản ánh góp ý
-                </nb-text>
-
-            </touchable-opacity >
-            <touchable-opacity  class="col-6 nav-item flex-center"
-                  :style="{
-                        marginRight: viewScreen(3, 'vw'),
-
-                   }">
-                <SvgUri
-                        :source="require('../assets/images/dangkidichvu.svg')"
-                        :width="viewScreen(45, 'vw')"
-                        :height="viewScreen(8, 'vh')"
-                />
-                <nb-text
-                        :style="{fontSize: scaleFontSize(14)}"
-                        class="text-color text-center">Đăng kí dịch vụ
-                </nb-text>
-            </touchable-opacity >
-        </view>
-
-
     </view>
 
 </template>
@@ -82,6 +27,11 @@
     import SvgUri from 'react-native-svg-uri';
 
     export default {
+        props: {
+            dataNavbar: {
+                type: Object
+            }
+        },
         data: function () {
             return {
                 screen: {
@@ -105,7 +55,7 @@
             viewScreen: function (percent, type, minus = 0) {
                 return LibCustom.viewScreen(percent, type, minus);
             },
-            handleClick: function(){
+            handleClick: function () {
                 alert("ban vua click xong");
             }
         },
@@ -144,7 +94,8 @@
     .text-color {
         color: #4d4d4d;
     }
-    .text-center{
+
+    .text-center {
         text-align: center;
     }
 

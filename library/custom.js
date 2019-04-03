@@ -1,4 +1,6 @@
-import {Dimensions, Animated, Easing, Platform} from 'react-native'
+import {Dimensions, Animated, Easing, Platform, Image} from 'react-native';
+import md5 from "md5";
+const serect_key="2b7867ba7d4c05c20569705d5538fb5b";
 export default{
 
     getSizeScreen: function(){
@@ -22,4 +24,20 @@ export default{
             return (obj.height * percent) / 100 + minus;
         }
     },
+    getSizeImage: function(src){
+        let image = Image.resolveAssetSource(src);
+        return image;
+    },
+    scaleImage: function(originalWidth, originalHeight, expectSize, type='max'){
+        let temp;
+        if(type==='min'){
+            temp = (originalWidth < originalHeight) ? originalWidth : originalHeight;
+        }else if(type==='max'){
+            temp = (originalWidth > originalHeight) ? originalWidth : originalHeight;
+        }
+        return (expectSize*100/temp)/100;
+    },
+    ma_hoa: function(str){
+        return md5(str+"|"+serect_key);
+    }
 }

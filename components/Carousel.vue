@@ -1,16 +1,21 @@
 <template>
-    <view :style="{flex: 1, height: viewScreen(30, 'vh')}">
-        <Swiper autoplay :activeDotColor="'#fff'">
-            <view class="slide" v-for="todo in slideImages" :key="todo.id">
-                <AutoHeightImage
-                        :source="todo.src"
-                        :width="screen.width"
-                        :style="{flex: 1, resizeMode: 'stretch'}"
-                >
-                </AutoHeightImage>
+    <view :style="{flex: 1, height: heightContainer}">
+            <Swiper autoplay
+                    :activeDotColor="'#fff'"
+                    :dotStyle="{marginBottom: '6%'}"
+                    :activeDotStyle="{marginBottom: '6%'}"
+                    :style="{marginBottom: '6%'}"
+            >
+                <view class="slide" v-for="todo in slideImages" :key="todo.id">
+                    <AutoHeightImage
+                            :source="todo.src"
+                            :width="viewScreen(100, 'vw')"
+                            :style="{resizeMode: 'cover'}"
+                    >
+                    </AutoHeightImage>
 
-            </view>
-        </Swiper>
+                </view>
+            </Swiper>
     </view>
 
 </template>
@@ -31,6 +36,7 @@
                     width: 0,
                     height: 0,
                 },
+                heightContainer: 0,
                 slideImages: [
                     {
                         id: 0,
@@ -51,9 +57,16 @@
             Swiper,
             AutoHeightImage,
         },
+        created: function(){
+
+        },
         computed: {},
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
+            let image = LibCustom.getSizeImage(this.slideImages[0].src);
+            let temp = image.width/image.height;
+            this.heightContainer = this.screen.width/temp;
+            this.heightContainer += this.heightContainer*0.14;
         },
         methods: {
             scaleFontSize: function (size) {

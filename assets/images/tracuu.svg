@@ -6,7 +6,7 @@
 	.st0{fill:#FFFFFF;}
 	.st1{clip-path:url(#SVGID_2_);fill:#9E9E9E;}
 </style>
-<rect width="96" height="64"/>
+<rect fill="white" width="96" height="64"/>
 <g>
 	<defs>
 		<rect id="SVGID_1_" width="96" height="64"/>
@@ -14,7 +14,7 @@
 	<clipPath id="SVGID_2_">
 		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
 	</clipPath>
-	<path fill="#9E9E9E" d="M24.8,26c0-9.4,7.6-17,17-17s17,7.6,17,17s-7.6,17-17,17S24.8,35.4,24.8,26 M71.2,53.3l-15-15
+	<path fill="#919191" d="M24.8,26c0-9.4,7.6-17,17-17s17,7.6,17,17s-7.6,17-17,17S24.8,35.4,24.8,26 M71.2,53.3l-15-15
 		c2.8-3.3,4.6-7.6,4.6-12.3c0-10.5-8.5-19-19-19s-19,8.5-19,19c0,10.5,8.5,19,19,19c4.7,0,9-1.7,12.3-4.5l15,15L71.2,53.3z"/>
 </g>
 </svg>

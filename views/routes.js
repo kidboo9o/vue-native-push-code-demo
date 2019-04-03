@@ -7,8 +7,13 @@ import React from "react";
 import HomeVue from "./Home.vue";
 import LoginVue from "./Login.vue";
 import SideBar from '../components/SideBar.vue';
+import RegisterVue from './Register.vue';
 import { Dimensions } from 'react-native'
 const { width, height } = Dimensions.get('screen');
+
+
+
+import AnimationDemo from "./AnimationDemo.vue";
 // ----------------------------------------------------------------------------
 // THIS IS THE REACT NAVIGATION STUFF THAT IS WAY DIFFERENT FROM THE
 // VUE-ROUTER WE ALL KNOW AND LOVE
@@ -23,7 +28,16 @@ const Drawer = DrawerNavigator(
         },
         Login: {
             screen: LoginVue
-        }
+        },
+        Register: {
+          screen: RegisterVue
+        },
+        AnimationDemo: {
+            screen: AnimationDemo
+        },
+
+
+
     },
     {
         initialRouteName: "Home",
@@ -31,7 +45,7 @@ const Drawer = DrawerNavigator(
             activeTintColor: "#e91e63"
         },
         contentComponent: props => {
-            console.log("props inside contentComponent", props);
+         //   console.log("props inside contentComponent", props);
             return <SideBar {...props} />;
         },
         drawerWidth: width * 0.8,

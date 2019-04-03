@@ -9,7 +9,7 @@
                                 :height="viewScreen(6, 'vh')"
 
                         />
-                        <nb-text class="text-center text-color" :style="{fontSize: scaleFontSize(14)}"
+                        <nb-text class="text-center text-color" :style="{fontSize: scaleFontSize(12)}"
                         >{{todo.title}}
                         </nb-text>
                     </touchable-opacity >
@@ -107,7 +107,9 @@
     .row {
         flex: 1;
         flex-direction: row;
-        background-color: black;
+        background-color: white;
+        padding-top: 2.5%;
+        padding-bottom: 2.5%;
     }
 
     .col-2 {
@@ -116,6 +118,7 @@
 
     .text-center {
         text-align: center;
+        padding-right: 8%;
     }
 
     .text-color {

@@ -10,6 +10,7 @@
     </nb-list-item>
 </template>
 <script>
+    import {mapGetters, mapActions} from 'vuex';
     export default {
         props: {
             todo: Object,
@@ -26,8 +27,18 @@
 
         },
         methods: {
+            ...mapActions("login", ['removeUser']),
             handleClick: function () {
-                alert("hello")
+                if(this.todo.route){
+                    this.navigation.navigate(this.todo.route);
+                }else{
+                    switch(this.todo.name){
+                        case "logout":
+                            this.removeUser();
+                            this.navigation.navigate("Home");
+                            break;
+                    }
+                }
             },
 
         },

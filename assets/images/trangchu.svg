@@ -6,7 +6,7 @@
 	.st0{fill:#FFFFFF;}
 	.st1{fill:#919191;}
 </style>
-<rect x="0" width="96" height="64"/>
+<rect x="0" fill="white" width="96" height="64"/>
 <path fill="#919191" d="M47.5,8L22,33h8v23h12l0-16h11l0,16h12V33h8L47.5,8z M47.5,10.8L68.1,31H65h-2v2v21h-8l0-14l0-2h-2H42h-2l0,2
 	l0,14h-8V33v-2h-2h-3.1L47.5,10.8z"/>
 </svg>

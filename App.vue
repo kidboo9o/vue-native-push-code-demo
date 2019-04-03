@@ -12,8 +12,12 @@
   import { store } from "./store";
   import { Font, AppLoading } from "expo";
   import RootNavigation from "./views/Root.vue";
+  import Reactotron from 'reactotron-react-native'
+  Reactotron
+      .configure() // controls connection & communication settings
+      .useReactNative() // add all built-in react native plugins
+      .connect() // let's connect!
   console.disableYellowBox = true
-
   // this allows us access to the vuex-store in all of the components
   Vue.prototype.$store = store;
 

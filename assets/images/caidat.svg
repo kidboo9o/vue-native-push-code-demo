@@ -6,7 +6,7 @@
 	.st0{fill:#FFFFFF;}
 	.st1{clip-path:url(#SVGID_2_);fill:#919191;}
 </style>
-<rect width="96" height="64"/>
+<rect fill="white" width="96" height="64"/>
 <g>
 	<defs>
 		<rect id="SVGID_1_" width="96" height="64"/>
