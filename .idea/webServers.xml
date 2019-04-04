@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="94119f61-f1cc-4b70-914d-99530892618b" name="Test" url="http://192.168.56.103">
+        <fileTransfer host="192.168.56.103" port="3389">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="3389" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

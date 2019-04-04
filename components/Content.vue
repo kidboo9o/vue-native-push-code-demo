@@ -1,4 +1,5 @@
 <template>
+
     <view class="content">
         <view v-for="todo in todoContents" :key="todo.id" class="row"
               :style="styleGeneralListItem">
@@ -9,20 +10,22 @@
                 >
                 </image>
             </view>
-            <view class="col-8 pt-8percent" :style="{height: viewScreen(20, 'vh')}">
-                <view class="container-truncate">
-                    <nb-text :numberOfLines="1" class="title truncate-text" :style="{fontSize: scaleFontSize(16)}">
-                        {{todo.data.title}}
-                    </nb-text>
-                </view>
-                <view class="container-truncate">
-                    <nb-text :numberOfLines="1" class="description truncate-text"
-                             :style="{fontSize: scaleFontSize(14)}">{{todo.data.description}}
-                    </nb-text>
-                </view>
-                <view class="container-truncate">
-                    <nb-text class="time">{{todo.data.time}}</nb-text>
-                </view>
+            <view class="col-8 text-center" :style="{height: viewScreen(20, 'vh')}">
+               <view :style="{height: todo.image.height+20}">
+                   <view class="container-truncate">
+                       <nb-text :numberOfLines="1" class="title truncate-text" :style="{fontSize: scaleFontSize(16)}">
+                           {{todo.data.title}}
+                       </nb-text>
+                   </view>
+                   <view class="container-truncate">
+                       <nb-text :numberOfLines="1" class="description truncate-text"
+                                :style="{fontSize: scaleFontSize(14)}">{{todo.data.description}}
+                       </nb-text>
+                   </view>
+                   <view class="container-truncate">
+                       <nb-text class="time">{{todo.data.time}}</nb-text>
+                   </view>
+               </view>
 
             </view>
         </view>
@@ -149,10 +152,6 @@
         width: 66.67%;
     }
 
-    .pt-8percent {
-        padding-top: 8%;
-    }
-
     .title {
         font-weight: bold;
     }
@@ -176,5 +175,9 @@
 
     .truncate-text {
         flex: 1
+    }
+
+    .text-center{
+        justify-content: center;
     }
 </style>

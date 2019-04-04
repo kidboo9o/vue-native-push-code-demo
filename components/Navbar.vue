@@ -1,7 +1,7 @@
 <template>
     <view class="navbar" :style="dataNavbar.style">
         <view class="row" v-for="rowNav in dataNavbar.row" :style="rowNav.style">
-            <touchable-opacity v-for="col in rowNav.data" class="nav-item flex-center"
+            <touchable-opacity v-for="col in rowNav.data" class="nav-item flex-center" :on-press="handleClick"
                                :class="col.classObject"
                                :style="col.style">
                 <SvgUri
@@ -25,12 +25,9 @@
     import {Constants, MapView, Permissions, Location} from "expo";
     import LibCustom from '../library/custom';
     import SvgUri from 'react-native-svg-uri';
-
+    import {mapGetters, mapActions} from 'vuex';
     export default {
         props: {
-            dataNavbar: {
-                type: Object
-            }
         },
         data: function () {
             return {
@@ -44,11 +41,17 @@
             AutoHeightImage,
             SvgUri
         },
-        computed: {},
+        computed: {
+            dataNavbar: function(){
+                console.log('chay ko');
+                return this.getNavbar();
+            }
+        },
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
         },
         methods: {
+            ...mapGetters("screenBaseOnFooter", ["getNavbar"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -77,6 +80,9 @@
 
     .col-6 {
         width: 45.5%;
+    }
+    .col-12 {
+        width: 91%;
     }
 
     .flex-center {
