@@ -1,7 +1,7 @@
 <template>
     <view class="navbar" :style="dataNavbar.style">
         <view class="row" v-for="rowNav in dataNavbar.row" :style="rowNav.style">
-            <touchable-opacity v-for="col in rowNav.data" class="nav-item flex-center" :on-press="handleClick"
+            <touchable-opacity v-for="col in rowNav.data" class="nav-item flex-center" :on-press="() => handleClick(col.data.text.title)"
                                :class="col.classObject"
                                :style="col.style">
                 <SvgUri
@@ -43,8 +43,10 @@
         },
         computed: {
             dataNavbar: function(){
-                console.log('chay ko');
                 return this.getNavbar();
+            },
+            isLogin: function () {
+                return this.checkLogin;
             }
         },
         mounted: function () {
@@ -52,14 +54,39 @@
         },
         methods: {
             ...mapGetters("screenBaseOnFooter", ["getNavbar"]),
+            ...mapGetters("login", ['checkLogin']),
+            ...mapActions("screenBaseOnFooter",
+                [
+                    'disableComponent',
+                    'enableComponent',
+                    'setTitleHeader',
+                    'setRowDataNavbar',
+                    'setStyleNavbar',
+                    'setIconHeader',
+                    'setRouteHeader',
+                ]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
             viewScreen: function (percent, type, minus = 0) {
                 return LibCustom.viewScreen(percent, type, minus);
             },
-            handleClick: function () {
-                alert("ban vua click xong");
+            handleClick: function (text) {
+                let convertStr = LibCustom.convertUTF8(text);
+                switch(convertStr){
+                    case "thong-bao-chung" :
+                        if (this.isLogin()) {
+                            this.disableComponent(['carousel', 'navbar']);
+                            this.enableComponent('content');
+                            this.setTitleHeader("Thông báo chung");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+                    break;
+
+                }
             }
         },
 
@@ -68,7 +95,7 @@
 </script>
 <style>
     .navbar {
-        background-color: #303f9f;
+        background-color: white;
         width: 100%;
         height: 40%;
     }
@@ -77,12 +104,14 @@
         flex: 1;
         flex-direction: row;
     }
-
+    .col-4{
+        width: 25%;
+    }
     .col-6 {
-        width: 45.5%;
+        width: 50%;
     }
     .col-12 {
-        width: 91%;
+        width: 100%;
     }
 
     .flex-center {

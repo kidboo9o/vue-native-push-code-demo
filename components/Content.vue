@@ -6,7 +6,7 @@
             <view class="col-4 container" :style="{height: viewScreen(20, 'vh')}">
                 <image
                         :source="todo.image.src"
-                        :style="{resizeMode: 'stretch', width: todo.image.width, height: todo.image.height}"
+                        :style="{resizeMode: 'cover', width: todo.image.width, height: todo.image.height}"
                 >
                 </image>
             </view>
@@ -19,11 +19,11 @@
                    </view>
                    <view class="container-truncate">
                        <nb-text :numberOfLines="1" class="description truncate-text"
-                                :style="{fontSize: scaleFontSize(14)}">{{todo.data.description}}
+                                :style="{fontSize: scaleFontSize(12)}">{{todo.data.description}}
                        </nb-text>
                    </view>
                    <view class="container-truncate">
-                       <nb-text class="time">{{todo.data.time}}</nb-text>
+                       <nb-text class="time" :style="{fontSize: scaleFontSize(10)}">{{todo.data.time}}</nb-text>
                    </view>
                </view>
 
@@ -50,13 +50,6 @@
                     borderRightWidth: 0,
                     borderColor: 'rgba(0,0,0,0.5)',
                     paddingLeft: '5%',
-                    shadowOffset: {
-                        width: 0,
-                        height: 1,
-                    },
-                    shadowOpacity: 0.18,
-                    shadowRadius: 1,
-                    elevation: 1,
                     height: LibCustom.viewScreen(20, 'vh'),
                 },
                 todoContents: [
@@ -92,6 +85,32 @@
                         id: 2,
                         image: {
                             src: require('../assets/images/img-03.jpg'),
+                            width: 0,
+                            height: 0,
+                        },
+                        data: {
+                            title: 'Cty venus',
+                            description: 'Cty venus',
+                            time: '30 minutes'
+                        }
+                    },
+                    {
+                        id: 3,
+                        image: {
+                            src: require('../assets/images/background-login.jpeg'),
+                            width: 0,
+                            height: 0,
+                        },
+                        data: {
+                            title: 'Cty venus',
+                            description: 'Cty venus',
+                            time: '30 minutes'
+                        }
+                    },
+                    {
+                        id: 4,
+                        image: {
+                            src: require('../assets/images/side-bar.jpg'),
                             width: 0,
                             height: 0,
                         },
@@ -164,7 +183,7 @@
     .container {
         flex: 1;
         justify-content: center;
-        align-items: center;
+        /*align-items: center;*/
     }
 
     .container-truncate {

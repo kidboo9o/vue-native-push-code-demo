@@ -32,11 +32,10 @@
     import LibCustom from '../library/custom';
     import SvgUri from 'react-native-svg-uri';
     import {mapGetters, mapActions} from 'vuex';
+    import {AsyncStorage} from 'react-native';
+    import localStorage from 'react-native-sync-localstorage'
     export default {
         props: {
-            path: {
-                type: String
-            },
             navigation: {
                 type: Object
             }
@@ -50,50 +49,65 @@
                     width: 0,
                     height: 0,
                 },
-                itemChecked: -1,
+                itemChecked: 0,
                 itemsFooter: [
                     {
                         id: 0,
                         src: require('../assets/images/trangchu.svg'),
                         title: 'Trang chủ',
-                        route: 'Home',
                     },
                     {
                         id: 1,
                         src: require('../assets/images/thongbao.svg'),
-                        title: 'Tin tức',
-                        route: '',
+                        title: 'Thông báo',
                     },
                     {
                         id: 2,
                         src: require('../assets/images/dichvu.svg'),
                         title: 'Dịch vụ',
-                        route: '',
                     },
                     {
                         id: 3,
                         src: require('../assets/images/tracuu.svg'),
                         title: 'Tra cứu',
-                        route: '',
                     },
                     {
                         id: 4,
                         src: require('../assets/images/caidat.svg'),
                         title: 'Cài đặt',
-                        route: '',
                     }
-                ]
+                ],
             };
         },
-        computed: {},
+        created: function () {
+        },
+        computed: {
+            isLogin: function () {
+                return this.checkLogin;
+            },
+            listScreenSave: function () {
+                return this.getListScreenSaved();
+            }
+        },
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
-            this.itemChecked = this.setFocusItem(this.path);
         },
         methods: {
-            ...mapGetters("screenBaseOnFooter", []),
+            ...mapGetters("login", ['checkLogin']),
+            ...mapGetters("screenBaseOnFooter", ['getListScreenSaved']),
             ...mapActions("screenBaseOnFooter",
-                ['disableComponent','enableComponent','setTitleHeader', 'setRowDataNavbar', 'setStyleNavbar']),
+                [
+                    'disableComponent',
+                    'enableComponent',
+                    'setTitleHeader',
+                    'setRowDataNavbar',
+                    'setStyleNavbar',
+                    'setIconHeader',
+                    'setRouteHeader',
+                    'setName',
+                    'saveScreen',
+                    'setScreen',
+                ]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -101,365 +115,560 @@
                 return LibCustom.viewScreen(percent, type, minus);
             },
             handleClick: function (key) {
-                let rowData;
+                let rowData, styleNavbar, name;
                 switch (key) {
                     case 0 :
-                        this.setTitleHeader("Venus DVKH");
-                        this.enableComponent(['navbar', 'carousel', 'content']);
-                        rowData = [
-                            {
-                                id: 0,
-                                style: {
-                                    paddingTop: LibCustom.viewScreen(3, 'vw'),
-                                    paddingBottom: LibCustom.viewScreen(3, 'vw')
-                                },
-                                data: [
-                                    {
-
-                                        id: 0,
-                                        style: {
-                                            marginLeft: LibCustom.viewScreen(3, 'vw'),
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
-                                        },
-                                        classObject: {
-                                            'col-6': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/thongtinbanquanly.svg'),
-                                                width: LibCustom.viewScreen(50, 'vw'),
-                                                height: LibCustom.viewScreen(6, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12)
-                                                },
-                                                title: "Thông báo"
-
-                                            }
-                                        }
-
-                                    },
-                                    {
-
-                                        id: 1,
-                                        style: {
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
-                                        },
-                                        classObject: {
-                                            'col-6': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/hoadondiennuoc.svg'),
-                                                width: LibCustom.viewScreen(45, 'vw'),
-                                                height: LibCustom.viewScreen(6, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12)
-                                                },
-                                                title: "Phí dịch vụ"
-
-                                            }
-                                        }
-
-                                    }
-                                ]
-                            },
-
-                            {
-                                id: 1,
-                                style: {
-                                    paddingBottom: LibCustom.viewScreen(3, 'vw')
-                                },
-                                data: [
-                                    {
-
-                                        id: 0,
-                                        style: {
-                                            marginLeft: LibCustom.viewScreen(3, 'vw'),
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
-                                        },
-                                        classObject: {
-                                            'col-6': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/phananhgopy.svg'),
-                                                width: LibCustom.viewScreen(45, 'vw'),
-                                                height: LibCustom.viewScreen(6, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12)
-                                                },
-                                                title: "Góp ý"
-
-                                            }
-                                        }
-
-                                    },
-
-                                    {
-
-                                        id: 1,
-                                        style: {
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
-                                        },
-                                        classObject: {
-                                            'col-6': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/dangkidichvu.svg'),
-                                                width: LibCustom.viewScreen(45, 'vw'),
-                                                height: LibCustom.viewScreen(6, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12)
-                                                },
-                                                title: "Đăng kí dịch vụ"
-
-                                            }
-                                        }
-
-                                    }
-                                ]
-                            }
-                        ];
-                        this.setRowDataNavbar(rowData);
+                        this.setScreen("Home");
+                        console.log(this.listScreenSave);
                         break;
                     case 1 :
-                        this.disableComponent(['carousel', 'content']);
-                        this.setTitleHeader("Tin tức");
-                        break;
+                        name = "ThongBao";
+                        if (this.isLogin()) {
+                            if (this.listScreenSave.indexOf(name) !== -1) {
+                                this.setScreen(name);
+                            } else {
+                                this.setName(name);
+                                this.disableComponent(['carousel', 'content']);
+                                this.enableComponent('navbar');
+                                this.setTitleHeader("Thông báo");
+                                this.setIconHeader({name: 'menu'});
+                                this.setRouteHeader("menu");
+                                rowData = [
+                                    {
+                                        id: 0,
+                                        style: {
+                                            paddingTop: LibCustom.viewScreen(5, 'vw'),
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw')
+                                        },
+                                        data: [
+                                            {
 
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-12': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/thong-bao-chung.svg'),
+                                                        width: LibCustom.viewScreen(50, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Thông báo chung"
+
+                                                    }
+                                                }
+                                            },
+                                        ]
+                                    },
+
+                                    {
+                                        id: 1,
+                                        style: {
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw')
+                                        },
+                                        data: [
+                                            {
+
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/thongtinbanquanly.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Thông báo từ ban quản lý"
+
+                                                    }
+                                                }
+
+                                            },
+
+                                            {
+
+                                                id: 1,
+                                                style: {
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/thong-bao-phi-dich-vu.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Thông báo phí dịch vụ"
+
+                                                    }
+                                                }
+
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        style: {
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw')
+                                        },
+                                        data: [
+                                            {
+
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/bao-tri-sua-chua.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Bảo trì sửa chữa"
+
+                                                    }
+                                                }
+
+                                            },
+
+                                            {
+
+                                                id: 1,
+                                                style: {
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/tien-do-dich-vu.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Tiến độ dịch vụ"
+
+                                                    }
+                                                }
+
+                                            },
+                                        ]
+                                    }
+                                ];
+                                this.setRowDataNavbar(rowData);
+                                styleNavbar = {height: LibCustom.viewScreen(40, 'vh')};
+                                this.setStyleNavbar(styleNavbar);
+                                this.saveScreen(name);
+                            }
+
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+                        break;
                     case 2 :
-                        this.disableComponent(['carousel', 'content']);
-                        this.setTitleHeader("Dịch vụ");
-                        rowData = [
-                            {
-                                id: 0,
-                                style: {
-                                    paddingTop: LibCustom.viewScreen(3, 'vw'),
-                                    paddingBottom: LibCustom.viewScreen(3, 'vw'),
-                                },
-                                data: [
+                        name = "DichVu";
+                        if (this.isLogin()) {
+                            if (this.listScreenSave.indexOf(name) !== -1) {
+                                this.setScreen(name);
+                            } else {
+                                this.setName(name);
+                                this.disableComponent(['carousel', 'content']);
+                                this.enableComponent('navbar');
+                                this.setTitleHeader("Dịch vụ");
+                                this.setIconHeader({name: 'menu'});
+                                this.setRouteHeader("menu");
+                                rowData = [
                                     {
-
                                         id: 0,
                                         style: {
-                                            marginLeft: LibCustom.viewScreen(3, 'vw'),
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
+                                            paddingTop: LibCustom.viewScreen(3, 'vw'),
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw'),
                                         },
-                                        classObject: {
-                                            'col-12': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/dangkidichvu.svg'),
-                                                width: LibCustom.viewScreen(100, 'vw'),
-                                                height: LibCustom.viewScreen(8, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12)
-                                                },
-                                                title: "Đăng kí dịch vụ"
+                                        data: [
+                                            {
 
-                                            }
-                                        }
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-12': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/dangkidichvu.svg'),
+                                                        width: LibCustom.viewScreen(100, 'vw'),
+                                                        height: LibCustom.viewScreen(8, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Đăng kí dịch vụ"
+
+                                                    }
+                                                }
+                                            },
+                                        ]
                                     },
-                                ]
-                            },
-                            {
-                                id: 1,
-                                style: {
-                                    paddingBottom: LibCustom.viewScreen(3, 'vw'),
-                                },
-                                data: [
                                     {
-
-                                        id: 0,
+                                        id: 1,
                                         style: {
-                                            marginLeft: LibCustom.viewScreen(3, 'vw'),
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
-                                            paddingLeft: '2.5%',
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw'),
                                         },
-                                        classObject: {
-                                            'col-12': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/phananhgopy.svg'),
-                                                width: LibCustom.viewScreen(100, 'vw'),
-                                                height: LibCustom.viewScreen(8, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12),
-                                                    paddingRight: '3%',
-                                                },
-                                                title: "Góp ý"
+                                        data: [
+                                            {
 
-                                            }
-                                        }
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                    paddingLeft: '2.5%',
+                                                },
+                                                classObject: {
+                                                    'col-12': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/phananhgopy.svg'),
+                                                        width: LibCustom.viewScreen(100, 'vw'),
+                                                        height: LibCustom.viewScreen(8, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12),
+                                                            paddingRight: '3%',
+                                                        },
+                                                        title: "Góp ý"
+
+                                                    }
+                                                }
+                                            },
+                                        ]
                                     },
-                                ]
-                            },
-                        ];
-                        this.setRowDataNavbar(rowData);
+                                ];
+                                this.setRowDataNavbar(rowData);
+                                styleNavbar = {height: LibCustom.viewScreen(30, 'vh')};
+                                this.setStyleNavbar(styleNavbar);
+                                this.saveScreen(name);
+                            }
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
                         break;
-
                     case 3 :
-                        this.disableComponent(['carousel', 'content']);
-                        this.setTitleHeader("Tra cứu");
-                        rowData = [
-                            {
-                                id: 0,
-                                style: {
-                                    paddingTop: LibCustom.viewScreen(3, 'vw'),
-                                    paddingBottom: LibCustom.viewScreen(3, 'vw'),
-                                },
-                                data: [
+                        name = "TraCuu";
+                        if (this.isLogin()) {
+                            if (this.listScreenSave.indexOf(name) !== -1) {
+                                this.setScreen(name);
+                            } else {
+                                this.setName(name);
+                                this.disableComponent(['carousel', 'content']);
+                                this.enableComponent('navbar');
+                                this.setTitleHeader("Tra cứu");
+                                this.setIconHeader({name: 'menu'});
+                                this.setRouteHeader("menu");
+                                rowData = [
                                     {
-
                                         id: 0,
                                         style: {
-                                            marginLeft: LibCustom.viewScreen(3, 'vw'),
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
+                                            paddingTop: LibCustom.viewScreen(3, 'vw'),
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw'),
                                         },
-                                        classObject: {
-                                            'col-12': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/dangkidichvu.svg'),
-                                                width: LibCustom.viewScreen(100, 'vw'),
-                                                height: LibCustom.viewScreen(8, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12)
-                                                },
-                                                title: "Đăng kí dịch vụ"
+                                        data: [
+                                            {
 
-                                            }
-                                        }
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-12': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/thong-tin-phi-ql.svg'),
+                                                        width: LibCustom.viewScreen(100, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12),
+                                                            marginTop: '1.5%',
+                                                        },
+                                                        title: "Thông tin phí quản lý"
+
+                                                    }
+                                                }
+                                            },
+                                        ]
                                     },
-                                ]
-                            },
-                            {
-                                id: 1,
-                                style: {
-                                    paddingBottom: LibCustom.viewScreen(3, 'vw'),
-                                },
-                                data: [
                                     {
-
-                                        id: 0,
+                                        id: 1,
                                         style: {
-                                            marginLeft: LibCustom.viewScreen(3, 'vw'),
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
-                                            paddingLeft: '2.5%',
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw'),
                                         },
-                                        classObject: {
-                                            'col-12': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/phananhgopy.svg'),
-                                                width: LibCustom.viewScreen(100, 'vw'),
-                                                height: LibCustom.viewScreen(8, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12),
-                                                    paddingRight: '3%',
-                                                },
-                                                title: "Góp ý"
+                                        data: [
+                                            {
 
-                                            }
-                                        }
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                    paddingLeft: '1%',
+                                                },
+                                                classObject: {
+                                                    'col-12': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/hoadondiennuoc.svg'),
+                                                        width: LibCustom.viewScreen(100, 'vw'),
+                                                        height: LibCustom.viewScreen(8, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12),
+                                                            paddingRight: '3%',
+                                                        },
+                                                        title: "Hóa đơn điện nước"
+
+                                                    }
+                                                }
+                                            },
+                                        ]
                                     },
-                                ]
-                            },
-                            {
-                                id: 2,
-                                style: {
-                                    paddingBottom: LibCustom.viewScreen(3, 'vw'),
-                                },
-                                data: [
                                     {
-
-                                        id: 0,
+                                        id: 2,
                                         style: {
-                                            marginLeft: LibCustom.viewScreen(3, 'vw'),
-                                            marginRight: LibCustom.viewScreen(3, 'vw'),
-                                            paddingLeft: '2.5%',
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw'),
                                         },
-                                        classObject: {
-                                            'col-12': true,
-                                        },
-                                        data: {
-                                            svg: {
-                                                src: require('../assets/images/phananhgopy.svg'),
-                                                width: LibCustom.viewScreen(100, 'vw'),
-                                                height: LibCustom.viewScreen(8, 'vh'),
-                                            },
-                                            text: {
-                                                style: {
-                                                    fontSize: LibCustom.scaleFontSize(12),
-                                                    paddingRight: '3%',
-                                                },
-                                                title: "Góp ý"
+                                        data: [
+                                            {
 
-                                            }
-                                        }
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-12': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/cac-loai-phi-khac.svg'),
+                                                        width: LibCustom.viewScreen(100, 'vw'),
+                                                        height: LibCustom.viewScreen(8, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12),
+                                                            paddingRight: '3%',
+                                                        },
+                                                        title: "Các loại phí khác"
+
+                                                    }
+                                                }
+                                            },
+                                        ]
                                     },
-                                ]
-                            },
-                        ];
-                        this.setRowDataNavbar(rowData);
-                        let styleNavbar = { height: LibCustom.viewScreen(60, 'vh')};
-                        this.setStyleNavbar(styleNavbar);
+                                ];
+                                this.setRowDataNavbar(rowData);
+                                styleNavbar = {height: LibCustom.viewScreen(50, 'vh')};
+                                this.setStyleNavbar(styleNavbar);
+                                this.saveScreen(name);
+                            }
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+
                         break;
-
                     case 4 :
-                        this.disableComponent(['navbar','carousel', 'content']);
-                        this.setTitleHeader("Cài đặt");
+                        name = "CaiDat";
+                        if (this.isLogin()) {
+                            if (this.listScreenSave.indexOf(name) !== -1) {
+                                this.setScreen(name);
+                            } else {
+                                this.setName(name);
+                                this.disableComponent(['carousel', 'content']);
+                                this.enableComponent('navbar');
+                                this.setTitleHeader("Cài đặt");
+                                this.setIconHeader({name: 'menu'});
+                                this.setRouteHeader("menu");
+                                rowData = [
+                                    {
+                                        id: 0,
+                                        style: {
+                                            paddingTop: LibCustom.viewScreen(3, 'vw'),
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw')
+                                        },
+                                        data: [
+                                            {
+
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/thongtinbanquanly.svg'),
+                                                        width: LibCustom.viewScreen(50, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Thông báo"
+
+                                                    }
+                                                }
+
+                                            },
+                                            {
+
+                                                id: 1,
+                                                style: {
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/hoadondiennuoc.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Phí dịch vụ"
+
+                                                    }
+                                                }
+
+                                            },
+
+                                        ]
+                                    },
+
+                                    {
+                                        id: 1,
+                                        style: {
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw')
+                                        },
+                                        data: [
+                                            {
+
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/phananhgopy.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Góp ý"
+
+                                                    }
+                                                }
+
+                                            },
+
+                                            {
+
+                                                id: 1,
+                                                style: {
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/dangkidichvu.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Đăng kí dịch vụ"
+
+                                                    }
+                                                }
+
+                                            },
+                                        ]
+                                    }
+                                ];
+                                this.setRowDataNavbar(rowData);
+                                styleNavbar = {height: LibCustom.viewScreen(50, 'vh')};
+                                this.setStyleNavbar(styleNavbar);
+                                this.saveScreen(name);
+                            }
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
                         break;
 
                 }
                 this.itemChecked = key;
             },
-            setFocusItem: function (path) {
-                let index = -1;
-                switch (path) {
-                    case "Home" :
-                        index = 0;
-                        break;
-                    case "TinTuc" :
-                        index = 1;
-                        break;
-                    case "DichVu" :
-                        index = 2;
-                        break;
-                    case "TraCuu" :
-                        index = 3;
-                        break;
-                    case "CaiDat" :
-                        index = 4;
-                        break;
-                    default:
-                        alert("thông tin truyền vào footer không hợp lệ");
-                        break;
-                }
-                return index;
-            },
-
         },
 
 

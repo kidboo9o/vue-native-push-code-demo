@@ -1,12 +1,12 @@
 <template>
     <nb-container>
-        <header-component :title="getData.components.header.title" :navigation="navigation"></header-component>
+        <header-component :navigation="navigation"></header-component>
         <nb-content>
             <component v-if="getData.components.navbar.status" :is="'NavBar'"></component>
             <component v-if="getData.components.carousel.status" :is="'CarouselComponent'"></component>
             <component v-if="getData.components.content.status" :is="'Content'"></component>
         </nb-content>
-        <footer-component :path="'Home'"></footer-component>
+        <footer-component :navigation="navigation"></footer-component>
     </nb-container>
 </template>
 <script>
@@ -38,7 +38,7 @@
         },
         computed: {
             getData: function(){
-                return this.getScreen();
+                return this.getScreenCurrent();
             }
         },
         data: function () {
@@ -52,9 +52,11 @@
         },
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
+            this.saveScreen("Home");
         },
         methods: {
-            ...mapGetters("screenBaseOnFooter", ["getScreen"]),
+            ...mapGetters("screenBaseOnFooter", ["getScreenCurrent"]),
+            ...mapActions("screenBaseOnFooter", ["saveScreen"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },

@@ -35,9 +35,6 @@ const Drawer = DrawerNavigator(
         AnimationDemo: {
             screen: AnimationDemo
         },
-
-
-
     },
     {
         initialRouteName: "Home",
