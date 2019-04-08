@@ -8,6 +8,7 @@
                         :source="col.data.svg.src"
                         :width="col.data.svg.width"
                         :height="col.data.svg.height"
+                        :fill="col.data.svg.fill"
                 />
                 <nb-text
                         :style="col.data.text.style"
@@ -85,6 +86,17 @@
                             this.navigation.navigate("Login");
                         }
                     break;
+                    case "thong-bao-tu-ban-quan-ly" :
+                        if (this.isLogin()) {
+                            this.disableComponent(['carousel', 'navbar']);
+                            this.enableComponent('content');
+                            this.setTitleHeader("Thông báo chung");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+                        break;
 
                 }
             }

@@ -43,6 +43,7 @@ const valueDefault = {
                                         src: require('../assets/images/thongtinbanquanly.svg'),
                                         width: LibCustom.viewScreen(50, 'vw'),
                                         height: LibCustom.viewScreen(6, 'vh'),
+                                        fill: '#3868D9'
                                     },
                                     text: {
                                         style: {
@@ -68,6 +69,7 @@ const valueDefault = {
                                         src: require('../assets/images/hoadondiennuoc.svg'),
                                         width: LibCustom.viewScreen(45, 'vw'),
                                         height: LibCustom.viewScreen(6, 'vh'),
+                                        fill: '#43A047'
                                     },
                                     text: {
                                         style: {
@@ -79,27 +81,28 @@ const valueDefault = {
                                 }
 
                             },
-
                             {
 
                                 id: 2,
                                 style: {
                                     marginRight: LibCustom.viewScreen(3, 'vw'),
+                                    paddingTop: LibCustom.viewScreen(2, 'vh')
                                 },
                                 classObject: {
                                     'col-4': true,
                                 },
                                 data: {
                                     svg: {
-                                        src: require('../assets/images/hoadondiennuoc.svg'),
+                                        src: require('../assets/images/thong-tin-kh.svg'),
                                         width: LibCustom.viewScreen(45, 'vw'),
                                         height: LibCustom.viewScreen(6, 'vh'),
+                                        fill: '#F57C00'
                                     },
                                     text: {
                                         style: {
                                             fontSize: LibCustom.scaleFontSize(12)
                                         },
-                                        title: "Phí dịch vụ"
+                                        title: "Thông tin khách hàng"
 
                                     }
                                 }
@@ -129,6 +132,7 @@ const valueDefault = {
                                         src: require('../assets/images/phananhgopy.svg'),
                                         width: LibCustom.viewScreen(45, 'vw'),
                                         height: LibCustom.viewScreen(6, 'vh'),
+                                        fill: '#C72929'
                                     },
                                     text: {
                                         style: {
@@ -140,7 +144,6 @@ const valueDefault = {
                                 }
 
                             },
-
                             {
 
                                 id: 1,
@@ -155,6 +158,7 @@ const valueDefault = {
                                         src: require('../assets/images/dangkidichvu.svg'),
                                         width: LibCustom.viewScreen(45, 'vw'),
                                         height: LibCustom.viewScreen(6, 'vh'),
+                                        fill: '#512DA8'
                                     },
                                     text: {
                                         style: {
@@ -171,21 +175,24 @@ const valueDefault = {
                                 id: 2,
                                 style: {
                                     marginRight: LibCustom.viewScreen(3, 'vw'),
+                                    paddingTop: LibCustom.viewScreen(2.5, 'vh')
                                 },
                                 classObject: {
                                     'col-4': true,
                                 },
                                 data: {
                                     svg: {
-                                        src: require('../assets/images/dangkidichvu.svg'),
+                                        src: require('../assets/images/thong-bao-phi-dich-vu.svg'),
                                         width: LibCustom.viewScreen(45, 'vw'),
-                                        height: LibCustom.viewScreen(6, 'vh'),
+                                        height: LibCustom.viewScreen(5, 'vh'),
+                                        fill: '#E69B22'
                                     },
                                     text: {
                                         style: {
-                                            fontSize: LibCustom.scaleFontSize(12)
+                                            fontSize: LibCustom.scaleFontSize(12),
+                                            paddingTop: LibCustom.viewScreen(1, 'vh')
                                         },
-                                        title: "Đăng kí dịch vụ"
+                                        title: "Thông báo phí dịch vụ"
 
                                     }
                                 }
@@ -212,6 +219,9 @@ export default{
     getters: {
         getScreenCurrent: function (state) {
             return state.screen;
+        },
+        getNameScreenCurrent: function(state){
+          return state.screen.name;
         },
         getNavbar: function (state) {
             return state.screen.components.navbar.data;

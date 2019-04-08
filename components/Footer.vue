@@ -9,13 +9,13 @@
                                 :source="todo.src"
                                 :width="viewScreen(18, 'vw')"
                                 :height="viewScreen(6, 'vh')"
-                                :fill="todo.id === itemChecked ? '#546EFF' : '#919191'"
+                                :fill="todo.id === itemChecked ? '#546EFF' : '#212121'"
 
                         />
                         <nb-text class="text-center"
                                  :style="{
                                     fontSize: scaleFontSize(12),
-                                    color: todo.id === itemChecked ? '#546EFF' : '#919191'
+                                    color: todo.id === itemChecked ? '#546EFF' : '#212121'
                                 }"
                         >{{todo.title}}
                         </nb-text>

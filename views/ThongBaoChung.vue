@@ -2,9 +2,7 @@
     <nb-container>
         <header-component :navigation="navigation"></header-component>
         <nb-content>
-            <component v-if="getData.components.navbar.status" :is="'NavBar'"></component>
-            <component v-if="getData.components.carousel.status" :is="'CarouselComponent'"></component>
-            <component v-if="getData.components.content.status" :is="'Content'" :todoContents="getContent"></component>
+           <Content></Content>
         </nb-content>
         <footer-component :navigation="navigation"></footer-component>
     </nb-container>

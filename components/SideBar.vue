@@ -1,6 +1,5 @@
 <template>
     <nb-container>
-
         <nb-content>
             <view :style="{position: 'relative'}">
                 <AutoHeightImage

@@ -17,10 +17,7 @@
     import {Platform} from 'react-native';
     import {mapGetters, mapActions} from 'vuex';
     import { NavigationActions } from 'react-navigation'
-
-    const backAction = NavigationActions.back({
-        key: null
-    })
+    
 
     export default {
         props: {
@@ -46,7 +43,8 @@
             this.screen = LibCustom.getSizeScreen();
         },
         methods: {
-            ...mapGetters("screenBaseOnFooter", ['getHeader']),
+            ...mapGetters("screenBaseOnFooter", ['getHeader','getNameScreenCurrent']),
+            ...mapActions("screenBaseOnFooter", ['setScreen']),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -57,7 +55,7 @@
                 switch(route){
                     case "menu" :  this.navigation.navigate("DrawerOpen");
                     break;
-                    case "back" : this.navigation.navigate("Home"); alert("nhay vao day chua");
+                    case "back" : this.setScreen(this.getNameScreenCurrent());
                     break;
                 }
 
@@ -69,7 +67,7 @@
 </script>
 <style>
     .header{
-        background-color: #303f9f;
+        background-color: #3868d9;
     }
     .text-color{
         color: white;
