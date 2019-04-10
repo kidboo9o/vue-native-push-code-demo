@@ -20,10 +20,7 @@
                         >{{todo.title}}
                         </nb-text>
                     </view>
-
                 </touchable-opacity>
-
-
             </view>
         </nb-footer-tab>
     </nb-footer>
@@ -83,6 +80,9 @@
         },
         computed: {
             isLogin: function () {
+//                return function () {
+//                    return true;
+//                };
                 return this.checkLogin;
             },
             listScreenSave: function () {
@@ -107,6 +107,7 @@
                     'setName',
                     'saveScreen',
                     'setScreen',
+                    'setBackgroundNavbar',
                 ]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
@@ -128,7 +129,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
-                                this.disableComponent(['carousel', 'content']);
+                                this.disableComponent(['carousel', 'content', 'feedback']);
                                 this.enableComponent('navbar');
                                 this.setTitleHeader("Thông báo");
                                 this.setIconHeader({name: 'menu'});
@@ -156,6 +157,7 @@
                                                         src: require('../assets/images/thong-bao-chung.svg'),
                                                         width: LibCustom.viewScreen(50, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#0D47A1"
                                                     },
                                                     text: {
                                                         style: {
@@ -190,6 +192,7 @@
                                                         src: require('../assets/images/thongtinbanquanly.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#3868D9"
                                                     },
                                                     text: {
                                                         style: {
@@ -216,6 +219,7 @@
                                                         src: require('../assets/images/thong-bao-phi-dich-vu.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: '#E69B22',
                                                     },
                                                     text: {
                                                         style: {
@@ -250,6 +254,7 @@
                                                         src: require('../assets/images/bao-tri-sua-chua.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#2E7D32",
                                                     },
                                                     text: {
                                                         style: {
@@ -276,6 +281,7 @@
                                                         src: require('../assets/images/tien-do-dich-vu.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#E65100",
                                                     },
                                                     text: {
                                                         style: {
@@ -291,8 +297,14 @@
                                     }
                                 ];
                                 this.setRowDataNavbar(rowData);
-                                styleNavbar = {height: LibCustom.viewScreen(40, 'vh')};
+                                styleNavbar = {height: LibCustom.viewScreen(45, 'vh')};
                                 this.setStyleNavbar(styleNavbar);
+                                let backgroundNavbar = {
+                                    image:{
+                                        src: require('../assets/images/thong-bao.gif'),
+                                    }
+                                };
+                                this.setBackgroundNavbar(backgroundNavbar);
                                 this.saveScreen(name);
                             }
 
@@ -307,7 +319,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
-                                this.disableComponent(['carousel', 'content']);
+                                this.disableComponent(['carousel', 'content', 'feedback']);
                                 this.enableComponent('navbar');
                                 this.setTitleHeader("Dịch vụ");
                                 this.setIconHeader({name: 'menu'});
@@ -335,6 +347,7 @@
                                                         src: require('../assets/images/dangkidichvu.svg'),
                                                         width: LibCustom.viewScreen(100, 'vw'),
                                                         height: LibCustom.viewScreen(8, 'vh'),
+                                                        fill: "#512DA8",
                                                     },
                                                     text: {
                                                         style: {
@@ -386,6 +399,12 @@
                                 this.setRowDataNavbar(rowData);
                                 styleNavbar = {height: LibCustom.viewScreen(30, 'vh')};
                                 this.setStyleNavbar(styleNavbar);
+                                let backgroundNavbar = {
+                                    image:{
+                                        src: require('../assets/images/dich-vu.gif'),
+                                    }
+                                };
+                                this.setBackgroundNavbar(backgroundNavbar);
                                 this.saveScreen(name);
                             }
                         } else {
@@ -399,7 +418,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
-                                this.disableComponent(['carousel', 'content']);
+                                this.disableComponent(['carousel', 'content', 'feedback']);
                                 this.enableComponent('navbar');
                                 this.setTitleHeader("Tra cứu");
                                 this.setIconHeader({name: 'menu'});
@@ -427,6 +446,7 @@
                                                         src: require('../assets/images/thong-tin-phi-ql.svg'),
                                                         width: LibCustom.viewScreen(100, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#FFA000",
                                                     },
                                                     text: {
                                                         style: {
@@ -462,6 +482,7 @@
                                                         src: require('../assets/images/hoadondiennuoc.svg'),
                                                         width: LibCustom.viewScreen(100, 'vw'),
                                                         height: LibCustom.viewScreen(8, 'vh'),
+                                                        fill: "#43A047",
                                                     },
                                                     text: {
                                                         style: {
@@ -496,6 +517,7 @@
                                                         src: require('../assets/images/cac-loai-phi-khac.svg'),
                                                         width: LibCustom.viewScreen(100, 'vw'),
                                                         height: LibCustom.viewScreen(8, 'vh'),
+                                                        fill: "#0097A7"
                                                     },
                                                     text: {
                                                         style: {
@@ -513,6 +535,12 @@
                                 this.setRowDataNavbar(rowData);
                                 styleNavbar = {height: LibCustom.viewScreen(50, 'vh')};
                                 this.setStyleNavbar(styleNavbar);
+                                let backgroundNavbar = {
+                                    image:{
+                                        src: require('../assets/images/tra-cuu.gif'),
+                                    }
+                                };
+                                this.setBackgroundNavbar(backgroundNavbar);
                                 this.saveScreen(name);
                             }
                         } else {
@@ -527,7 +555,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
-                                this.disableComponent(['carousel', 'content']);
+                                this.disableComponent(['carousel', 'content', 'feedback']);
                                 this.enableComponent('navbar');
                                 this.setTitleHeader("Cài đặt");
                                 this.setIconHeader({name: 'menu'});
@@ -555,6 +583,7 @@
                                                         src: require('../assets/images/thongtinbanquanly.svg'),
                                                         width: LibCustom.viewScreen(50, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: '#3868D9'
                                                     },
                                                     text: {
                                                         style: {
@@ -580,6 +609,7 @@
                                                         src: require('../assets/images/hoadondiennuoc.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#43A047"
                                                     },
                                                     text: {
                                                         style: {
@@ -642,6 +672,7 @@
                                                         src: require('../assets/images/dangkidichvu.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#512DA8"
                                                     },
                                                     text: {
                                                         style: {
@@ -657,8 +688,14 @@
                                     }
                                 ];
                                 this.setRowDataNavbar(rowData);
-                                styleNavbar = {height: LibCustom.viewScreen(50, 'vh')};
+                                styleNavbar = {height: LibCustom.viewScreen(35, 'vh')};
                                 this.setStyleNavbar(styleNavbar);
+                                let backgroundNavbar = {
+                                    image:{
+                                        src: require('../assets/images/cai-dat.gif'),
+                                    }
+                                };
+                                this.setBackgroundNavbar(backgroundNavbar);
                                 this.saveScreen(name);
                             }
                         } else {

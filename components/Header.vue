@@ -55,7 +55,7 @@
                 switch(route){
                     case "menu" :  this.navigation.navigate("DrawerOpen");
                     break;
-                    case "back" : this.setScreen(this.getNameScreenCurrent());
+                    case "back" :  this.setScreen(this.getNameScreenCurrent());
                     break;
                 }
 

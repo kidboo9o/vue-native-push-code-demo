@@ -4,9 +4,9 @@
             :onSwipeRight="() => onSwipeRight(todo)"
             :config="config"
     >
-        <touchable-without-feedback :on-long-press="() => handleClick(todo)">
+        <touchable-without-feedback :on-long-press="() => handleClick(getTodo)">
             <view class="row" :style="styleGeneralListItem">
-                <view v-if="todo.allowEditable && todo.editable" class="col-2 text-center">
+                <view v-if="getTodo.allowEditable && getTodo.editable" class="col-2 text-center">
                     <nb-button danger
                                :style="{
                                     justifyContent: 'center',
@@ -22,32 +22,32 @@
                 </view>
                 <view class="col-4 container" :style="{height: viewScreen(20, 'vh')}">
                     <image
-                            :source="todo.image.src"
-                            :style="{resizeMode: 'cover', width: todo.image.width, height: todo.image.height}"
+                            :source="getTodo.image.src"
+                            :style="{resizeMode: 'cover', width: getTodo.image.width, height: getTodo.image.height}"
                     >
                     </image>
                 </view>
                 <view class="text-center"
                       :style="{height: viewScreen(21, 'vh')}"
                       :class="{
-                                'col-6': todo.editable,
-                                'col-8': !todo.editable,
+                                'col-6': getTodo.editable,
+                                'col-8': !getTodo.editable,
                       }"
                 >
-                    <view :style="{height: todo.image.height+20}">
+                    <view :style="{height: getTodo.image.height+20}">
                         <view class="container-truncate">
                             <nb-text :numberOfLines="1" class="title truncate-text"
                                      :style="{fontSize: scaleFontSize(16)}">
-                                {{todo.data.title}}
+                                {{getTodo.data.title}}
                             </nb-text>
                         </view>
                         <view class="container-truncate">
                             <nb-text :numberOfLines="1" class="description truncate-text"
-                                     :style="{fontSize: scaleFontSize(12)}">{{todo.data.description}}
+                                     :style="{fontSize: scaleFontSize(12)}">{{getTodo.data.description}}
                             </nb-text>
                         </view>
                         <view class="container-truncate">
-                            <nb-text class="time" :style="{fontSize: scaleFontSize(10)}">{{todo.data.time}}</nb-text>
+                            <nb-text class="time" :style="{fontSize: scaleFontSize(10), fontStyle: 'italic'}">{{getTodo.data.time}}</nb-text>
                         </view>
                     </view>
                 </view>
@@ -88,18 +88,23 @@
         },
         created: function () {
             this.screen = LibCustom.getSizeScreen();
-            let image;
-            image = LibCustom.getSizeImage(this.todo.image.src);
-            if (image) {
-                let temp = image.width / image.height;
-                this.todo.image.width = LibCustom.viewScreen(30, 'vw');
-                this.todo.image.height = this.todo.image.width / temp;
-            }
+
         },
         components: {
             GestureRecognizer,
         },
-        computed: {},
+        computed: {
+            getTodo: function(){
+                let image;
+                image = LibCustom.getSizeImage(this.todo.image.src);
+                if (image) {
+                    let temp = image.width / image.height;
+                    this.todo.image.width = LibCustom.viewScreen(30, 'vw');
+                    this.todo.image.height = this.todo.image.width / temp;
+                }
+                return this.todo;
+            }
+        },
         mounted: function () {
 
         },

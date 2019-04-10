@@ -4,13 +4,13 @@
         <nb-content>
             <component v-if="getData.components.navbar.status" :is="'NavBar'"></component>
             <component v-if="getData.components.carousel.status" :is="'CarouselComponent'"></component>
-            <component v-if="getData.components.content.status" :is="'Content'" :todoContents="getContent"></component>
+            <component v-if="getData.components.content.status" :is="'Content'"></component>
+            <component v-if="getData.components.feedback.status" :is="'Feedback'" ></component>
         </nb-content>
         <footer-component :navigation="navigation"></footer-component>
     </nb-container>
 </template>
 <script>
-    import LibCustom from '../library/custom';
     import headerComponent from '../components/Header.vue';
     import NavBar from '../components/Navbar.vue';
     import footerComponent from '../components/Footer.vue';
@@ -18,6 +18,7 @@
     import Content from '../components/Content.vue';
     import screenBaseOnFooter from "../store/ScreenBaseOnFooter";
     import {mapGetters, mapActions} from 'vuex';
+    import Feedback from '../components/Feedback.vue';
     export default {
         props: {
             navigation: {
@@ -34,15 +35,13 @@
             NavBar,
             footerComponent,
             CarouselComponent,
-            Content
+            Content,
+            Feedback
         },
         computed: {
             getData: function(){
                 return this.getScreenCurrent();
             },
-            getContent: function(){
-                return this.todoContents;
-            }
         },
         data: function () {
             return {
@@ -50,101 +49,15 @@
                     width: 0,
                     height: 0,
                 },
-                todoContents: [
-                    {
-                        id: 0,
-                        editable: false,
-                        allowEditable: false,
-                        image: {
-                            src: require('../assets/images/img-01.jpg'),
-                            width: 0,
-                            height: 0,
-                            scale: 0,
-                        },
-                        data: {
-                            title: 'Cty venus ',
-                            description: 'Cty venus',
-                            time: '30 minutes'
-                        }
-                    },
-                    {
-                        id: 1,
-                        editable: false,
-                        allowEditable: false,
-                        image: {
-                            src: require('../assets/images/img-02.jpg'),
-                            width: 0,
-                            height: 0,
-                            scale: 0,
-                        },
-                        data: {
-                            title: 'Cty venus',
-                            description: 'Cty venus',
-                            time: '30 minutes'
-                        }
-                    },
-                    {
-                        id: 2,
-                        editable: false,
-                        allowEditable: false,
-                        image: {
-                            src: require('../assets/images/img-03.jpg'),
-                            width: 0,
-                            height: 0,
-                        },
-                        data: {
-                            title: 'Cty venus',
-                            description: 'Cty venus',
-                            time: '30 minutes'
-                        }
-                    },
-                    {
-                        id: 3,
-                        editable: false,
-                        allowEditable: false,
-                        image: {
-                            src: require('../assets/images/background-login.jpeg'),
-                            width: 0,
-                            height: 0,
-                        },
-                        data: {
-                            title: 'Cty venus',
-                            description: 'Cty venus',
-                            time: '30 minutes'
-                        }
-                    },
-                    {
-                        id: 4,
-                        editable: false,
-                        allowEditable: false,
-                        image: {
-                            src: require('../assets/images/side-bar.jpg'),
-                            width: 0,
-                            height: 0,
-                        },
-                        data: {
-                            title: 'Cty venus',
-                            description: 'Cty venus',
-                            time: '30 minutes'
-                        }
-                    }
-                ]
-
             };
         },
         mounted: function () {
-            this.screen = LibCustom.getSizeScreen();
+            this.setNavigation(this.navigation);
             this.saveScreen("Home");
         },
         methods: {
             ...mapGetters("screenBaseOnFooter", ["getScreenCurrent"]),
-            ...mapActions("screenBaseOnFooter", ["saveScreen"]),
-            scaleFontSize: function (size) {
-                return LibCustom.scaleFontSize(size);
-            },
-            viewScreen: function (percent, type, minus = 0) {
-                return LibCustom.viewScreen(percent, type, minus);
-            },
+            ...mapActions("screenBaseOnFooter", ["saveScreen", "setNavigation"]),
         },
 
 

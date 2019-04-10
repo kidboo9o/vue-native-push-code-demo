@@ -1,64 +1,46 @@
 <template>
-         <view class="container">
-             <touchable-opacity :style="{width: 200, height: 200}">
-                 <GestureRecognizer
-                         :onSwipeUp="() => onSwipeUp(text)"
-                         :onSwipeDown="() => onSwipeDown(text)"
-                         :onSwipeLeft="() => onSwipeLeft(text)"
-                         :onSwipeRight="() => onSwipeRight(text)"
-                         :config="config"
-                         :style="{
-                        width: 300,
-                        height: 300,
-                        flex: 1,
-                        backgroundColor: 'orange',
-                        paddingLeft: pl,
-                        }"
-                 >
-                     <view>
-                         <nb-button><nb-text>dsadadsa</nb-text></nb-button>
-                         <nb-text>{{text}}</nb-text>
-                     </view>
-
-                 </GestureRecognizer>
-             </touchable-opacity>
-         </view>
+    <nb-container>
+        <nb-header />
+        <view :style="{flex: 1, padding: 12}">
+            <nb-deck-swiper
+                    :dataSource="cardItemsArr"
+                    :looping="isLoopingRequired"
+                    :renderItem="handleCardRendering"
+            />
+        </view>
+    </nb-container>
 </template>
 <script>
-    import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+    import React from "react";
+    import { View, Text } from "react-native";
+    import CardComponent from "./card.vue";
     export default {
-        data: function () {
+        data: function() {
             return {
-                text: 'hello world',
-                pl: 0,
-                config: {
-                    velocityThreshold: 0.3,
-                    directionalOffsetThreshold: 300
-                }
-            };
-        },
-        components: {
-            GestureRecognizer
+                cardItemsArr: [
+                    {
+                        text: "Card One",
+                        name: "One",
+                        image: require('../assets/images/img-01.jpg'),
+                    },
+                    {
+                        text: "Card Two",
+                        name: "Two",
+                        image: require('../assets/images/img-02.jpg'),
+                    },
+                    {
+                        text: "Card Three",
+                        name: "Three",
+                        image: require('../assets/images/img-03.jpg'),
+                    },
+            ],
+            isLoopingRequired: false
+        };
         },
         methods: {
-            onSwipeUp: function (text) {
-                alert("ban keo len tren : "+text);
-            },
-            onSwipeDown: function (text) {
-                alert("ban vua keo xuong duoi : "+text);
-            },
-            onSwipeLeft: function (text) {
-                this.pl = 0;
-            },
-            onSwipeRight: function (text) {
-                this.pl = 200;
+            handleCardRendering: function(item) {
+                return <CardComponent item={item} />;
             }
         }
     };
 </script>
-<style>
-    .container{
-        flex: 1;
-        background-color: red;
-    }
-</style>

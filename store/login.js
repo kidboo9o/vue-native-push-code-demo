@@ -17,6 +17,9 @@ export default{
                     return user.data[0].username;
                 }
             }
+        },
+        getUser: function(state){
+            return state.user;
         }
     },
     mutations: {

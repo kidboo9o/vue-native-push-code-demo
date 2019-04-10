@@ -1,16 +1,13 @@
 <template>
     <view class="content">
-        <ItemContent v-for="todo in todoContents" :key="todo.id" :todo="todo"></ItemContent>
+        <ItemContent v-for="todo in todoContents.data" :key="todo.id" :todo="todo"></ItemContent>
     </view>
 </template>
 <script>
     import ItemContent from './ItemContent.vue';
+    import {mapGetters, mapActions} from 'vuex';
     export default {
-        props: {
-            todoContents:{
-                type: Array,
-            }
-        },
+        props: {},
         data: function () {
             return {
             };
@@ -19,12 +16,17 @@
 
         },
         components: {
-            ItemContent
+            ItemContent,
         },
-        computed: {},
+        computed: {
+            todoContents: function(){
+                return this.getContent();
+            },
+        },
         mounted: function () {
         },
         methods: {
+            ...mapGetters("screenBaseOnFooter", ["getContent"]),
         },
 
 
@@ -34,4 +36,5 @@
     .content {
         flex: 1;
     }
+
 </style>
