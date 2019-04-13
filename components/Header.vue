@@ -5,12 +5,11 @@
                     <nb-icon class="text-color" :style="{fontSize: scaleFontSize(18), paddingTop: viewScreen(1.1, 'vh')}" :name="getData.icon.name" />
                 </nb-button>
             </nb-left>
-            <nb-body>
-                <nb-title class="text-color" :style="{fontSize: scaleFontSize(16)}">{{getData.text.title}}</nb-title>
+            <nb-body >
+                <nb-title class="text-color" :style="{fontSize: scaleFontSize(16), width: viewScreen(80, 'vw'), textAlign: 'left'}">{{getData.text.title}}</nb-title>
             </nb-body>
            <nb-right />
         </nb-header>
-
 </template>
 <script>
     import LibCustom from '../library/custom';

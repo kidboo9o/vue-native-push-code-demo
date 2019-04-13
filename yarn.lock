@@ -689,6 +689,13 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.16.tgz#d9343a2c0b5cf3ffc2eeced590b367d6b66ac37c"
   integrity sha512-p5QPUrmag+C77l2S7jtLlixNyBGqgeQLknzZY9ck76ipAUFNk0uJEfHJiI1Tz2pEjB7XwmoovaDhGlQDvNb5vA==
 
+"@react-native-community/blur@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/blur/-/blur-3.3.1.tgz#bc9ecd6d85d89739d8180138716535ac7cfa4680"
+  integrity sha512-UfH2ut/l4GpZHeq/TGx3BrmyXSCSBBwBCVx1DhPodP3k959zJ2ajgXa3PiU/qjutftTUw6KH9Frsh2U0ax9dMQ==
+  dependencies:
+    prop-types "^15.5.10"
+
 "@segment/loosely-validate-event@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@segment/loosely-validate-event/-/loosely-validate-event-1.1.2.tgz#d77840999e3f7e43e74b3b0d43391c1526f793b8"

@@ -9,13 +9,12 @@
                                 :source="todo.src"
                                 :width="viewScreen(18, 'vw')"
                                 :height="viewScreen(6, 'vh')"
-                                :fill="todo.id === itemChecked ? '#546EFF' : '#212121'"
-
+                                :fill="todo.id === getScreenCurrent ? '#546EFF' : (todo.id === itemChecked ? '#546EFF' : '#212121')"
                         />
                         <nb-text class="text-center"
                                  :style="{
                                     fontSize: scaleFontSize(12),
-                                    color: todo.id === itemChecked ? '#546EFF' : '#212121'
+                                    color: todo.id === getScreenCurrent ? '#546EFF' : (todo.id === itemChecked ? '#546EFF' : '#212121')
                                 }"
                         >{{todo.title}}
                         </nb-text>
@@ -38,7 +37,7 @@
             }
         },
         components: {
-            SvgUri
+            SvgUri,
         },
         data: function () {
             return {
@@ -87,6 +86,19 @@
             },
             listScreenSave: function () {
                 return this.getListScreenSaved();
+            },
+            getScreenCurrent: function(){
+                let temp = this.getNameScreenCurrent();
+                let key;
+                switch(temp){
+                    case "Home": key = 0; break;
+                    case "ThongBao": key = 1; break;
+                    case "DichVu": key = 2; break;
+                    case "TraCuu": key = 3; break;
+                    case "CaiDat": key = 4; break;
+                }
+                this.itemChecked = key;
+                return this.itemChecked;
             }
         },
         mounted: function () {
@@ -94,11 +106,9 @@
         },
         methods: {
             ...mapGetters("login", ['checkLogin']),
-            ...mapGetters("screenBaseOnFooter", ['getListScreenSaved']),
+            ...mapGetters("screenBaseOnFooter", ['getListScreenSaved','getNameScreenCurrent']),
             ...mapActions("screenBaseOnFooter",
                 [
-                    'disableComponent',
-                    'enableComponent',
                     'setTitleHeader',
                     'setRowDataNavbar',
                     'setStyleNavbar',
@@ -108,6 +118,7 @@
                     'saveScreen',
                     'setScreen',
                     'setBackgroundNavbar',
+                    'onlyEnableComponent',
                 ]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
@@ -120,7 +131,6 @@
                 switch (key) {
                     case 0 :
                         this.setScreen("Home");
-                        console.log(this.listScreenSave);
                         break;
                     case 1 :
                         name = "ThongBao";
@@ -129,8 +139,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
-                                this.disableComponent(['carousel', 'content', 'feedback']);
-                                this.enableComponent('navbar');
+                                this.onlyEnableComponent('navbar');
                                 this.setTitleHeader("Thông báo");
                                 this.setIconHeader({name: 'menu'});
                                 this.setRouteHeader("menu");
@@ -319,8 +328,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
-                                this.disableComponent(['carousel', 'content', 'feedback']);
-                                this.enableComponent('navbar');
+                                this.onlyEnableComponent('navbar');
                                 this.setTitleHeader("Dịch vụ");
                                 this.setIconHeader({name: 'menu'});
                                 this.setRouteHeader("menu");
@@ -418,8 +426,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
-                                this.disableComponent(['carousel', 'content', 'feedback']);
-                                this.enableComponent('navbar');
+                                this.onlyEnableComponent('navbar');
                                 this.setTitleHeader("Tra cứu");
                                 this.setIconHeader({name: 'menu'});
                                 this.setRouteHeader("menu");
@@ -555,8 +562,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
-                                this.disableComponent(['carousel', 'content', 'feedback']);
-                                this.enableComponent('navbar');
+                                this.onlyEnableComponent('navbar');
                                 this.setTitleHeader("Cài đặt");
                                 this.setIconHeader({name: 'menu'});
                                 this.setRouteHeader("menu");
@@ -580,16 +586,16 @@
                                                 },
                                                 data: {
                                                     svg: {
-                                                        src: require('../assets/images/thongtinbanquanly.svg'),
-                                                        width: LibCustom.viewScreen(50, 'vw'),
+                                                        src: require('../assets/images/thong-tin-kh.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
-                                                        fill: '#3868D9'
+                                                        fill: '#C62828'
                                                     },
                                                     text: {
                                                         style: {
                                                             fontSize: LibCustom.scaleFontSize(12)
                                                         },
-                                                        title: "Thông báo"
+                                                        title: "Thông tin khách hàng"
 
                                                     }
                                                 }
@@ -606,16 +612,16 @@
                                                 },
                                                 data: {
                                                     svg: {
-                                                        src: require('../assets/images/hoadondiennuoc.svg'),
+                                                        src: require('../assets/images/thong-tin-ung-dung.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
-                                                        fill: "#43A047"
+                                                        fill: "#C62828"
                                                     },
                                                     text: {
                                                         style: {
                                                             fontSize: LibCustom.scaleFontSize(12)
                                                         },
-                                                        title: "Phí dịch vụ"
+                                                        title: "Thông tin ứng dụng"
 
                                                     }
                                                 }
@@ -643,15 +649,16 @@
                                                 },
                                                 data: {
                                                     svg: {
-                                                        src: require('../assets/images/phananhgopy.svg'),
+                                                        src: require('../assets/images/thay-doi-pass.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#C62828"
                                                     },
                                                     text: {
                                                         style: {
                                                             fontSize: LibCustom.scaleFontSize(12)
                                                         },
-                                                        title: "Góp ý"
+                                                        title: "Đổi mật khẩu"
 
                                                     }
                                                 }
@@ -669,16 +676,16 @@
                                                 },
                                                 data: {
                                                     svg: {
-                                                        src: require('../assets/images/dangkidichvu.svg'),
+                                                        src: require('../assets/images/dang-xuat.svg'),
                                                         width: LibCustom.viewScreen(45, 'vw'),
                                                         height: LibCustom.viewScreen(6, 'vh'),
-                                                        fill: "#512DA8"
+                                                        fill: "#C62828"
                                                     },
                                                     text: {
                                                         style: {
                                                             fontSize: LibCustom.scaleFontSize(12)
                                                         },
-                                                        title: "Đăng kí dịch vụ"
+                                                        title: "Đăng xuất"
 
                                                     }
                                                 }

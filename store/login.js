@@ -5,6 +5,7 @@ export default{
     state: {
         isLogin: false,
         user: {},
+        index: 0,
     },
     getters: {
         checkLogin: function (state) {
@@ -20,6 +21,9 @@ export default{
         },
         getUser: function(state){
             return state.user;
+        },
+        getIndexSelected: function(state){
+            return state.user.data[state.index];
         }
     },
     mutations: {
@@ -32,6 +36,13 @@ export default{
             state.isLogin = false;
             state.user = {};
             return localStorage.removeItem("user");
+        },
+        setIndex: function(state, payload){
+            if(typeof payload === "number" && payload >= 0){
+                state.index = payload;
+            }else{
+                console.log("du lieu truyen vao khong hop le");
+            }
         }
 
     },
@@ -41,6 +52,10 @@ export default{
         },
         removeUser: function({commit}){
             commit("removeUser");
+        },
+        setIndex: function({commit}, payload){
+            commit("setIndex", payload);
         }
+
     }
 }

@@ -43,6 +43,7 @@
     import {mapGetters, mapActions} from 'vuex';
     import axios from "axios";
     import qs from "qs";
+    import StoreScreenTemplateIconFooter from "../store/StoreScreenTemplateIconFooter";
     const moment = require('moment');
     import * as vi from 'moment/locale/vi';
     const urlThongBaoChung = "http://ws.venuscorp.vn/WS_VENUSAPP/VenusCSKH/lay_ds_tatca_thongbao";
@@ -63,7 +64,7 @@
         },
         components: {
             AutoHeightImage,
-            SvgUri
+            SvgUri,
         },
         computed: {
             dataNavbar: function () {
@@ -76,37 +77,47 @@
 //                }
                 return this.checkLogin;
             },
-            getBackground: function(){
+            getBackground: function () {
                 let obj = {};
-                if(this.dataNavbar.bgNavbar.image.src !== ""){
+                if (this.dataNavbar.bgNavbar.image.src !== "") {
                     obj = {
                         width: this.screen.width,
                         height: this.screen.height,
                     }
                 }
                 return obj;
+            },
+            listScreenSave: function () {
+                return this.getListScreenSaved();
             }
         },
-        created: function(){
+        created: function () {
             moment.locale('vi');
         },
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
+            if(!this.$store._modulesNamespaceMap['StoreScreenTemplateIconFooter/']){
+                this.$store.registerModule('StoreScreenTemplateIconFooter', StoreScreenTemplateIconFooter);
+            }
         },
         methods: {
-            ...mapGetters("screenBaseOnFooter", ["getNavbar", "getNavigation"]),
+            ...mapGetters("screenBaseOnFooter", ["getNavbar", "getNavigation", "getListScreenSaved"]),
             ...mapGetters("login", ['checkLogin', 'getUserName']),
             ...mapActions("screenBaseOnFooter",
                 [
-                    'disableComponent',
-                    'enableComponent',
                     'setTitleHeader',
                     'setRowDataNavbar',
                     'setStyleNavbar',
                     'setIconHeader',
                     'setRouteHeader',
+                    'setName',
+                    'saveScreen',
+                    'setScreen',
+                    'setBackgroundNavbar',
                     'setDataContent',
+                    'onlyEnableComponent',
                 ]),
+            ...mapActions("StoreScreenTemplateIconFooter", ["onlyEnableComponent_TemplateIconFooter", "setTypeShowListInforUser"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -117,11 +128,199 @@
             handleClick: function (text) {
                 let convertStr = LibCustom.convertUTF8(text);
                 switch (convertStr) {
-                    /* thong bao */
+                        /* thong bao */
+                    case "thong-bao":
+                        name = "ThongBao";
+                        if (this.isLogin()) {
+                            if (this.listScreenSave.indexOf(name) !== -1) {
+                                this.setScreen(name);
+                            } else {
+                                this.setName(name);
+                                this.onlyEnableComponent('navbar');
+                                this.setTitleHeader("Thông báo");
+                                this.setIconHeader({name: 'menu'});
+                                this.setRouteHeader("menu");
+                                rowData = [
+                                    {
+                                        id: 0,
+                                        style: {
+                                            paddingTop: LibCustom.viewScreen(5, 'vw'),
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw')
+                                        },
+                                        data: [
+                                            {
+
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-12': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/thong-bao-chung.svg'),
+                                                        width: LibCustom.viewScreen(50, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#0D47A1"
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Thông báo chung"
+
+                                                    }
+                                                }
+                                            },
+                                        ]
+                                    },
+
+                                    {
+                                        id: 1,
+                                        style: {
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw')
+                                        },
+                                        data: [
+                                            {
+
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/thongtinbanquanly.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#3868D9"
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Thông báo từ ban quản lý"
+
+                                                    }
+                                                }
+
+                                            },
+
+                                            {
+
+                                                id: 1,
+                                                style: {
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/thong-bao-phi-dich-vu.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: '#E69B22',
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Thông báo phí dịch vụ"
+
+                                                    }
+                                                }
+
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        style: {
+                                            paddingBottom: LibCustom.viewScreen(3, 'vw')
+                                        },
+                                        data: [
+                                            {
+
+                                                id: 0,
+                                                style: {
+                                                    marginLeft: LibCustom.viewScreen(3, 'vw'),
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/bao-tri-sua-chua.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#2E7D32",
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Bảo trì sửa chữa"
+
+                                                    }
+                                                }
+
+                                            },
+
+                                            {
+
+                                                id: 1,
+                                                style: {
+                                                    marginRight: LibCustom.viewScreen(3, 'vw'),
+                                                },
+                                                classObject: {
+                                                    'col-6': true,
+                                                },
+                                                data: {
+                                                    svg: {
+                                                        src: require('../assets/images/tien-do-dich-vu.svg'),
+                                                        width: LibCustom.viewScreen(45, 'vw'),
+                                                        height: LibCustom.viewScreen(6, 'vh'),
+                                                        fill: "#E65100",
+                                                    },
+                                                    text: {
+                                                        style: {
+                                                            fontSize: LibCustom.scaleFontSize(12)
+                                                        },
+                                                        title: "Tiến độ dịch vụ"
+
+                                                    }
+                                                }
+
+                                            },
+                                        ]
+                                    }
+                                ];
+                                this.setRowDataNavbar(rowData);
+                                styleNavbar = {height: LibCustom.viewScreen(45, 'vh')};
+                                this.setStyleNavbar(styleNavbar);
+                                let backgroundNavbar = {
+                                    image:{
+                                        src: require('../assets/images/thong-bao.gif'),
+                                    }
+                                };
+                                this.setBackgroundNavbar(backgroundNavbar);
+                                this.saveScreen(name);
+                            }
+
+                        } else {
+                            this.getNavigation().navigate("Login");
+                        }
+                        break;
                     case "thong-bao-chung" :
                         if (this.isLogin()) {
-                            this.disableComponent(['carousel', 'navbar']);
-                            this.enableComponent('content');
+                            this.onlyEnableComponent('content');
                             this.setTitleHeader("Thông báo chung");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
@@ -138,12 +337,12 @@
                                         editable: false,
                                         allowEditable: true,
                                         image: {
-                                            src: require('../assets/images/img-01.jpg'),
+                                            src: {uri: listData[i].link_hinh},
                                             width: 0,
                                             height: 0,
                                         },
                                         data: {
-                                            title: 'Cty venus ',
+                                            title: listData[i].tieude,
                                             description: listData[i].noidung,
                                             time: moment(listData[i].ngay_tao).fromNow(),
                                         }
@@ -161,8 +360,7 @@
                         break;
                     case "thong-bao-tu-ban-quan-ly" :
                         if (this.isLogin()) {
-                            this.disableComponent(['carousel', 'navbar']);
-                            this.enableComponent('content');
+                            this.onlyEnableComponent('content');
                             this.setTitleHeader("Thông báo chung");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
@@ -202,8 +400,7 @@
                         break;
                     case "thong-bao-phi-dich-vu":
                         if (this.isLogin()) {
-                            this.disableComponent(['carousel', 'navbar']);
-                            this.enableComponent('content');
+                            this.onlyEnableComponent('content');
                             this.setTitleHeader("Thông báo chung");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
@@ -241,14 +438,14 @@
                             this.getNavigation().navigate("Login");
                         }
                         break;
-                    /* Dich vu */
+                        /* Dich vu */
                     case "dang-ki-dich-vu":
                         break;
                     case "gop-y":
                         if (this.isLogin()) {
-                            alert("nhảy vào đây");
-                            this.disableComponent(['carousel', 'navbar', 'content']);
-                            this.enableComponent('feedback');
+                            this.setTypeShowListInforUser("full");
+                            this.onlyEnableComponent_TemplateIconFooter(["listinforuser","feedback"]);
+                            this.onlyEnableComponent('templatehandleiconfooter');
                             this.setTitleHeader("Phản ánh góp ý");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
@@ -256,7 +453,7 @@
                             this.getNavigation().navigate("Login");
                         }
                         break;
-                    /* Tra cuu */
+                        /* Tra cuu */
                     case "thong-tin-phi-quan-ly":
                         let data = {
                             username: this.getUserName(),
@@ -289,6 +486,30 @@
                             console.log(error);
                         })
                         break;
+                        /* Cai dat */
+                    case "thong-tin-khach-hang":
+                        if (this.isLogin()) {
+                            this.setTypeShowListInforUser("brief");
+                            this.onlyEnableComponent_TemplateIconFooter("listinforuser");
+                            this.onlyEnableComponent('templatehandleiconfooter');
+                            this.setTitleHeader("Thông tin khách hàng");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.getNavigation().navigate("Login");
+                        }
+                        break;
+                    case "thong-tin-ung-dung":
+                        if (this.isLogin()) {
+                            this.onlyEnableComponent_TemplateIconFooter("applicationinformation");
+                            this.onlyEnableComponent('templatehandleiconfooter');
+                            this.setTitleHeader("Thông tin ứng dụng");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.getNavigation().navigate("Login");
+                        }
+                        break;
                 }
             }
         },
@@ -297,10 +518,11 @@
     };
 </script>
 <style>
-    .container{
+    .container {
         flex: 1;
     }
-    .bgBottom{
+
+    .bgBottom {
         flex: 1;
         position: absolute;
         top: 0;

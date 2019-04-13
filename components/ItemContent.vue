@@ -28,13 +28,13 @@
                     </image>
                 </view>
                 <view class="text-center"
-                      :style="{height: viewScreen(21, 'vh')}"
+                      :style="{height: viewScreen(20, 'vh')}"
                       :class="{
                                 'col-6': getTodo.editable,
                                 'col-8': !getTodo.editable,
                       }"
                 >
-                    <view :style="{height: getTodo.image.height+20}">
+                    <view>
                         <view class="container-truncate">
                             <nb-text :numberOfLines="1" class="title truncate-text"
                                      :style="{fontSize: scaleFontSize(16)}">
@@ -58,6 +58,7 @@
 </template>
 <script>
     import LibCustom from '../library/custom';
+    import {Dimensions, Animated, Easing, Platform, Image} from 'react-native';
     import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
     export default {
         props: {
@@ -95,13 +96,24 @@
         },
         computed: {
             getTodo: function(){
-                let image;
-                image = LibCustom.getSizeImage(this.todo.image.src);
-                if (image) {
-                    let temp = image.width / image.height;
-                    this.todo.image.width = LibCustom.viewScreen(30, 'vw');
-                    this.todo.image.height = this.todo.image.width / temp;
+                if(this.todo.image.src.uri){
+                    Image.getSize(this.todo.image.src.uri, (srcWidth, srcHeight) => {
+                        let temp = srcWidth / srcHeight;
+                        this.todo.image.width = LibCustom.viewScreen(30, 'vw');
+                        this.todo.image.height = this.todo.image.width / temp;
+                    }, (error) => {
+                        console.log(error);
+                    })
+                }else{
+                    let image;
+                    image = LibCustom.getSizeImage(this.todo.image.src);
+                    if (image) {
+                        let temp = image.width / image.height;
+                        this.todo.image.width = LibCustom.viewScreen(30, 'vw');
+                        this.todo.image.height = this.todo.image.width / temp;
+                    }
                 }
+
                 return this.todo;
             }
         },

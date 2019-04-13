@@ -1,41 +1,5 @@
 <template>
-    <view class="service">
-        <view class="header"
-              :style="{
-                    height: viewScreen(20, 'vh')
-              }"
-        >
-            <view class="row">
-                <view class="col-4 text-center">
-                    <view class="avatar"
-                          :style="{
-                                width: viewScreen(14, 'vh'),
-                                height: viewScreen(14, 'vh'),
-
-                          }"
-                    >
-                        <AutoHeightImage
-                                :source="require('../assets/images/avatar1.png')"
-                                :width="'100%'"
-                                :style="{
-                                    flex: 1,
-                                    resizeMode: 'contain',
-                                    borderRadius: screen.width+screen.height/2,
-                                    borderWidth: 1
-                                }"
-                        ></AutoHeightImage>
-                    </view>
-                </view>
-                <view class="col-8" :style="{justifyContent: 'center', height: viewScreen(20, 'vh')}">
-                    <nb-text class="text-bold" :style="{fontSize: scaleFontSize(16)}">Vương Ái Phương</nb-text>
-                    <nb-text :style="{fontSize: scaleFontSize(12)}">
-                        607 Xô Viết Nghệ Tĩnh, P.26, Quận Bình Thạnh dsadsadsadsadsadsadsadasdsadssadasda
-                    </nb-text>
-                    <nb-text class="text-bold text-id" :style="{fontSize: scaleFontSize(12)}">Mã: 13.04</nb-text>
-                </view>
-            </view>
-        </view>
-        <view class="content"
+    <view class="content"
               :style="{
                     width: viewScreen(80, 'vw'),
                     height: viewScreen(80, 'vh')
@@ -43,7 +7,7 @@
             <nb-form>
                 <nb-item regular class="mt-3 item"
                          :style="{
-                                  borderColor: isNameLabel ? 'blue' : 'grey'
+                                  borderColor: isNameLabel ? 'blue' : (isErrorMyName ? 'red' : 'grey'),
                          }"
                 >
                     <nb-label
@@ -59,19 +23,33 @@
                     <nb-input
                             :style="{
                                  position: 'absolute',
-                                 top: 0,
+                                 bottom: 10,
                                  left: 20,
-                                 width: '100%',
+                                 width: '80%',
                                  fontSize: scaleFontSize(14),
                             }"
                             :on-focus="handleFocusName"
                             v-model="myName"
                             :on-change-text="handleChangeValueName"
                     />
+                    <nb-icon v-if="isErrorMyName" name="close-circle"
+                             :style="{
+                                position: 'absolute',
+                                right: 0,
+                                color: '#ed2f2f'
+                            }"/>
+                </nb-item>
+                <nb-item v-if="isErrorMyName" class="mt-3"
+                         :style="{
+                            borderBottomWidth: 0,
+                            height: viewScreen(6, 'vh'),
+                         }"
+                >
+                    <nb-text class="text-danger">{{showErrorMyName}}</nb-text>
                 </nb-item>
                 <nb-item regular class="mt-3 item"
                          :style="{
-                                  borderColor: isSDTLabel ? 'blue' : 'grey'
+                                  borderColor: isErrorSDT ? 'red' : (isSDTLabel ? 'blue' : 'grey'),
                          }"
                 >
                     <nb-label
@@ -87,15 +65,29 @@
                     <nb-input
                             :style="{
                                  position: 'absolute',
-                                 top: 0,
+                                 bottom: 10,
                                  left: 20,
-                                 width: '100%',
+                                 width: '80%',
                                  fontSize: scaleFontSize(14),
                             }"
                             :on-focus="handleFocusSDT"
                             v-model="sdt"
                             :on-change-text="handleChangeValueSDT"
                     />
+                    <nb-icon v-if="isErrorSDT"  name="close-circle"
+                             :style="{
+                                position: 'absolute',
+                                right: 0,
+                                color: '#ed2f2f'
+                            }"/>
+                </nb-item>
+                <nb-item v-if="isErrorSDT" class="mt-3"
+                         :style="{
+                            borderBottomWidth: 0,
+                            height: viewScreen(6, 'vh'),
+                         }"
+                >
+                    <nb-text class="text-danger">{{showErrorSDT}}</nb-text>
                 </nb-item>
                 <nb-item picker regular class="mt-3 pl-3 item" :style="{borderColor: 'grey'}">
                     <nb-picker
@@ -105,42 +97,60 @@
                             placeholder="Loại phản ánh góp ý"
                             placeholderStyle="{ color: '#bfc6ea' }"
                             placeholderIconColor="#007aff"
-                            :selectedValue="'hethongchieusang'"
+                            :selectedValue="defaultLoaiDV"
+                            :onValueChange="onValueChange"
                     >
 
                         <item v-for="todo in listLoaiDV" :key="todo.ma" :label="todo.mota" :value="todo.ma"></item>
                     </nb-picker>
                 </nb-item>
 
-                <nb-textarea class="mt-3dot5" :rowSpan="5" bordered placeholder="Nội dung phản ánh góp ý"
-                             :style="{width: '100%', paddingLeft: '5%', paddingTop: '2%', fontSize: scaleFontSize(14)}"/>
-
-                    <nb-button full iconRight light :on-press="sendFeedback" class="button-bg mt-3">
-                        <nb-text class="button-feedback button-title" :style="{fontSize: scaleFontSize(14)}">GỬI ĐĂNG KÝ</nb-text>
-                        <nb-icon class="button-feedback button-icon" active name="arrow-forward"/>
-                    </nb-button>
+                <nb-textarea class="mt-3" :rowSpan="5" placeholder="Nội dung phản ánh góp ý"
+                             :on-focus="handleFocusTextArea"
+                             :on-change-text="handleChangeValueNoiDung"
+                             v-model="noidung"
+                             :style="{
+                                    width: '100%',
+                                    paddingLeft: '5%',
+                                    paddingTop: '2%',
+                                    fontSize: scaleFontSize(14),
+                                    borderWidth: 1,
+                                    borderColor: isNoidungLabel ? 'blue' : (isErrorNoidung ? 'red' : 'grey'),
+                                }" />
+                <nb-item v-if="isErrorNoidung" class="mt-3"
+                         :style="{
+                            borderBottomWidth: 0,
+                            height: viewScreen(6, 'vh'),
+                         }"
+                >
+                    <nb-text class="text-danger">{{showErrorNoiDung}}</nb-text>
+                </nb-item>
+                <nb-button full iconRight light :on-press="sendFeedback" class="button-bg mt-3">
+                    <nb-text class="button-feedback button-title" :style="{fontSize: scaleFontSize(14)}">GỬI ĐĂNG KÝ
+                    </nb-text>
+                    <nb-icon class="button-feedback button-icon" active name="arrow-forward"/>
+                </nb-button>
 
 
             </nb-form>
         </view>
-    </view>
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex';
     import LibCustom from '../library/custom';
-    import AutoHeightImage from 'react-native-auto-height-image';
     import axios from "axios";
     import React from "react";
-    import { Picker, Icon } from "native-base";
+    import {Picker, Icon} from "native-base";
+    import qs from "qs";
     const url_lay_ds_loai_dv = "http://ws.venuscorp.vn/WS_VENUSAPP/VenusCSKH/lay_ds_loaidichvu";
+    const url_send_feedback = "http://ws.venuscorp.vn/WS_VENUSAPP/VenusCSKH/gui_phanAnhGopY";
     const config = {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         }
     };
     export default {
-        props: {
-        },
+        props: {},
         data: function () {
             return {
                 screen: {
@@ -149,32 +159,43 @@
                 },
                 isNameLabel: false,
                 myName: '',
+                isErrorMyName: false,
+                showErrorMyName: '',
+
                 isSDTLabel: false,
                 sdt: '',
+                isErrorSDT: false,
+                showErrorSDT: '',
+
                 listLoaiDV: null,
+                defaultLoaiDV: '',
+
+                isNoidungLabel: false,
+                noidung: '',
+                isErrorNoidung: false,
+                showErrorNoiDung: '',
+
             };
         },
         components: {
-            AutoHeightImage
         },
         computed: {
-            getInforUser: function(){
-                console.log(this.getUser);
-                return this.getUser();
+            getUserSelected: function(){
+                return this.getIndexSelected();
             }
         },
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
-            console.log(this.getUser());
             axios.post(url_lay_ds_loai_dv, config).then((response) => {
                 this.listLoaiDV = response.data.data.danhmuc_loaidichvu;
-            }).catch(function(error){
+                this.defaultLoaiDV = this.listLoaiDV[0].ma;
+            }).catch(function (error) {
                 console.log(error);
             })
 
         },
         methods: {
-            ...mapGetters("login", ['getUser']),
+            ...mapGetters("login", ['getIndexSelected']),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -183,10 +204,16 @@
             },
             handleFocusName: function () {
                 this.isNameLabel = true;
+                this.isErrorMyName = false;
                 if (this.sdt === "") {
                     this.isSDTLabel = false;
                 } else {
                     this.isSDTLabel = true;
+                }
+                if (this.noidung === "") {
+                    this.isNoidungLabel = false;
+                } else {
+                    this.isNoidungLabel = true;
                 }
             },
             handleChangeValueName: function () {
@@ -194,72 +221,108 @@
                     this.isNameLabel = false;
                 } else {
                     this.isNameLabel = true;
+                    this.isErrorMyName = false;
+                    this.showErrorMyName = "";
                 }
             },
             handleFocusSDT: function () {
                 this.isSDTLabel = true;
+                this.isErrorSDT = false;
                 if (this.myName === "") {
                     this.isNameLabel = false;
+                    this.isErrorMyName = true;
+                    this.showErrorMyName = "Bạn vui lòng nhập vào tên người liên hệ";
                 } else {
                     this.isNameLabel = true;
+                }
+                if (this.noidung === "") {
+                    this.isNoidungLabel = false;
+                } else {
+                    this.isNoidungLabel = true;
                 }
 
             },
             handleChangeValueSDT: function () {
                 if (this.sdt === "") {
                     this.isSDTLabel = false;
+                    this.isErrorSDT = false;
+                    this.showErrorSDT = "";
                 } else {
+                    if (!this.sdt.match(/^[0-9]{1,}$/)){
+                        this.isErrorSDT = true;
+                        this.showErrorSDT = "Số điện thoại chỉ chứa số"
+                    }else{
+                        this.isErrorSDT = false;
+                        this.showErrorSDT = "";
+                    }
                     this.isSDTLabel = true;
                 }
             },
             sendFeedback: function () {
-                alert("send feed back");
+                if(this.myName !== "" && this.sdt !== "" && this.noidung !== "" && !this.isErrorMyName && !this.isErrorSDT && !this.isErrorNoidung){
+                    let data = {
+                        "username": this.getUserSelected.username,
+                        "id_taikhoan_chitiet": this.getUserSelected.id,
+                        "ten_nguoiyeucau": this.myName,
+                        "dienthoai_lienhe": this.sdt,
+                        "dichvu": this.defaultLoaiDV,
+                        "noidung": this.noidung,
+                        "maChungThuc": LibCustom.ma_hoa(this.getUserSelected.username+this.getUserSelected.id+this.myName+this.sdt+this.defaultLoaiDV+this.noidung),
+                    };
+                    axios.post(url_send_feedback, qs.stringify(data), config).then((response) => {
+                        console.log(response);
+                        alert("gui thanh cong");
+                    }).catch((error) => {
+
+                    });
+                }else{
+
+                    if (this.myName === "") {
+                        this.isErrorMyName = true;
+                        this.showErrorMyName = "Bạn vui lòng nhập vào tên người liên hệ";
+                    }
+                    if (this.sdt === "") {
+                        this.isErrorSDT = true;
+                        this.showErrorSDT = "Bạn vui lòng nhập vào số điện thoại";
+                    }
+                    if(this.noidung === ""){
+                        this.isErrorNoidung = true;
+                        this.showErrorNoiDung = "Vui lòng nhập vào nội dung phản hồi góp ý";
+                    }
+                }
             },
-            getIosIcon: function() {
-                return <Icon name="ios-arrow-down-outline" />;
+            getIosIcon: function () {
+                return <Icon name = "ios-arrow-down-outline" />;
+            },
+            handleFocusTextArea: function () {
+                this.isNoidungLabel = true;
+                if (this.myName === "") {
+                    this.isNameLabel = false;
+                    this.isErrorMyName = true;
+                    this.showErrorMyName = "Bạn vui lòng nhập vào tên người liên hệ";
+                } else {
+                    this.isNameLabel = true;
+                }
+                if (this.sdt === "") {
+                    this.isSDTLabel = false;
+                    this.isErrorSDT = true;
+                    this.showErrorSDT = "Bạn vui lòng nhập vào số điện thoại";
+                } else {
+                    this.isSDTLabel = true;
+                }
+
+            },
+            handleChangeValueNoiDung: function () {
+
+            },
+
+            onValueChange: function(value){
+                this.defaultLoaiDV = value;
             }
-        },
-
-
-    };
+        }
+    }
 </script>
 <style>
-    .service {
-        flex: 1;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .header {
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .row {
-        flex: 1;
-        flex-direction: row;
-    }
-
-    .col-4 {
-        width: 33.33%;
-    }
-
-    .text-center {
-        justify-content: center;
-        align-items: center;
-    }
-
-    .col-8 {
-        width: 66.67%;
-    }
-
-    .text-bold {
-        font-weight: bold;
-    }
-
-    .text-id {
-        color: orange;
-    }
-
     .content {
         flex: 1;
     }
@@ -283,17 +346,23 @@
     }
 
     .button-bg {
-        background-color: #303F9F;
+        background-color: #3868D9;
         position: relative;
         height: 14%;
     }
-    .button-title{
+
+    .button-title {
         position: absolute;
         left: 0;
     }
-    .button-icon{
+
+    .button-icon {
         position: absolute;
         right: 0;
     }
+    .text-danger{
+        color: red;
+    }
+
 
 </style>

@@ -1,11 +1,11 @@
 <template>
     <nb-container>
         <header-component :navigation="navigation"></header-component>
-        <nb-content>
+        <nb-content :scrollEnabled="getData.container.scroll.status">
             <component v-if="getData.components.navbar.status" :is="'NavBar'"></component>
             <component v-if="getData.components.carousel.status" :is="'CarouselComponent'"></component>
             <component v-if="getData.components.content.status" :is="'Content'"></component>
-            <component v-if="getData.components.feedback.status" :is="'Feedback'" ></component>
+            <component v-if="getData.components.templatehandleiconfooter.status" :is="'TemplateHandleIconFooter'" ></component>
         </nb-content>
         <footer-component :navigation="navigation"></footer-component>
     </nb-container>
@@ -18,7 +18,7 @@
     import Content from '../components/Content.vue';
     import screenBaseOnFooter from "../store/ScreenBaseOnFooter";
     import {mapGetters, mapActions} from 'vuex';
-    import Feedback from '../components/Feedback.vue';
+    import TemplateHandleIconFooter from '../components/TemplateHandleIconFooter.vue';
     export default {
         props: {
             navigation: {
@@ -36,7 +36,7 @@
             footerComponent,
             CarouselComponent,
             Content,
-            Feedback
+            TemplateHandleIconFooter,
         },
         computed: {
             getData: function(){

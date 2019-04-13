@@ -1,46 +1,46 @@
 <template>
-    <nb-container>
-        <nb-header />
-        <view :style="{flex: 1, padding: 12}">
-            <nb-deck-swiper
-                    :dataSource="cardItemsArr"
-                    :looping="isLoopingRequired"
-                    :renderItem="handleCardRendering"
-            />
-        </view>
-    </nb-container>
+    <view class="container">
+       <image
+               :source="src"
+               :style="{
+                   width: widthImage,
+                   height: heightImage,
+               }"
+               :onLoaded="() => onImageLoaded(data)"
+       ></image>
+    </view>
 </template>
 <script>
-    import React from "react";
-    import { View, Text } from "react-native";
-    import CardComponent from "./card.vue";
+    import posed from 'react-native-pose';
+    import ResponsiveImage from 'react-native-responsive-image';
+    import {Dimensions, Animated, Easing, Platform, Image} from 'react-native';
     export default {
-        data: function() {
+        components: {
+            ResponsiveImage
+        },
+        data: function () {
             return {
-                cardItemsArr: [
-                    {
-                        text: "Card One",
-                        name: "One",
-                        image: require('../assets/images/img-01.jpg'),
-                    },
-                    {
-                        text: "Card Two",
-                        name: "Two",
-                        image: require('../assets/images/img-02.jpg'),
-                    },
-                    {
-                        text: "Card Three",
-                        name: "Three",
-                        image: require('../assets/images/img-03.jpg'),
-                    },
-            ],
-            isLoopingRequired: false
-        };
+                widthImage: 100,
+                heightImage: 100,
+                src: {uri: "http://portal.venuscorp.vn/public/UNGDUNGCSKH/hinh_thongbao/no-image-icon.png"}
+            };
+        },
+        mounted: function(){
+            Image.getSize(this.src.uri, (srcWidth, srcHeight) => {
+                console.log("do rong : "+srcWidth+" do cao : "+srcHeight);
+            }, (error) => {
+                console.log(error);
+            })
         },
         methods: {
-            handleCardRendering: function(item) {
-                return <CardComponent item={item} />;
-            }
+
         }
     };
 </script>
+<style>
+    .container {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
