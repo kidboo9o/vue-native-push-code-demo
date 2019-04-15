@@ -50,6 +50,7 @@
                         id: 2,
                         src: require('../assets/images/img-03.jpg'),
                     }
+
                 ]
             };
         },

@@ -3,10 +3,12 @@ import localStorage from 'react-native-sync-localstorage'
 import LibCustom from '../library/custom';
 const valueDefault = {
     name: 'Home',
-    navigation: null,
     container: {
       scroll: {
           status: true,
+      },
+      style: {
+          backgroundColor: 'transparent'
       }
 
     },
@@ -329,9 +331,6 @@ export default{
         getContent: function(state){
             return state.screen.components.content;
         },
-        getNavigation: function(state){
-            return state.screen.navigation;
-        }
 
     },
     mutations: {
@@ -453,14 +452,16 @@ export default{
                 state.screen.components.navbar.bgNavbar = payload;
             }
         },
-        setNavigation: function(state, payload){
-            state.screen.navigation = payload;
-        },
         setScrollContainer: function(state, payload){
             state.screen.container.scroll.status = payload;
         },
-
-
+        setStyleContainer: function(state, payload){
+            if(typeof payload === "object" && !Array.isArray(payload)){
+                state.screen.container.style = payload;
+            }else{
+                console.log("du lieu truyen vao khong hop le");
+            }
+        }
 
     },
     actions: {
@@ -500,15 +501,15 @@ export default{
         setBackgroundNavbar: function({commit}, payload){
             commit("setBackgroundNavbar", payload);
         },
-        setNavigation: function({commit}, payload){
-            commit("setNavigation", payload);
-        },
+
         setScrollContainer: function({commit}, payload){
           commit("setScrollContainer", payload);
         },
         onlyEnableComponent: function({commit}, payload){
             commit("onlyEnableComponent", payload);
         },
-
+        setStyleContainer: function({commit}, payload){
+            commit("setStyleContainer", payload);
+        }
     }
 }

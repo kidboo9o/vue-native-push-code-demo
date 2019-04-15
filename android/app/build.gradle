@@ -141,6 +141,10 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-base64')
+    compile project(':rn-fetch-blob')
+    compile project(':react-native-linear-gradient')
+    compile project(':lottie-react-native')
     compile project(':react-native-blurry')
     compile project(':react-native-blur')
     compile fileTree(dir: "libs", include: ["*.jar"])

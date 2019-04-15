@@ -15,6 +15,12 @@ export default{
                },
                applicationinformation: {
                    status: false,
+               },
+               changepassword: {
+                   status: false,
+               },
+               bill: {
+                   status: false,
                }
            }
        }

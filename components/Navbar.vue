@@ -53,7 +53,11 @@
         }
     };
     export default {
-        props: {},
+        props: {
+            navigation:{
+                type: Object
+            }
+        },
         data: function () {
             return {
                 screen: {
@@ -72,10 +76,10 @@
                 return this.getNavbar();
             },
             isLogin: function () {
-//                return function(){
-//                    return true;
-//                }
-                return this.checkLogin;
+                return function(){
+                    return true;
+                }
+//                return this.checkLogin;
             },
             getBackground: function () {
                 let obj = {};
@@ -101,7 +105,7 @@
             }
         },
         methods: {
-            ...mapGetters("screenBaseOnFooter", ["getNavbar", "getNavigation", "getListScreenSaved"]),
+            ...mapGetters("screenBaseOnFooter", ["getNavbar", "getListScreenSaved"]),
             ...mapGetters("login", ['checkLogin', 'getUserName']),
             ...mapActions("screenBaseOnFooter",
                 [
@@ -116,8 +120,10 @@
                     'setBackgroundNavbar',
                     'setDataContent',
                     'onlyEnableComponent',
+                    'setStyleContainer',
                 ]),
             ...mapActions("StoreScreenTemplateIconFooter", ["onlyEnableComponent_TemplateIconFooter", "setTypeShowListInforUser"]),
+            ...mapActions("login", ["removeUser"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -315,7 +321,7 @@
                             }
 
                         } else {
-                            this.getNavigation().navigate("Login");
+                            this.navigation.navigate("Login");
                         }
                         break;
                     case "thong-bao-chung" :
@@ -355,7 +361,7 @@
                             })
 
                         } else {
-                            this.getNavigation().navigate("Login");
+                            this.navigation.navigate("Login");
                         }
                         break;
                     case "thong-bao-tu-ban-quan-ly" :
@@ -395,7 +401,7 @@
                                 console.log(error);
                             })
                         } else {
-                            this.getNavigation().navigate("Login");
+                            this.navigation.navigate("Login");
                         }
                         break;
                     case "thong-bao-phi-dich-vu":
@@ -435,7 +441,7 @@
                                 console.log(error);
                             })
                         } else {
-                            this.getNavigation().navigate("Login");
+                            this.navigation.navigate("Login");
                         }
                         break;
                         /* Dich vu */
@@ -450,41 +456,21 @@
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
                         } else {
-                            this.getNavigation().navigate("Login");
+                            this.navigation.navigate("Login");
                         }
                         break;
                         /* Tra cuu */
                     case "thong-tin-phi-quan-ly":
-                        let data = {
-                            username: this.getUserName(),
-                            maChungThuc: LibCustom.ma_hoa(this.getUserName()),
-                        };
-                        axios.post(urlThongBaoChung, qs.stringify(data), config).then((response) => {
-                            let arrayDataContent = [];
-                            let listData = response.data.data;
-
-                            for (let i = 0, size = listData.length; i < size; i++) {
-                                let temp = {
-                                    id: i,
-                                    editable: false,
-                                    allowEditable: true,
-                                    image: {
-                                        src: require('../assets/images/img-01.jpg'),
-                                        width: 0,
-                                        height: 0,
-                                    },
-                                    data: {
-                                        title: 'Cty venus ',
-                                        description: listData[i].noidung,
-                                        time: moment(listData[i].ngay_tao).fromNow(),
-                                    }
-                                };
-                                arrayDataContent.push(temp);
-                            }
-                            this.setDataContent(arrayDataContent);
-                        }).catch(function (error) {
-                            console.log(error);
-                        })
+                        if (this.isLogin()) {
+                            this.setTypeShowListInforUser("full");
+                            this.onlyEnableComponent_TemplateIconFooter(["listinforuser", "bill"]);
+                            this.onlyEnableComponent('templatehandleiconfooter');
+                            this.setTitleHeader("Thông tin phí quản lý ");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
                         break;
                         /* Cai dat */
                     case "thong-tin-khach-hang":
@@ -496,18 +482,39 @@
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
                         } else {
-                            this.getNavigation().navigate("Login");
+                            this.navigation.navigate("Login");
                         }
                         break;
                     case "thong-tin-ung-dung":
                         if (this.isLogin()) {
+                            this.setStyleContainer({backgroundColor: 'rgba(0,0,0,0.05)'});
                             this.onlyEnableComponent_TemplateIconFooter("applicationinformation");
                             this.onlyEnableComponent('templatehandleiconfooter');
                             this.setTitleHeader("Thông tin ứng dụng");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
                         } else {
-                            this.getNavigation().navigate("Login");
+                            this.navigation.navigate("Login");
+                        }
+                        break;
+                    case "doi-mat-khau":
+                        if (this.isLogin()) {
+                            this.setStyleContainer({backgroundColor: 'rgba(0,0,0,0.05)'});
+                            this.onlyEnableComponent_TemplateIconFooter("changepassword");
+                            this.onlyEnableComponent('templatehandleiconfooter');
+                            this.setTitleHeader("Thay đỗi mật khẩu");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+                        break;
+                    case "dang-xuat":
+                        if (this.isLogin()) {
+                            this.removeUser();
+                            this.setScreen("Home");
+                        } else {
+                            this.navigation.navigate("Login");
                         }
                         break;
                 }

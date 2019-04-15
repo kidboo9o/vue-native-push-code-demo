@@ -14,6 +14,7 @@ const { width, height } = Dimensions.get('screen');
 
 
 import AnimationDemo from "./AnimationDemo.vue";
+import ModalRegister from "./ModalRegister.vue";
 // ----------------------------------------------------------------------------
 // THIS IS THE REACT NAVIGATION STUFF THAT IS WAY DIFFERENT FROM THE
 // VUE-ROUTER WE ALL KNOW AND LOVE
@@ -34,6 +35,9 @@ const Drawer = DrawerNavigator(
         },
         AnimationDemo: {
             screen: AnimationDemo
+        },
+        ModalRegister: {
+            screen: ModalRegister
         },
     },
     {

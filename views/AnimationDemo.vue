@@ -1,40 +1,30 @@
 <template>
     <view class="container">
-       <image
-               :source="src"
-               :style="{
-                   width: widthImage,
-                   height: heightImage,
-               }"
-               :onLoaded="() => onImageLoaded(data)"
-       ></image>
+        <image
+                :source="require('../assets/images/img-01.jpg')"
+                :style="{
+                    width: 200,
+                    height: 200
+                }"
+        >
+
+        </image>
     </view>
 </template>
 <script>
-    import posed from 'react-native-pose';
-    import ResponsiveImage from 'react-native-responsive-image';
-    import {Dimensions, Animated, Easing, Platform, Image} from 'react-native';
+    import axios from "axios";
+    import { FileSystem } from 'expo';
+    import image1 from "../assets/images/img-01.jpg";
     export default {
-        components: {
-            ResponsiveImage
-        },
+        components: {},
         data: function () {
-            return {
-                widthImage: 100,
-                heightImage: 100,
-                src: {uri: "http://portal.venuscorp.vn/public/UNGDUNGCSKH/hinh_thongbao/no-image-icon.png"}
-            };
+            return {};
         },
-        mounted: function(){
-            Image.getSize(this.src.uri, (srcWidth, srcHeight) => {
-                console.log("do rong : "+srcWidth+" do cao : "+srcHeight);
-            }, (error) => {
-                console.log(error);
-            })
+        mounted: function () {
+            console.log("in ra thử xem : ");
+            console.log(image1);
         },
-        methods: {
-
-        }
+        methods: {}
     };
 </script>
 <style>

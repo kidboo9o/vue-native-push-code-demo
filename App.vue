@@ -15,7 +15,7 @@
     import RootNavigation from "./views/Root.vue";
     import Reactotron from 'reactotron-react-native';
     Reactotron
-        .configure() // controls connection & communication settings
+        .configure({host: '10.255.231.165'}) // controls connection & communication settings
         .useReactNative() // add all built-in react native plugins
         .connect() // let's connect!
     console.disableYellowBox = true

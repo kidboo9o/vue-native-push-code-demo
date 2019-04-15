@@ -76,13 +76,14 @@
             };
         },
         created: function () {
+
         },
         computed: {
             isLogin: function () {
-//                return function () {
-//                    return true;
-//                };
-                return this.checkLogin;
+                return function () {
+                    return true;
+                };
+//                return this.checkLogin;
             },
             listScreenSave: function () {
                 return this.getListScreenSaved();
@@ -119,6 +120,7 @@
                     'setScreen',
                     'setBackgroundNavbar',
                     'onlyEnableComponent',
+                    'setStyleContainer',
                 ]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
@@ -139,6 +141,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
+                                this.setStyleContainer({backgroundColor: 'transparent'});
                                 this.onlyEnableComponent('navbar');
                                 this.setTitleHeader("Thông báo");
                                 this.setIconHeader({name: 'menu'});
@@ -328,6 +331,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
+                                this.setStyleContainer({backgroundColor: 'transparent'});
                                 this.onlyEnableComponent('navbar');
                                 this.setTitleHeader("Dịch vụ");
                                 this.setIconHeader({name: 'menu'});
@@ -426,6 +430,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
+                                this.setStyleContainer({backgroundColor: 'transparent'});
                                 this.onlyEnableComponent('navbar');
                                 this.setTitleHeader("Tra cứu");
                                 this.setIconHeader({name: 'menu'});
@@ -562,6 +567,7 @@
                                 this.setScreen(name);
                             } else {
                                 this.setName(name);
+                                this.setStyleContainer({backgroundColor: 'transparent'});
                                 this.onlyEnableComponent('navbar');
                                 this.setTitleHeader("Cài đặt");
                                 this.setIconHeader({name: 'menu'});

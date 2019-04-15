@@ -6,7 +6,7 @@
                 backgroundColor: todo.bgColor ? todo.bgColor : 'transparent'
           }"
     >
-       <view class="container">
+       <view class="container" :style="todo.styleContainer">
            <LottieView class="lottie"
                        :ref="spinnerSelected.name"
                        :source="spinnerSelected.src"
@@ -43,6 +43,9 @@
             *           width
             *           height
             *       }
+            *       styleContainer{
+            *       }
+            *
             * }*/
         },
         components: {LottieView},

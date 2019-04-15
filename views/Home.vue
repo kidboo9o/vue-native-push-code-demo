@@ -1,8 +1,8 @@
 <template>
     <nb-container>
         <header-component :navigation="navigation"></header-component>
-        <nb-content :scrollEnabled="getData.container.scroll.status">
-            <component v-if="getData.components.navbar.status" :is="'NavBar'"></component>
+        <nb-content :scrollEnabled="getData.container.scroll.status" :style="getData.container.style">
+            <component v-if="getData.components.navbar.status" :is="'NavBar'" :navigation="navigation"></component>
             <component v-if="getData.components.carousel.status" :is="'CarouselComponent'"></component>
             <component v-if="getData.components.content.status" :is="'Content'"></component>
             <component v-if="getData.components.templatehandleiconfooter.status" :is="'TemplateHandleIconFooter'" ></component>
@@ -52,12 +52,11 @@
             };
         },
         mounted: function () {
-            this.setNavigation(this.navigation);
             this.saveScreen("Home");
         },
         methods: {
             ...mapGetters("screenBaseOnFooter", ["getScreenCurrent"]),
-            ...mapActions("screenBaseOnFooter", ["saveScreen", "setNavigation"]),
+            ...mapActions("screenBaseOnFooter", ["saveScreen"]),
         },
 
 
