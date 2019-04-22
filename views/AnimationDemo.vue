@@ -1,36 +1,38 @@
 <template>
     <view class="container">
-        <image
-                :source="require('../assets/images/img-01.jpg')"
-                :style="{
-                    width: 200,
-                    height: 200
-                }"
-        >
-
-        </image>
+        <nb-text>dsadadadsa</nb-text>
     </view>
 </template>
 <script>
-    import axios from "axios";
-    import { FileSystem } from 'expo';
-    import image1 from "../assets/images/img-01.jpg";
+    import Expo from 'expo';
     export default {
         components: {},
+
         data: function () {
             return {};
         },
-        mounted: function () {
-            console.log("in ra thử xem : ");
-            console.log(image1);
+        created: function () {
+            this.loadSms();
         },
-        methods: {}
+        computed: {},
+        mounted: function () {
+        },
+        methods: {
+            loadSms: async function () {
+                const {status} = await Expo.Permissions.askAsync(Expo.Permissions.SMS);
+                const isAvailable = await Expo.SMS.isAvailableAsync();
+                if (isAvailable) {
+                    const {result} = await Expo.SMS.sendSMSAsync('123456789', 'test1234');
+                }
+
+            }
+        }
     };
 </script>
 <style>
     .container {
         flex: 1;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
     }
 </style>

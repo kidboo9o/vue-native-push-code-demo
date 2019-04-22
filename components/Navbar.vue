@@ -76,10 +76,10 @@
                 return this.getNavbar();
             },
             isLogin: function () {
-                return function(){
-                    return true;
-                }
-//                return this.checkLogin;
+//                return function(){
+//                    return true;
+//                }
+                return this.checkLogin;
             },
             getBackground: function () {
                 let obj = {};
@@ -121,6 +121,7 @@
                     'setDataContent',
                     'onlyEnableComponent',
                     'setStyleContainer',
+                    'setListStep',
                 ]),
             ...mapActions("StoreScreenTemplateIconFooter", ["onlyEnableComponent_TemplateIconFooter", "setTypeShowListInforUser"]),
             ...mapActions("login", ["removeUser"]),
@@ -133,6 +134,7 @@
 
             handleClick: function (text) {
                 let convertStr = LibCustom.convertUTF8(text);
+                let name;
                 switch (convertStr) {
                         /* thong bao */
                     case "thong-bao":
@@ -326,6 +328,9 @@
                         break;
                     case "thong-bao-chung" :
                         if (this.isLogin()) {
+                            name = "ThongBaoChung";
+                            this.setListStep(name);
+                            this.setName(name);
                             this.onlyEnableComponent('content');
                             this.setTitleHeader("Thông báo chung");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
@@ -356,6 +361,7 @@
                                     arrayDataContent.push(temp);
                                 }
                                 this.setDataContent(arrayDataContent);
+                                this.saveScreen(name);
                             }).catch(function (error) {
                                 console.log(error);
                             })
@@ -446,6 +452,16 @@
                         break;
                         /* Dich vu */
                     case "dang-ki-dich-vu":
+                        if (this.isLogin()) {
+                            this.setTypeShowListInforUser("full");
+                            this.onlyEnableComponent_TemplateIconFooter(["listinforuser","registerservice"]);
+                            this.onlyEnableComponent('templatehandleiconfooter');
+                            this.setTitleHeader("Đăng kí dịch vụ");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
                         break;
                     case "gop-y":
                         if (this.isLogin()) {
@@ -461,11 +477,36 @@
                         break;
                         /* Tra cuu */
                     case "thong-tin-phi-quan-ly":
+                    case "phi-dich-vu":
                         if (this.isLogin()) {
                             this.setTypeShowListInforUser("full");
                             this.onlyEnableComponent_TemplateIconFooter(["listinforuser", "bill"]);
                             this.onlyEnableComponent('templatehandleiconfooter');
                             this.setTitleHeader("Thông tin phí quản lý ");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+                        break;
+                    case "hoa-don-dien-nuoc":
+                        if (this.isLogin()) {
+                            this.setTypeShowListInforUser("full");
+                            this.onlyEnableComponent_TemplateIconFooter(["listinforuser", "billelectricandwater"]);
+                            this.onlyEnableComponent('templatehandleiconfooter');
+                            this.setTitleHeader("Hóa đơn điện nước");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+                        break;
+                    case "cac-loai-phi-khac":
+                        if (this.isLogin()) {
+                            this.setTypeShowListInforUser("full");
+                            this.onlyEnableComponent_TemplateIconFooter(["listinforuser", "billanother"]);
+                            this.onlyEnableComponent('templatehandleiconfooter');
+                            this.setTitleHeader("Các loại phí khác");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
                         } else {

@@ -1,5 +1,13 @@
 <template>
     <view class="changepassword">
+        <view v-if="isStatusSuccessLogin || isStatusFailedLogin">
+            <modal :transparent="true" :animationType="'fade'">
+                <SpinnerEffectLottie :todo="todoLoadSuccess" v-if="isStatusSuccessLogin"></SpinnerEffectLottie>
+                <SpinnerEffectLottie :todo="todoLoadFailed" v-if="isStatusFailedLogin"></SpinnerEffectLottie>
+            </modal>
+        </view>
+
+
         <nb-form>
             <nb-item :class="{'mb-20': !isErrorOldPassword}"
                      :style="{
@@ -9,7 +17,7 @@
                         borderRightWidth: 1,
                         borderColor: isErrorOldPassword ? 'red' : 'rgba(0,0,0,0.2)',
                         backgroundColor: 'white',
-                        height: viewScreen(10, 'vh'),
+                        height: viewScreen(8, 'vh'),
                         position: 'relative',
 
                      }"
@@ -30,10 +38,16 @@
             <nb-item v-if="isErrorOldPassword" class="mb-20"
                      :style="{
                             borderBottomWidth: 0,
-                            height: viewScreen(6, 'vh'),
+                            height: viewScreen(5, 'vh'),
+
                          }"
             >
-                <nb-text class="text-danger">{{showTextErrorOldPassword}}</nb-text>
+                <nb-text class="text-danger"
+                         :style="{
+                                    fontStyle: 'italic',
+                                    fontSize: scaleFontSize(10)
+                             }"
+                >{{showTextErrorOldPassword}}</nb-text>
             </nb-item>
             <nb-item :class="{'mb-20': !isErrorNewPassword}"
                      :style="{
@@ -43,7 +57,7 @@
                         borderRightWidth: 1,
                         borderColor: isErrorNewPassword ? 'red' : 'rgba(0,0,0,0.2)',
                         backgroundColor: 'white',
-                        height: viewScreen(10, 'vh'),
+                        height: viewScreen(8, 'vh'),
                         position: 'relative',
 
                      }"
@@ -64,10 +78,15 @@
             <nb-item v-if="isErrorNewPassword" class="mb-20"
                      :style="{
                             borderBottomWidth: 0,
-                            height: viewScreen(6, 'vh'),
+                            height: viewScreen(5, 'vh'),
                          }"
             >
-                <nb-text class="text-danger">{{showTextErrorNewPassword}}</nb-text>
+                <nb-text class="text-danger"
+                         :style="{
+                                    fontStyle: 'italic',
+                                    fontSize: scaleFontSize(10)
+                             }"
+                >{{showTextErrorNewPassword}}</nb-text>
             </nb-item>
 
             <nb-item :class="{'mb-20': !isErrorRepeatNewPassword}"
@@ -78,7 +97,7 @@
                         borderRightWidth: 1,
                         borderColor: isErrorRepeatNewPassword ? 'red' : 'rgba(0,0,0,0.2)',
                         backgroundColor: 'white',
-                        height: viewScreen(10, 'vh'),
+                        height: viewScreen(8, 'vh'),
                         position: 'relative',
 
                      }"
@@ -99,13 +118,19 @@
             <nb-item v-if="isErrorRepeatNewPassword" class="mb-20"
                      :style="{
                             borderBottomWidth: 0,
-                            height: viewScreen(6, 'vh'),
+                            height: viewScreen(5, 'vh'),
                          }"
             >
-                <nb-text class="text-danger">{{showTextErrorRepeatNewPassword}}</nb-text>
+                <nb-text class="text-danger"
+                         :style="{
+                                    fontStyle: 'italic',
+                                    fontSize: scaleFontSize(10)
+                             }"
+                >{{showTextErrorRepeatNewPassword}}</nb-text>
             </nb-item>
 
-            <nb-button iconRight full :style="{height: viewScreen(8, 'vh'), marginLeft: '5%'}" :on-press="sendChangePassword">
+            <nb-button iconRight full :style="{height: viewScreen(8, 'vh'), marginLeft: '5%'}"
+                       :on-press="sendChangePassword">
                 <nb-text class="text-left">ĐỖI MẬT KHẨU</nb-text>
                 <nb-icon class="text-right" active name="arrow-forward"/>
             </nb-button>
@@ -115,6 +140,7 @@
 </template>
 <script>
     import LibCustom from '../library/custom';
+    import SpinnerEffectLottie from "../components/SpinnerEffectLottie.vue";
     import axios from "axios";
     import qs from "qs";
     import {mapGetters, mapActions} from 'vuex';
@@ -125,7 +151,8 @@
         }
     };
     export default {
-        props: {},
+        props: {
+        },
         data: function () {
             return {
                 screen: {
@@ -147,15 +174,38 @@
                 isErrorRepeatNewPassword: false,
                 showTextErrorRepeatNewPassword: '',
 
+                isStatusSuccessLogin: false,
+                isStatusFailedLogin: false,
+                todoLoadSuccess: {
+                    type: 'success1',
+                    bgColor: 'rgba(0,0,0,0.4)',
+                    loop: false,
+                    style: {
+                        width: 100,
+                        height: 100,
+                    }
+                },
+                todoLoadFailed: {
+                    type: 'failed1',
+                    bgColor: 'rgba(0,0,0,0.4)',
+                    loop: false,
+                    style: {
+                        width: 100,
+                        height: 100,
+                    }
+                },
             };
         },
-        components: {},
+        components: {
+            SpinnerEffectLottie
+        },
         computed: {},
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
         },
         methods: {
             ...mapGetters("login", ['getUserName']),
+            ...mapActions("screenBaseOnFooter", ['setScreen']),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -206,32 +256,54 @@
             showRepeatNewPassword: function () {
                 this.isHiddenRepeatNewPassword = !this.isHiddenRepeatNewPassword;
             },
-            sendChangePassword: function(){
-                if(this.oldPassword !== "" && this.newPasswordd !== "" && this.repeatNewPassword !== "" && !this.isErrorOldPassword && !this.isErrorNewPassword && !this.isErrorRepeatNewPassword){
-                    console.log("in ra password new : "+this.newPasswordd);
-                    console.log("in ra repeat password : "+this.repeatNewPassword);
+            sendChangePassword: function () {
+                if (this.oldPassword !== "" && this.newPasswordd !== "" && this.repeatNewPassword !== "" && !this.isErrorOldPassword && !this.isErrorNewPassword && !this.isErrorRepeatNewPassword) {
+                    console.log("in ra password new : " + this.newPasswordd);
+                    console.log("in ra repeat password : " + this.repeatNewPassword);
                     if (this.repeatNewPassword !== this.newPasswordd) {
                         this.isErrorRepeatNewPassword = true;
                         this.showTextErrorRepeatNewPassword = "Mật khẩu mới nhập lại chưa chính xác."
-                    }else{
+                    } else {
                         let username = this.getUserName();
                         let data = {
                             "taiKhoan": username,
                             "matKhauCu": this.oldPassword,
                             "matKhauMoi": this.repeatNewPassword,
-                            "maChungThuc": LibCustom.ma_hoa(username+this.oldPassword+this.repeatNewPassword),
+                            "maChungThuc": LibCustom.ma_hoa(username + this.oldPassword + this.repeatNewPassword),
                         }
                         axios.post(url_change_password, qs.stringify(data), config).then((response) => {
-                            if(response.code === 1){
+                            console.log(response);
+                            if (response.data.code === "1") {
                                 //success
-                            }else if(response.code === -2){
-                                // mat khau cu ko dung
-                                this.isErrorOldPassword = true;
-                                this.showTextErrorOldPassword = response.description;
+                                this.isStatusSuccessLogin = true;
+                                setTimeout(() => {
+                                    this.isStatusSuccessLogin = false;
+                                    this.setScreen("Home");
+                                }, 1000)
+                            } else {
+                                this.isStatusFailedLogin = true;
+                                setTimeout(() => {
+                                    this.isStatusFailedLogin = false;
+                                    this.isErrorOldPassword = true;
+                                    this.showTextErrorOldPassword = response.data.description;
+                                }, 1000);
                             }
                         }).catch((error) => {
 
                         });
+                    }
+                }else{
+                    if (this.oldPassword === "") {
+                        this.isErrorOldPassword = true;
+                        this.showTextErrorOldPassword = "Bạn vui lòng nhập vào mật khẩu cũ.";
+                    }
+                    if (this.newPasswordd === "") {
+                        this.isErrorNewPassword = true;
+                        this.showTextErrorNewPassword = "Bạn vui lòng nhập vào mật khẩu mới."
+                    }
+                    if (this.repeatNewPassword === "") {
+                        this.isErrorRepeatNewPassword = true;
+                        this.showTextErrorRepeatNewPassword = "Bạn vui lòng nhập vào mật khẩu mới."
                     }
                 }
             }

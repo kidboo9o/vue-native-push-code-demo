@@ -311,6 +311,7 @@ export default{
     state: {
         screen: valueDefault,
         listScreenSaved: [],
+        listStep: [],
     },
     getters: {
         getScreenCurrent: function (state) {
@@ -331,6 +332,9 @@ export default{
         getContent: function(state){
             return state.screen.components.content;
         },
+        getListStep: function(state){
+            return state.listStep;
+        }
 
     },
     mutations: {
@@ -461,6 +465,11 @@ export default{
             }else{
                 console.log("du lieu truyen vao khong hop le");
             }
+        },
+        setListStep: function(state, payload){
+            if(typeof payload === "string" && payload !== ""){
+                state.listStep.push(payload);
+            }
         }
 
     },
@@ -510,6 +519,9 @@ export default{
         },
         setStyleContainer: function({commit}, payload){
             commit("setStyleContainer", payload);
+        },
+        setListStep: function({commit}, payload){
+            commit("setListStep", payload);
         }
     }
 }

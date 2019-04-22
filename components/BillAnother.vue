@@ -20,7 +20,7 @@
     import {mapGetters, mapActions} from 'vuex';
     import axios from "axios";
     import qs from "qs";
-    const url_phidichvu = "http://ws.venuscorp.vn/WS_VENUSAPP/VenusCSKH/lay_ds_phidichvu";
+    const url_phikhac = "http://ws.venuscorp.vn/WS_VENUSAPP/VenusCSKH/lay_ds_phikhac";
     const config = {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -37,9 +37,9 @@
                 objApplicationInformation: {
                     title: "THÔNG TIN CHI TIẾT",
                     tableData: [
-                        {id: 0, title: 'Diện tích (m2):', noidung: ''},
-                        {id: 1, title: 'Đơn giá (VND):', noidung: ''},
-                        {id: 2, title: 'Hệ số nhân:', noidung: ''},
+                        {id: 0, title: 'Phí xe đạp (VND):', noidung: ''},
+                        {id: 1, title: 'Phí xe máy (VND):', noidung: ''},
+                        {id: 2, title: 'Phí ô tô (VND):', noidung: ''},
                         {id: 3, title: 'Tổng tiền (VND):', noidung: ''}
                     ],
                     styleTextRowLast: {
@@ -70,13 +70,13 @@
                         nam: year,
                         maChungThuc: LibCustom.ma_hoa(this.getmaCanHoCurrentUser+month+year),
                     };
-                    axios.post(url_phidichvu, qs.stringify(data), config).then((response) => {
+                    axios.post(url_phikhac, qs.stringify(data), config).then((response) => {
                         console.log(response.data);
                        if(response.data.data.length > 0 && response.data.code === "1"){
-                           this.objApplicationInformation.tableData[0].noidung = response.data.data[0].DIENTICH;
-                           this.objApplicationInformation.tableData[1].noidung = response.data.data[0].DONGIA_DIENTICH;
-                           this.objApplicationInformation.tableData[2].noidung = response.data.data[0].HESONHAN;
-                           this.objApplicationInformation.tableData[3].noidung = response.data.data[0].TIEN_DICHVU;
+                           this.objApplicationInformation.tableData[0].noidung = response.data.data[0].TIEN_XEDAP;
+                           this.objApplicationInformation.tableData[1].noidung = response.data.data[0].TIEN_XEMAY;
+                           this.objApplicationInformation.tableData[2].noidung = response.data.data[0].TIEN_OTO;
+                           this.objApplicationInformation.tableData[3].noidung = response.data.data[0].TONG_TIEN;
                            this.setSearch(false);
                        }else{
                            let str = "không có dữ liệu";

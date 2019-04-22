@@ -2,12 +2,13 @@
     <view class="content"
               :style="{
                     width: viewScreen(80, 'vw'),
-                    height: viewScreen(80, 'vh')
+                    height: viewScreen(150, 'vh')
               }">
             <nb-form>
                 <nb-item regular class="mt-3 item"
                          :style="{
                                   borderColor: isNameLabel ? 'blue' : (isErrorMyName ? 'red' : 'grey'),
+                                  height: viewScreen(8, 'vh')
                          }"
                 >
                     <nb-label
@@ -23,7 +24,7 @@
                     <nb-input
                             :style="{
                                  position: 'absolute',
-                                 bottom: 10,
+                                 bottom: 0,
                                  left: 20,
                                  width: '80%',
                                  fontSize: scaleFontSize(14),
@@ -39,17 +40,23 @@
                                 color: '#ed2f2f'
                             }"/>
                 </nb-item>
-                <nb-item v-if="isErrorMyName" class="mt-3"
+                <nb-item v-if="isErrorMyName"
                          :style="{
                             borderBottomWidth: 0,
-                            height: viewScreen(6, 'vh'),
+                            height: viewScreen(5, 'vh')
                          }"
                 >
-                    <nb-text class="text-danger">{{showErrorMyName}}</nb-text>
+                    <nb-text class="text-danger"
+                             :style="{
+                                    fontStyle: 'italic',
+                                    fontSize: scaleFontSize(10)
+                             }"
+                    >{{showErrorMyName}}</nb-text>
                 </nb-item>
                 <nb-item regular class="mt-3 item"
                          :style="{
                                   borderColor: isErrorSDT ? 'red' : (isSDTLabel ? 'blue' : 'grey'),
+                                  height: viewScreen(8, 'vh')
                          }"
                 >
                     <nb-label
@@ -65,7 +72,7 @@
                     <nb-input
                             :style="{
                                  position: 'absolute',
-                                 bottom: 10,
+                                 bottom: 0,
                                  left: 20,
                                  width: '80%',
                                  fontSize: scaleFontSize(14),
@@ -81,15 +88,20 @@
                                 color: '#ed2f2f'
                             }"/>
                 </nb-item>
-                <nb-item v-if="isErrorSDT" class="mt-3"
+                <nb-item v-if="isErrorSDT"
                          :style="{
                             borderBottomWidth: 0,
-                            height: viewScreen(6, 'vh'),
+                            height: viewScreen(5, 'vh')
                          }"
                 >
-                    <nb-text class="text-danger">{{showErrorSDT}}</nb-text>
+                    <nb-text class="text-danger"
+                             :style="{
+                                    fontStyle: 'italic',
+                                    fontSize: scaleFontSize(10)
+                             }"
+                    >{{showErrorSDT}}</nb-text>
                 </nb-item>
-                <nb-item picker regular class="mt-3 pl-3 item" :style="{borderColor: 'grey'}">
+                <nb-item picker regular class="mt-3 pl-3 item" :style="{borderColor: 'grey',height: viewScreen(8, 'vh')}">
                     <nb-picker
                             mode="dropdown"
                             :iosIcon="getIosIcon()"
@@ -116,16 +128,24 @@
                                     fontSize: scaleFontSize(14),
                                     borderWidth: 1,
                                     borderColor: isNoidungLabel ? 'blue' : (isErrorNoidung ? 'red' : 'grey'),
+
                                 }" />
-                <nb-item v-if="isErrorNoidung" class="mt-3"
+                <nb-item v-if="isErrorNoidung"
                          :style="{
                             borderBottomWidth: 0,
-                            height: viewScreen(6, 'vh'),
+                            height: viewScreen(5, 'vh'),
+                            fontStyle: 'italic',
+                            fontSize: scaleFontSize(8)
                          }"
                 >
-                    <nb-text class="text-danger">{{showErrorNoiDung}}</nb-text>
+                    <nb-text class="text-danger"
+                             :style="{
+                                    fontStyle: 'italic',
+                                    fontSize: scaleFontSize(10)
+                             }"
+                    >{{showErrorNoiDung}}</nb-text>
                 </nb-item>
-                <nb-button full iconRight light :on-press="sendFeedback" class="button-bg mt-3">
+                <nb-button full iconRight light :on-press="sendFeedback" class="button-bg mt-3" :style="{height: viewScreen(8, 'vh')}">
                     <nb-text class="button-feedback button-title" :style="{fontSize: scaleFontSize(14)}">GỬI ĐĂNG KÝ
                     </nb-text>
                     <nb-icon class="button-feedback button-icon" active name="arrow-forward"/>
@@ -296,6 +316,8 @@
             },
             handleFocusTextArea: function () {
                 this.isNoidungLabel = true;
+                this.isErrorNoidung = false;
+                this.showErrorNoiDung = "";
                 if (this.myName === "") {
                     this.isNameLabel = false;
                     this.isErrorMyName = true;

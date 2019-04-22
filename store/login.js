@@ -1,5 +1,6 @@
 import {AsyncStorage} from 'react-native';
 import localStorage from 'react-native-sync-localstorage'
+import localDeviceStorage from "../library/localStorage";
 export default{
     namespaced: true,
     state: {
@@ -30,6 +31,11 @@ export default{
         saveInforUser: function(state, payload){
             state.isLogin = true;
             state.user = payload;
+            localDeviceStorage.checkFileOrDirectoryExists("user").then((value) => {
+                if(value.exists === false){
+                    localDeviceStorage.writeFile("user", payload);
+                }
+            })
             return localStorage.setItem("user", payload);
         },
         removeUser: function(state){

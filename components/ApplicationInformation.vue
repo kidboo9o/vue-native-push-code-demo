@@ -1,5 +1,5 @@
 <template>
-    <view>
+    <view :style="{width: viewScreen(100, 'vw')}">
         <view class="header"
               :style="{
                     width: viewScreen(100, 'vw'),
@@ -7,47 +7,53 @@
                     borderColor: 'rgba(0,0,0,0.8)',
                     borderBottomWidth: 0.5
                 }">
-            <nb-text class="text-light">ỨNG DỤNG CHĂM SÓC KHÁCH HÀNG</nb-text>
+            <nb-text class="text-light">{{getListData.title}}</nb-text>
         </view>
-        <view class="col-2" v-for="(todo,index) in data" :key="todo.id"
+        <view class="row" v-for="(todo,index) in getListData.tableData" :key="todo.id"
               :style="{
                     borderColor: 'rgba(0,0,0,0.8)',
-                    borderBottomWidth: 0.5
+                    borderBottomWidth: 0.5,
+
               }"
         >
-            <nb-text>{{todo.title}}</nb-text>
-            <nb-text>{{todo.noidung}}</nb-text>
+            <nb-text v-if="lastIndex === index" :style="objApplicationInformation.styleTextRowLast">{{todo.title}}</nb-text>
+            <nb-text v-else>{{todo.title}}</nb-text>
+            <nb-text v-if="lastIndex === index" :style="objApplicationInformation.styleTextRowLast">{{todo.noidung}}</nb-text>
+            <nb-text v-else>{{todo.noidung}}</nb-text>
         </view>
-        <view class="body"></view>
     </view>
 </template>
 <script>
     import LibCustom from '../library/custom';
     export default {
-        props: {},
+        props: {
+            objApplicationInformation: {
+                type: Object,
+            }
+        },
         data: function () {
             return {
                 screen: {
                     width: 0,
                     height: 0,
                 },
-                data: [
-                    {id: 0, title: "Quyền sở hũu:", noidung: "Công ty Sao Kim"},
-                    {id: 1, title: "Nhà phát triển:", noidung: "Venuscorp"},
-                    {id: 2, title: "Email liên hệ:", noidung: "info@venuscorp.vn"},
-                    {id: 3, title: "Phiên bản ứng dụng:", noidung: "1.2"},
-
-
-                ]
+                lastIndex: -1,
             };
         },
         components: {
 
         },
         computed: {
+            getListData: function(){
+                return this.objApplicationInformation;
+            }
         },
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
+            if(this.objApplicationInformation.styleTextRowLast){
+                this.lastIndex = this.objApplicationInformation.tableData.length-1;
+            }
+
         },
         methods: {
             scaleFontSize: function (size) {
@@ -61,6 +67,7 @@
     }
 </script>
 <style>
+
     .header{
         background-color: rgba(0,0,0,0.08);
         flex: 1;
@@ -72,13 +79,13 @@
     .text-light{
         color: rgba(0,0,0,0.4);
     }
-    .col-2{
+    .row{
         flex: 1;
         flex-direction: row;
         justify-content: space-between;
-        padding-top: 20;
-        padding-right: 20;
-        padding-bottom: 20;
+        padding-top: 15;
+        padding-right: 15;
+        padding-bottom: 15;
         margin-left: 20;
     }
 </style>

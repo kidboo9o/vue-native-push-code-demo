@@ -21,7 +21,20 @@ export default{
                },
                bill: {
                    status: false,
-               }
+               },
+               billelectricandwater: {
+                   status: false,
+               },
+               billanother: {
+                   status: false,
+               },
+               registerservice: {
+                   status: false,
+               },
+               notifydetail: {
+                   status: false,
+                   data: null,
+               },
            }
        }
     },
@@ -31,7 +44,7 @@ export default{
         },
         getTypeListInforUser: function(state){
             return state.screen.components.listinforuser.typeShow;
-        }
+        },
     },
     mutations: {
         onlyEnableComponent_TemplateIconFooter: function(state, payload){
@@ -66,6 +79,11 @@ export default{
             }else{
                 console.log("gia tri ban nhap vao khong hop le");
             }
+        },
+        setDataNotifyDetail: function(state, payload){
+            if(typeof payload === "object" && !Array.isArray(payload)){
+                state.screen.components.notifydetail.data = payload;
+            }
         }
 
     },
@@ -75,6 +93,9 @@ export default{
         },
         setTypeShowListInforUser: function({commit}, payload){
             commit("setTypeShowListInforUser", payload);
+        },
+        setDataNotifyDetail: function({commit}, payload){
+            commit("setDataNotifyDetail", payload);
         }
     }
 }

@@ -159,16 +159,16 @@
         },
         computed: {
             getInforUser: function () {
-                return this.dataModel;
-//                return this.getUser().data;
+//                return this.dataModel;
+                return this.getUser().data;
             },
             getAmount: function () {
-                return this.dataModel.length;
-//                return this.getUser().data.length;
+//                return this.dataModel.length;
+                return this.getUser().data.length;
             },
             getUserDefault: function () {
-                return this.dataModel;
-//                return this.getIndexSelected();
+//                return this.dataModel;
+                return this.getIndexSelected();
             },
             getType: function () {
                 return this.getTypeListInforUser();

@@ -5,7 +5,7 @@
             <component v-if="getData.components.navbar.status" :is="'NavBar'" :navigation="navigation"></component>
             <component v-if="getData.components.carousel.status" :is="'CarouselComponent'"></component>
             <component v-if="getData.components.content.status" :is="'Content'"></component>
-            <component v-if="getData.components.templatehandleiconfooter.status" :is="'TemplateHandleIconFooter'" ></component>
+            <component v-if="getData.components.templatehandleiconfooter.status" :is="'TemplateHandleIconFooter'" :navigation="navigation" ></component>
         </nb-content>
         <footer-component :navigation="navigation"></footer-component>
     </nb-container>
@@ -52,11 +52,12 @@
             };
         },
         mounted: function () {
+            this.setListStep("Home");
             this.saveScreen("Home");
         },
         methods: {
             ...mapGetters("screenBaseOnFooter", ["getScreenCurrent"]),
-            ...mapActions("screenBaseOnFooter", ["saveScreen"]),
+            ...mapActions("screenBaseOnFooter", ["saveScreen", "setListStep"]),
         },
 
 

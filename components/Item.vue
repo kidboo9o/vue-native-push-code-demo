@@ -19,7 +19,11 @@
             }
         },
 
-        computed: {},
+        computed: {
+            isLogin: function () {
+                return this.checkLogin;
+            },
+        },
         data: function () {
             return {};
         },
@@ -27,7 +31,19 @@
 
         },
         methods: {
-            ...mapActions("login", ['removeUser']),
+            ...mapActions("login", ['removeUser',]),
+            ...mapGetters("login", ['checkLogin']),
+            ...mapActions("screenBaseOnFooter",
+                [
+                    'setTitleHeader',
+                    'setIconHeader',
+                    'setScreen',
+                    'onlyEnableComponent',
+                    'setStyleContainer',
+                    'setRouteHeader'
+                ]),
+            ...mapActions("StoreScreenTemplateIconFooter", ["onlyEnableComponent_TemplateIconFooter", "setTypeShowListInforUser"]),
+
             handleClick: function () {
                 if(this.todo.route){
                     this.navigation.navigate(this.todo.route);
@@ -35,7 +51,30 @@
                     switch(this.todo.name){
                         case "logout":
                             this.removeUser();
-                            this.navigation.navigate("Home");
+                            this.setScreen("Home");
+                            this.navigation.navigate("DrawerClose");
+                            break;
+                        case "thong-tin-ung-dung":
+                            this.setStyleContainer({backgroundColor: 'rgba(0,0,0,0.05)'});
+                            this.onlyEnableComponent_TemplateIconFooter("applicationinformation");
+                            this.onlyEnableComponent('templatehandleiconfooter');
+                            this.setTitleHeader("Thông tin ứng dụng");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                            this.navigation.navigate("DrawerClose");
+                            break;
+                        case "change-password":
+                            if (this.isLogin()) {
+                                this.setStyleContainer({backgroundColor: 'rgba(0,0,0,0.05)'});
+                                this.onlyEnableComponent_TemplateIconFooter("changepassword");
+                                this.onlyEnableComponent('templatehandleiconfooter');
+                                this.setTitleHeader("Thay đỗi mật khẩu");
+                                this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                                this.setRouteHeader("back");
+                                this.navigation.navigate("DrawerClose");
+                            } else {
+                                this.navigation.navigate("Login");
+                            }
                             break;
                     }
                 }

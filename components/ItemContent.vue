@@ -4,7 +4,8 @@
             :onSwipeRight="() => onSwipeRight(todo)"
             :config="config"
     >
-        <touchable-without-feedback :on-long-press="() => handleClick(getTodo)">
+        <touchable-without-feedback :on-long-press="() => handleClick(getTodo)"
+                                    :on-press="() => handleClickShowDetailContent(getTodo)">
             <view class="row" :style="styleGeneralListItem">
                 <view v-if="getTodo.allowEditable && getTodo.editable" class="col-2 text-center">
                     <nb-button danger
@@ -47,7 +48,9 @@
                             </nb-text>
                         </view>
                         <view class="container-truncate">
-                            <nb-text class="time" :style="{fontSize: scaleFontSize(10), fontStyle: 'italic'}">{{getTodo.data.time}}</nb-text>
+                            <nb-text class="time" :style="{fontSize: scaleFontSize(10), fontStyle: 'italic'}">
+                                {{getTodo.data.time}}
+                            </nb-text>
                         </view>
                     </view>
                 </view>
@@ -60,6 +63,7 @@
     import LibCustom from '../library/custom';
     import {Dimensions, Animated, Easing, Platform, Image} from 'react-native';
     import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+    import {mapGetters, mapActions} from 'vuex';
     export default {
         props: {
             todo: {
@@ -95,8 +99,8 @@
             GestureRecognizer,
         },
         computed: {
-            getTodo: function(){
-                if(this.todo.image.src.uri){
+            getTodo: function () {
+                if (this.todo.image.src.uri) {
                     Image.getSize(this.todo.image.src.uri, (srcWidth, srcHeight) => {
                         let temp = srcWidth / srcHeight;
                         this.todo.image.width = LibCustom.viewScreen(30, 'vw');
@@ -104,7 +108,7 @@
                     }, (error) => {
                         console.log(error);
                     })
-                }else{
+                } else {
                     let image;
                     image = LibCustom.getSizeImage(this.todo.image.src);
                     if (image) {
@@ -121,6 +125,18 @@
 
         },
         methods: {
+            ...mapActions("screenBaseOnFooter",
+                [
+                    'setTitleHeader',
+                    'setIconHeader',
+                    'setRouteHeader',
+                    'onlyEnableComponent',
+                    'setName',
+                    'saveScreen',
+                    'setScreen',
+                    'setListStep'
+                ]),
+            ...mapActions("StoreScreenTemplateIconFooter", ["onlyEnableComponent_TemplateIconFooter", "setDataNotifyDetail"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -142,6 +158,18 @@
                 if (todo.allowEditable) {
                     todo.editable = true;
                 }
+            },
+            handleClickShowDetailContent(todo){
+                let name = "ChiTietThongBao";
+                this.setListStep(name);
+                this.setName(name);
+                this.onlyEnableComponent_TemplateIconFooter("notifydetail");
+                this.onlyEnableComponent('templatehandleiconfooter');
+                this.setTitleHeader("Chi tiết thông báo");
+                this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                this.setRouteHeader("back");
+                this.setDataNotifyDetail(todo);
+                this.saveScreen(name);
             }
         },
 

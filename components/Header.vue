@@ -42,8 +42,8 @@
             this.screen = LibCustom.getSizeScreen();
         },
         methods: {
-            ...mapGetters("screenBaseOnFooter", ['getHeader','getNameScreenCurrent']),
-            ...mapActions("screenBaseOnFooter", ['setScreen']),
+            ...mapGetters("screenBaseOnFooter", ['getHeader','getNameScreenCurrent', 'getListStep']),
+            ...mapActions("screenBaseOnFooter", ['setScreen', 'setListStep']),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -54,7 +54,29 @@
                 switch(route){
                     case "menu" :  this.navigation.navigate("DrawerOpen");
                     break;
-                    case "back" :  this.setScreen(this.getNameScreenCurrent());
+                    case "back" :
+                        let arr = this.getListStep();
+                        let size = arr.length;
+                        console.log(arr);
+                        switch(this.getNameScreenCurrent()){
+                            case "ThongBaoChung": this.setScreen("ThongBao"); this.setListStep("ThongBao"); break;
+                            case "ChiTietThongBao":
+                                for(let i = size-1; i >=0 ; i--){
+                                    if(arr[i] === "ChiTietThongBao"){
+                                        if(arr[i-1] === "ChiTietThongBao"){
+                                            continue;
+                                        }else{
+                                            this.setScreen(arr[i-1]);
+                                            this.setListStep(arr[i-1]);
+                                            break;
+                                        }
+
+                                    }
+                                }
+                                break;
+                            default: this.setScreen(this.getNameScreenCurrent());break;
+                        }
+
                     break;
                 }
 
@@ -67,6 +89,7 @@
 <style>
     .header{
         background-color: #3868d9;
+        padding-top: 2%;
     }
     .text-color{
         color: white;

@@ -3,7 +3,7 @@
           :style="{
                 width: screen.width,
                 height: screen.height,
-                backgroundColor: todo.bgColor ? todo.bgColor : 'transparent'
+                backgroundColor: todo.bgColor ? todo.bgColor : 'transparent',
           }"
     >
        <view class="container" :style="todo.styleContainer">
@@ -29,6 +29,9 @@
     import success1 from '../assets/lottie/success1.json'; // frame 400 ms
     import success2 from '../assets/lottie/success2.json'; // frame 8410 ms
     import failed1 from '../assets/lottie/failed1.json'; // frame 890ms
+    import fingerGuide1 from "../assets/lottie/finger-guide1.json" // frame 510ms
+    import fingerGuide2 from "../assets/lottie/finger-guide2.json"
+    import maintaince1 from "../assets/lottie/maintaince1.json"; // frame 210ms
     export default {
         props: {
             todo: {
@@ -38,7 +41,13 @@
             *       type: 'spinner1'
             *       loop: 'true',
             *       speed: 1,
+            *       toado: {
+            *           x:
+            *           y:
+            *       }
             *       bgColor: color,
+            *       start:
+            *       end:
             *       style: {
             *           width
             *           height
@@ -97,7 +106,21 @@
                         name: 'failed1',
                         src: require('../assets/lottie/failed1.json'),
                     },
-
+                    {
+                        id: 8,
+                        name: 'fingerGuide1',
+                        src: require('../assets/lottie/finger-guide1.json'),
+                    },
+                    {
+                        id: 9,
+                        name: 'fingerGuide2',
+                        src: require('../assets/lottie/finger-guide2.json'),
+                    },
+                    {
+                        id: 10,
+                        name: 'maintaince1',
+                        src: require('../assets/lottie/maintaince1.json'),
+                    },
                 ],
                 spinnerSelected: {},
             };

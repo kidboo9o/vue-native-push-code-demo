@@ -2,7 +2,6 @@ import {Dimensions, Animated, Easing, Platform, Image} from 'react-native';
 import md5 from "md5";
 const serect_key = "2b7867ba7d4c05c20569705d5538fb5b";
 export default{
-
     getSizeScreen: function () {
         let obj = {
             width: 0,

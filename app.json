@@ -4,6 +4,9 @@
     "slug": "app-demo-of-au",
     "sdkVersion": "27.0.0",
     "orientation": "portrait",
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
     "ios": {
       "bundleIdentifier": "com.venus.appvenus"
     },

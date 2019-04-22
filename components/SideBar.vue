@@ -118,6 +118,7 @@
                     },
                     {
                         id: 1,
+                        name: "thong-tin-ung-dung",
                         style: styleGeneralListItem,
                         left: {
                             style: {},
@@ -161,6 +162,7 @@
                     {
                         id: 0,
                         style: styleGeneralListItem,
+                        name: "change-password",
                         left: {
                             style: {},
                             data: [

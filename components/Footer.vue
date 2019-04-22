@@ -80,10 +80,10 @@
         },
         computed: {
             isLogin: function () {
-                return function () {
-                    return true;
-                };
-//                return this.checkLogin;
+//                return function () {
+//                    return true;
+//                };
+                return this.checkLogin;
             },
             listScreenSave: function () {
                 return this.getListScreenSaved();
@@ -121,6 +121,7 @@
                     'setBackgroundNavbar',
                     'onlyEnableComponent',
                     'setStyleContainer',
+                    'setListStep',
                 ]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
@@ -132,10 +133,13 @@
                 let rowData, styleNavbar, name;
                 switch (key) {
                     case 0 :
-                        this.setScreen("Home");
+                        name = "Home";
+                        this.setListStep(name);
+                        this.setScreen(name);
                         break;
                     case 1 :
                         name = "ThongBao";
+                        this.setListStep(name);
                         if (this.isLogin()) {
                             if (this.listScreenSave.indexOf(name) !== -1) {
                                 this.setScreen(name);
@@ -326,6 +330,7 @@
                         break;
                     case 2 :
                         name = "DichVu";
+                        this.setListStep(name);
                         if (this.isLogin()) {
                             if (this.listScreenSave.indexOf(name) !== -1) {
                                 this.setScreen(name);
@@ -425,6 +430,7 @@
                         break;
                     case 3 :
                         name = "TraCuu";
+                        this.setListStep(name);
                         if (this.isLogin()) {
                             if (this.listScreenSave.indexOf(name) !== -1) {
                                 this.setScreen(name);
@@ -562,6 +568,7 @@
                         break;
                     case 4 :
                         name = "CaiDat";
+                        this.setListStep(name);
                         if (this.isLogin()) {
                             if (this.listScreenSave.indexOf(name) !== -1) {
                                 this.setScreen(name);

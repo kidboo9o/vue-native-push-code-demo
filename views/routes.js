@@ -41,7 +41,7 @@ const Drawer = DrawerNavigator(
         },
     },
     {
-        initialRouteName: "Home",
+        initialRouteName: "AnimationDemo",
         contentOptions: {
             activeTintColor: "#e91e63"
         },
