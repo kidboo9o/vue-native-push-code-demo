@@ -72,5 +72,10 @@ export default{
             diff.push(k);
         }
         return diff;
+    },
+    searchWebsiteToString: function(str){
+        let regexTemplate = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/g;
+        let result = str.match(regexTemplate);
+        return result;
     }
 }

@@ -89,7 +89,6 @@
 <style>
     .header{
         background-color: #3868d9;
-        padding-top: 2%;
     }
     .text-color{
         color: white;

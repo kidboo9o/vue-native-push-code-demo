@@ -373,7 +373,7 @@
         },
         methods: {
             ...mapGetters("getDate", ["getShowDate", "getShowDateTime", "getDate", "getTime"]),
-            ...mapActions("getDate", ["setShowDate", "setShowDateTime"]),
+            ...mapActions("getDate", ["setShowDate", "setShowDateTime", "setDate", "setTime"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -587,6 +587,10 @@
                 }
             }
         },
+        beforeDestroy: function(){
+            this.setDate('');
+            this.setTime('');
+        }
     }
 </script>
 <style>

@@ -1,15 +1,7 @@
 rootProject.name = 'firstOne'
-include ':react-native-image-base64'
-project(':react-native-image-base64').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-base64/android')
-include ':rn-fetch-blob'
-project(':rn-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/rn-fetch-blob/android')
 include ':react-native-linear-gradient'
 project(':react-native-linear-gradient').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-linear-gradient/android')
 include ':lottie-react-native'
 project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
-include ':react-native-blurry'
-project(':react-native-blurry').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-blurry/android')
-include ':react-native-blur'
-project(':react-native-blur').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-blur/android')
 
 include ':app'

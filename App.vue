@@ -126,13 +126,9 @@
                     if(value.exists === true){
                         localStorage.readFile(name).then((ObjInforUser) => {
                             if(ObjInforUser){
-                                console.log(typeof JSON.parse(ObjInforUser));
                                 this.saveInforUser(JSON.parse(ObjInforUser));
                             }
                         });
-
-
-
                     }else{
                         console.log("chưa có file user được ghi vào local");
                     }

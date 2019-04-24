@@ -145,6 +145,12 @@
                              }"
                     >{{showErrorNoiDung}}</nb-text>
                 </nb-item>
+                <nb-button :on-press="takeSnapShop" class="mt-3" :style="{backgroundColor: '#3868D9'}"><nb-text>Chụp ảnh</nb-text></nb-button>
+                <view v-if="getShowCamera">
+                    <modal :transparent="true" :animationType="'slide'">
+                        <camera-component></camera-component>
+                    </modal>
+                </view>
                 <nb-button full iconRight light :on-press="sendFeedback" class="button-bg mt-3" :style="{height: viewScreen(8, 'vh')}">
                     <nb-text class="button-feedback button-title" :style="{fontSize: scaleFontSize(14)}">GỬI ĐĂNG KÝ
                     </nb-text>
@@ -156,12 +162,14 @@
         </view>
 </template>
 <script>
+    import storeCamera from "../store/storeCamera";
     import {mapGetters, mapActions} from 'vuex';
     import LibCustom from '../library/custom';
     import axios from "axios";
     import React from "react";
     import {Picker, Icon} from "native-base";
     import qs from "qs";
+    import CameraComponent from "./Camera.vue";
     const url_lay_ds_loai_dv = "http://ws.venuscorp.vn/WS_VENUSAPP/VenusCSKH/lay_ds_loaidichvu";
     const url_send_feedback = "http://ws.venuscorp.vn/WS_VENUSAPP/VenusCSKH/gui_phanAnhGopY";
     const config = {
@@ -170,7 +178,11 @@
         }
     };
     export default {
-        props: {},
+        props: {
+            navigation: {
+                type: Object
+            }
+        },
         data: function () {
             return {
                 screen: {
@@ -197,11 +209,20 @@
 
             };
         },
+        created: function(){
+            if(!this.$store._modulesNamespaceMap['storeCamera/']){
+                this.$store.registerModule('storeCamera', storeCamera);
+            }
+        },
         components: {
+            CameraComponent
         },
         computed: {
             getUserSelected: function(){
                 return this.getIndexSelected();
+            },
+            getShowCamera: function(){
+                return this.getShow();
             }
         },
         mounted: function () {
@@ -216,6 +237,8 @@
         },
         methods: {
             ...mapGetters("login", ['getIndexSelected']),
+            ...mapGetters("storeCamera", ['getShow']),
+            ...mapActions("storeCamera", ["setShow"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -337,9 +360,16 @@
             handleChangeValueNoiDung: function () {
 
             },
-
             onValueChange: function(value){
                 this.defaultLoaiDV = value;
+            },
+            takeSnapShop: function(){
+                this.setShow(true);
+            }
+        },
+        beforeDestroy: function(){
+            if(!this.$store._modulesNamespaceMap['storeCamera/']){
+                this.$store.unregisterModule('storeCamera', storeCamera);
             }
         }
     }

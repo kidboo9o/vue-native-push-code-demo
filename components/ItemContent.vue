@@ -117,7 +117,6 @@
                         this.todo.image.height = this.todo.image.width / temp;
                     }
                 }
-
                 return this.todo;
             }
         },

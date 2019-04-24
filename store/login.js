@@ -1,6 +1,7 @@
 import {AsyncStorage} from 'react-native';
 import localStorage from 'react-native-sync-localstorage'
 import localDeviceStorage from "../library/localStorage";
+const localFile = "user";
 export default{
     namespaced: true,
     state: {
@@ -13,7 +14,7 @@ export default{
             return state.isLogin;
         },
         getUserName: function(state){
-            let user = localStorage.getItem("user");
+            let user = localStorage.getItem(localFile);
             if(user.data.length > 0){
                 if(typeof user.data[0].username){
                     return user.data[0].username;
@@ -31,17 +32,22 @@ export default{
         saveInforUser: function(state, payload){
             state.isLogin = true;
             state.user = payload;
-            localDeviceStorage.checkFileOrDirectoryExists("user").then((value) => {
+            localDeviceStorage.checkFileOrDirectoryExists(localFile).then((value) => {
                 if(value.exists === false){
-                    localDeviceStorage.writeFile("user", payload);
+                    localDeviceStorage.writeFile(localFile, payload);
                 }
             })
-            return localStorage.setItem("user", payload);
+            return localStorage.setItem(localFile, payload);
         },
         removeUser: function(state){
             state.isLogin = false;
             state.user = {};
-            return localStorage.removeItem("user");
+            localDeviceStorage.checkFileOrDirectoryExists(localFile).then((value) => {
+                if(value.exists === true && value.isDirectory === false){
+                    localDeviceStorage.removeFile(localFile);
+                }
+            })
+            return localStorage.removeItem(localFile);
         },
         setIndex: function(state, payload){
             if(typeof payload === "number" && payload >= 0){

@@ -1,5 +1,5 @@
 <template>
-    <nb-container>
+    <nb-container class="mt-5">
         <header-component :navigation="navigation"></header-component>
         <nb-content :scrollEnabled="getData.container.scroll.status" :style="getData.container.style">
             <component v-if="getData.components.navbar.status" :is="'NavBar'" :navigation="navigation"></component>
@@ -64,4 +64,7 @@
     };
 </script>
 <style>
+    .mt-5{
+        margin-top: 10;
+    }
 </style>

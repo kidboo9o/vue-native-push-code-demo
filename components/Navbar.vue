@@ -35,7 +35,7 @@
 </template>
 <script>
     import React, {Component} from 'react';
-    import {Dimensions, Animated, Easing} from 'react-native'
+    import {Dimensions, Animated, Easing, AppRegistry, NetInfo, Text, View} from 'react-native';
     import AutoHeightImage from 'react-native-auto-height-image';
     import {Constants, MapView, Permissions, Location} from "expo";
     import LibCustom from '../library/custom';
@@ -52,6 +52,7 @@
             'Content-Type': 'application/x-www-form-urlencoded',
         }
     };
+    import localDeviceStorage from "../library/localStorage";
     export default {
         props: {
             navigation:{
@@ -60,6 +61,7 @@
         },
         data: function () {
             return {
+                isConnected: null,
                 screen: {
                     width: 0,
                     height: 0,
@@ -103,9 +105,18 @@
             if(!this.$store._modulesNamespaceMap['StoreScreenTemplateIconFooter/']){
                 this.$store.registerModule('StoreScreenTemplateIconFooter', StoreScreenTemplateIconFooter);
             }
+            NetInfo.isConnected.addEventListener(
+                'connectionChange',
+                this._handleConnectivityChange
+            );
+            NetInfo.isConnected.fetch().done(
+                (isConnected) => {
+                    this.isConnected = isConnected;
+                }
+            );
         },
         methods: {
-            ...mapGetters("screenBaseOnFooter", ["getNavbar", "getListScreenSaved"]),
+            ...mapGetters("screenBaseOnFooter", ["getNavbar", "getListScreenSaved", "getScreenCurrent"]),
             ...mapGetters("login", ['checkLogin', 'getUserName']),
             ...mapActions("screenBaseOnFooter",
                 [
@@ -122,9 +133,13 @@
                     'onlyEnableComponent',
                     'setStyleContainer',
                     'setListStep',
+                    'setScreenByLocalFile'
                 ]),
             ...mapActions("StoreScreenTemplateIconFooter", ["onlyEnableComponent_TemplateIconFooter", "setTypeShowListInforUser"]),
             ...mapActions("login", ["removeUser"]),
+            _handleConnectivityChange: function(isConnected){
+                this.isConnected = isConnected;
+            },
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -335,36 +350,56 @@
                             this.setTitleHeader("Thông báo chung");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
-                            let data = {
-                                username: this.getUserName(),
-                                maChungThuc: LibCustom.ma_hoa(this.getUserName()),
-                            };
-                            axios.post(urlThongBaoChung, qs.stringify(data), config).then((response) => {
-                                let arrayDataContent = [];
-                                let listData = response.data.data;
-                                for (let i = 0, size = listData.length; i < size; i++) {
-                                    let temp = {
-                                        id: i,
-                                        editable: false,
-                                        allowEditable: true,
-                                        image: {
-                                            src: {uri: listData[i].link_hinh},
-                                            width: 0,
-                                            height: 0,
-                                        },
-                                        data: {
-                                            title: listData[i].tieude,
-                                            description: listData[i].noidung,
-                                            time: moment(listData[i].ngay_tao).fromNow(),
+                            if(this.isConnected){ // Online
+                                let data = {
+                                    username: this.getUserName(),
+                                    maChungThuc: LibCustom.ma_hoa(this.getUserName()),
+                                };
+                                axios.post(urlThongBaoChung, qs.stringify(data), config).then((response) => {
+                                    let arrayDataContent = [];
+                                    let listData = response.data.data;
+                                    for (let i = 0, size = listData.length; i < size; i++) {
+                                        let temp = {
+                                            id: i,
+                                            editable: false,
+                                            allowEditable: true,
+                                            image: {
+                                                src: {uri: listData[i].link_hinh},
+                                                width: 0,
+                                                height: 0,
+                                            },
+                                            data: {
+                                                title: listData[i].tieude,
+                                                description: listData[i].noidung,
+                                                time: moment(listData[i].ngay_tao).fromNow(),
+                                            }
+                                        };
+                                        arrayDataContent.push(temp);
+                                    }
+                                    this.setDataContent(arrayDataContent);
+                                    this.saveScreen(name);
+                                    let temp = this.getScreenCurrent();
+                                    console.log("in ra du lieu thong bao chung : ");
+                                    console.log(temp);
+                                    localDeviceStorage.writeFile(name, temp);
+                                }).catch(function (error) {
+                                    console.log(error);
+                                })
+                            }else{ // Offline
+                                if (this.listScreenSave.indexOf(name) !== -1) {
+                                    this.setScreen(name);
+                                }else{
+                                    localDeviceStorage.checkFileOrDirectoryExists(name).then((value) => {
+                                        if(value.exists){
+                                            localDeviceStorage.readFile(name).then( (objData) => {
+                                                this.setScreenByLocalFile(objData);
+                                            })
+                                        }else{
+                                            console.log("không tồn tại file "+name+" ở local");
                                         }
-                                    };
-                                    arrayDataContent.push(temp);
+                                    })
                                 }
-                                this.setDataContent(arrayDataContent);
-                                this.saveScreen(name);
-                            }).catch(function (error) {
-                                console.log(error);
-                            })
+                            }
 
                         } else {
                             this.navigation.navigate("Login");
@@ -561,8 +596,12 @@
                 }
             }
         },
-
-
+        beforeDestroy: function() {
+            NetInfo.isConnected.removeEventListener(
+                'connectionChange',
+                this._handleConnectivityChange
+            );
+        }
     };
 </script>
 <style>

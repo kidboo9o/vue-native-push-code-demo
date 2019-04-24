@@ -3,7 +3,7 @@
             width: viewScreen(100, 'vw'),
             height: viewScreen(100, 'vh'),
             justifyContent: 'center',
-            backgroundColor: 'rgba(0,0,0,0.5)'
+            backgroundColor: 'rgba(0,0,0,0.8)'
     }">
         <view>
             <date-time-picker

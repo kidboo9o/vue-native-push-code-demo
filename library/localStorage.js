@@ -1,8 +1,14 @@
 import {FileSystem} from 'expo';
 const rootPath = FileSystem.documentDirectory;
+const cachePath = FileSystem.cacheDirectory;
 export default{
-    checkFileOrDirectoryExists: function (name) {
-        return FileSystem.getInfoAsync(rootPath + "/" + name);
+    checkFileOrDirectoryExists: function (name, type = "root") {
+        if (type === "cache") {
+            return FileSystem.getInfoAsync(cachePath + "/" + name);
+        } else if (type === "root") {
+            return FileSystem.getInfoAsync(rootPath + "/" + name);
+        }
+
     },
     readFile: function (name, type = "utf8", position = 0, length = 0) {
         let options = {};
@@ -31,5 +37,44 @@ export default{
             FileSystem.writeAsStringAsync(rootPath + "/" + name, contents, options);
         }
 
+    },
+    removeFile: function (name) {
+        return FileSystem.deleteAsync(rootPath + "/" + name);
+    },
+    createDirectory: function (name, type = "cache", options) {
+        if (type === "cache") {
+            FileSystem.makeDirectoryAsync(cachePath + "/" + name, options);
+        } else if (type === "root") {
+            FileSystem.makeDirectoryAsync(rootPath + "/" + name, options);
+        }
+
+    },
+    saveFileImage: function (urlDownload, name, type = "cache") {
+        if (type === "cache") {
+            FileSystem.downloadAsync(urlDownload, cachePath + "/" + name)
+                .then(({uri}) => {
+                    console.log('Finished downloading to ', uri);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else if (type === "root") {
+            FileSystem.downloadAsync(urlDownload, rootPath + "/" + name)
+                .then(({uri}) => {
+                    console.log('Finished downloading to ', uri);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    },
+    getPathFileImage: function (name, type = "cache") {
+        let result = "";
+        if (type === "cache") {
+            result = cachePath + "/" + name;
+        } else if (type === "root") {
+            result = rootPath + "/" + name;
+        }
+        return result;
     }
 }

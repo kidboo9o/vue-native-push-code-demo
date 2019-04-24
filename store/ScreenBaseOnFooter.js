@@ -1,5 +1,5 @@
 import {AsyncStorage} from 'react-native';
-import localStorage from 'react-native-sync-localstorage'
+import localStorage from 'react-native-sync-localstorage';
 import LibCustom from '../library/custom';
 const valueDefault = {
     name: 'Home',
@@ -349,6 +349,9 @@ export default{
                     AsyncStorage.getItem(payload).then((value) => {
                         if (value) {
                             state.screen = Object.assign(JSON.parse(value));
+                            resolve(state.screen);
+                        }else{
+                            reject("khong tim thay in asyncstorage");
                         }
                     });
                 });
@@ -356,12 +359,20 @@ export default{
                 alert("screen ban nhap vao khong hop le");
             }
         },
+        setScreenByLocalFile: function(state, payload){
+          if(typeof payload === "string"){
+              state.screen = Object.assign({}, JSON.parse(payload));
+          }else if(typeof payload === "object" && !Array.isArray(payload)){
+              state.screen = Object.assign({}, payload);
+          }
+        },
         saveScreen: function (state, payload) {
             if (typeof payload === "string" && payload !== "") {
                 if (state.listScreenSaved.indexOf(payload) === -1) {
                     state.listScreenSaved.push(payload);
-                    localStorage.setItem(payload, state.screen);
+                   // localStorage.setItem(payload, state.screen);
                 }
+                localStorage.setItem(payload, state.screen);
             }
         },
         disableComponent: function (state, payload) {
@@ -522,6 +533,9 @@ export default{
         },
         setListStep: function({commit}, payload){
             commit("setListStep", payload);
+        },
+        setScreenByLocalFile: function({commit}, payload){
+            commit("setScreenByLocalFile", payload);
         }
     }
 }

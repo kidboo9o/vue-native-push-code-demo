@@ -3,12 +3,8 @@ package com.firstone;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import fr.snapp.imagebase64.RNImgToBase64Package;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
-import com.cmcewen.blurview.BlurViewPackage;
-import com.cmcewen.blurview.BlurViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -29,12 +25,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNImgToBase64Package(),
-            new RNFetchBlobPackage(),
             new LinearGradientPackage(),
-            new LottiePackage(),
-            new BlurViewPackage(),
-            new BlurViewPackage()
+            new LottiePackage()
       );
     }
 

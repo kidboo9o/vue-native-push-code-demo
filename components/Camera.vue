@@ -9,14 +9,23 @@
         <view class="content" v-else-if="hasCameraPermission === true">
             <camera class="content" :type="type" ref="camera">
                 <view class="content-end">
-                    <view class="row w-10">
-                        <view class="col-5 offset-1">
-                            <nb-button :on-press="takeSnapshop"><nb-text :style="{color: 'white'}">Chụp hình</nb-text></nb-button>
-                        </view>
-                        <view class="col-5 offset-1">
-                            <nb-button :on-press="handleClick"><nb-text :style="{color: 'white'}">{{textConstants}}</nb-text></nb-button>
-                        </view>
 
+                    <view class="row w-10">
+                        <view class="col-3 offset-1">
+                            <nb-button :on-press="handleBack">
+                                <nb-text :style="{color: 'white', fontSize: scaleFontSize(10)}">Quay lại</nb-text>
+                            </nb-button>
+                        </view>
+                        <view class="col-3 offset-1">
+                            <nb-button :on-press="takeSnapshop">
+                                <nb-text :style="{color: 'white', fontSize: scaleFontSize(10)}">Chụp hình</nb-text>
+                            </nb-button>
+                        </view>
+                        <view class="col-3 offset-1">
+                            <nb-button :on-press="handleClick">
+                                <nb-text :style="{color: 'white', fontSize: scaleFontSize(10)}">{{textConstants}}</nb-text>
+                            </nb-button>
+                        </view>
                     </view>
 
                 </view>
@@ -26,15 +35,27 @@
 </template>
 <script>
     import { Camera, Permissions } from "expo";
+    import LibCustom from '../library/custom';
+    import {mapGetters, mapActions} from 'vuex';
     export default {
+        props: {
+            navigation: {
+                type: Object
+            }
+        },
         data: function() {
             return {
                 hasCameraPermission: null,
                 type: Camera.Constants.Type.back,
                 textConstants: 'Mặt sau',
+                screen: {
+                    width: 0,
+                    height: 0,
+                },
             };
         },
         mounted: function() {
+            this.screen = LibCustom.getSizeScreen();
             Permissions.askAsync(Permissions.CAMERA)
                 .then(status => {
                     if(status.status == "granted"){
@@ -47,6 +68,13 @@
             });
         },
         methods: {
+            ...mapActions("storeCamera", ["setShow"]),
+            scaleFontSize: function (size) {
+                return LibCustom.scaleFontSize(size);
+            },
+            viewScreen: function (percent, type, minus = 0) {
+                return LibCustom.viewScreen(percent, type, minus);
+            },
             handleClick: function(){
                 if(this.type === Camera.Constants.Type.back){
                     this.type = Camera.Constants.Type.front;
@@ -60,13 +88,13 @@
                 this.camera = ref;
             },
             takeSnapshop: function(){
-                console.log("bạn đã click vào snapshot");
                 this.$refs.camera.takePictureAsync({skipProcessing: true}).then((data) => {
                     console.log("in ra sau khi chup hinh : ");
                     console.log(data);
                 });
-
-
+            },
+            handleBack: function(){
+                this.setShow(false);
             }
         },
         components: { Camera },
@@ -91,6 +119,9 @@
     }
     .col-5{
         width: 41.666667%;
+    }
+    .col-3{
+        width: 25%;
     }
     .offset-1{
         margin-left: 8.333333%;

@@ -1,7 +1,7 @@
 <template>
     <view class="service">
         <component v-if="getData.components.listinforuser.status" :is="'ListInforUser'" ></component>
-        <component v-if="getData.components.feedback.status" :is="'FeedBack'" ></component>
+        <component v-if="getData.components.feedback.status" :is="'FeedBack'" :navigation="navigation" ></component>
         <component v-if="getData.components.applicationinformation.status" :is="'ApplicationInformation'" :objApplicationInformation="objApplicationInformation"></component>
         <component v-if="getData.components.changepassword.status" :is="'ChangePassword'"></component>
         <component v-if="getData.components.bill.status" :is="'Bill'"></component>

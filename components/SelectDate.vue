@@ -3,7 +3,7 @@
             width: viewScreen(100, 'vw'),
             height: viewScreen(100, 'vh'),
             justifyContent: 'center',
-            backgroundColor: 'rgba(0,0,0,0.5)'
+            backgroundColor: 'rgba(0,0,0,0.8)'
     }">
         <view v-if="!isShowDetail" :onLayout="handleLayoutCalendar">
             <Calendar
@@ -21,6 +21,28 @@
                     :showWeekNumbers="true"
                     :markedDates="getDotCalendar"
                     :markingType="'custom'"
+                    :theme="{
+                        backgroundColor: '#ffffff',
+                        calendarBackground: '#ffffff',
+                        textSectionTitleColor: '#b6c1cd',
+                        selectedDayBackgroundColor: '#00adf5',
+                        selectedDayTextColor: '#ffffff',
+                        todayTextColor: '#00adf5',
+                        dayTextColor: '#2d4150',
+                        textDisabledColor: '#d9e1e8',
+                        dotColor: '#00adf5',
+                        selectedDotColor: '#ffffff',
+                        arrowColor: 'orange',
+                        monthTextColor: 'blue',
+                        textDayFontFamily: 'monospace',
+                        textMonthFontFamily: 'monospace',
+                        textDayHeaderFontFamily: 'monospace',
+                        textMonthFontWeight: 'bold',
+                        textDayFontSize: 16,
+                        textMonthFontSize: 16,
+                        textDayHeaderFontSize: 16
+                    }"
+                    :style="{height: viewScreen(60, 'vh')}"
             />
         </view>
         <view v-else
