@@ -148,7 +148,7 @@
                 <nb-button :on-press="takeSnapShop" class="mt-3" :style="{backgroundColor: '#3868D9'}"><nb-text>Chụp ảnh</nb-text></nb-button>
                 <view v-if="getShowCamera">
                     <modal :transparent="true" :animationType="'slide'">
-                        <camera-component></camera-component>
+                        <camera-component :navigation="navigation"></camera-component>
                     </modal>
                 </view>
                 <nb-button full iconRight light :on-press="sendFeedback" class="button-bg mt-3" :style="{height: viewScreen(8, 'vh')}">
@@ -156,8 +156,6 @@
                     </nb-text>
                     <nb-icon class="button-feedback button-icon" active name="arrow-forward"/>
                 </nb-button>
-
-
             </nb-form>
         </view>
 </template>

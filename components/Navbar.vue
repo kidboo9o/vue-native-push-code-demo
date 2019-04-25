@@ -357,7 +357,9 @@
                                 };
                                 axios.post(urlThongBaoChung, qs.stringify(data), config).then((response) => {
                                     let arrayDataContent = [];
-                                    let listData = response.data.data;
+                                    let listData = response.data.data.filter((item) => {
+                                        return item.loaithongbao == 1;
+                                    });
                                     for (let i = 0, size = listData.length; i < size; i++) {
                                         let temp = {
                                             id: i,
@@ -379,8 +381,6 @@
                                     this.setDataContent(arrayDataContent);
                                     this.saveScreen(name);
                                     let temp = this.getScreenCurrent();
-                                    console.log("in ra du lieu thong bao chung : ");
-                                    console.log(temp);
                                     localDeviceStorage.writeFile(name, temp);
                                 }).catch(function (error) {
                                     console.log(error);
@@ -408,7 +408,7 @@
                     case "thong-bao-tu-ban-quan-ly" :
                         if (this.isLogin()) {
                             this.onlyEnableComponent('content');
-                            this.setTitleHeader("Thông báo chung");
+                            this.setTitleHeader("Thông báo từ ban quản lý");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
                             let data = {
@@ -417,20 +417,21 @@
                             };
                             axios.post(urlThongBaoChung, qs.stringify(data), config).then((response) => {
                                 let arrayDataContent = [];
-                                let listData = response.data.data;
-
+                                let listData = response.data.data.filter((item) => {
+                                    return item.loaithongbao == 2;
+                                });
                                 for (let i = 0, size = listData.length; i < size; i++) {
                                     let temp = {
                                         id: i,
                                         editable: false,
                                         allowEditable: true,
                                         image: {
-                                            src: require('../assets/images/img-01.jpg'),
+                                            src: {uri: listData[i].link_hinh},
                                             width: 0,
                                             height: 0,
                                         },
                                         data: {
-                                            title: 'Cty venus ',
+                                            title: listData[i].tieude,
                                             description: listData[i].noidung,
                                             time: moment(listData[i].ngay_tao).fromNow(),
                                         }
@@ -438,6 +439,7 @@
                                     arrayDataContent.push(temp);
                                 }
                                 this.setDataContent(arrayDataContent);
+                                this.saveScreen(name);
                             }).catch(function (error) {
                                 console.log(error);
                             })
@@ -448,7 +450,7 @@
                     case "thong-bao-phi-dich-vu":
                         if (this.isLogin()) {
                             this.onlyEnableComponent('content');
-                            this.setTitleHeader("Thông báo chung");
+                            this.setTitleHeader("Thông báo phí dịch vụ");
                             this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
                             this.setRouteHeader("back");
                             let data = {
@@ -457,20 +459,21 @@
                             };
                             axios.post(urlThongBaoChung, qs.stringify(data), config).then((response) => {
                                 let arrayDataContent = [];
-                                let listData = response.data.data;
-
+                                let listData = response.data.data.filter((item) => {
+                                    return item.loaithongbao == 3;
+                                });
                                 for (let i = 0, size = listData.length; i < size; i++) {
                                     let temp = {
                                         id: i,
                                         editable: false,
                                         allowEditable: true,
                                         image: {
-                                            src: require('../assets/images/img-01.jpg'),
+                                            src: {uri: listData[i].link_hinh},
                                             width: 0,
                                             height: 0,
                                         },
                                         data: {
-                                            title: 'Cty venus ',
+                                            title: listData[i].tieude,
                                             description: listData[i].noidung,
                                             time: moment(listData[i].ngay_tao).fromNow(),
                                         }
@@ -478,6 +481,91 @@
                                     arrayDataContent.push(temp);
                                 }
                                 this.setDataContent(arrayDataContent);
+                                this.saveScreen(name);
+                            }).catch(function (error) {
+                                console.log(error);
+                            })
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+                        break;
+                    case "bao-tri-sua-chua":
+                        if (this.isLogin()) {
+                            this.onlyEnableComponent('content');
+                            this.setTitleHeader("Thông báo bảo trì sửa chữa");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                            let data = {
+                                username: this.getUserName(),
+                                maChungThuc: LibCustom.ma_hoa(this.getUserName()),
+                            };
+                            axios.post(urlThongBaoChung, qs.stringify(data), config).then((response) => {
+                                let arrayDataContent = [];
+                                let listData = response.data.data.filter((item) => {
+                                    return item.loaithongbao == 4;
+                                });
+                                for (let i = 0, size = listData.length; i < size; i++) {
+                                    let temp = {
+                                        id: i,
+                                        editable: false,
+                                        allowEditable: true,
+                                        image: {
+                                            src: {uri: listData[i].link_hinh},
+                                            width: 0,
+                                            height: 0,
+                                        },
+                                        data: {
+                                            title: listData[i].tieude,
+                                            description: listData[i].noidung,
+                                            time: moment(listData[i].ngay_tao).fromNow(),
+                                        }
+                                    };
+                                    arrayDataContent.push(temp);
+                                }
+                                this.setDataContent(arrayDataContent);
+                                this.saveScreen(name);
+                            }).catch(function (error) {
+                                console.log(error);
+                            })
+                        } else {
+                            this.navigation.navigate("Login");
+                        }
+                        break;
+                    case "tien-do-dich-vu":
+                        if (this.isLogin()) {
+                            this.onlyEnableComponent('content');
+                            this.setTitleHeader("Thông báo tiến độ dịch vụ");
+                            this.setIconHeader({name: 'ios-arrow-back', type: 'Ionicons'});
+                            this.setRouteHeader("back");
+                            let data = {
+                                username: this.getUserName(),
+                                maChungThuc: LibCustom.ma_hoa(this.getUserName()),
+                            };
+                            axios.post(urlThongBaoChung, qs.stringify(data), config).then((response) => {
+                                let arrayDataContent = [];
+                                let listData = response.data.data.filter((item) => {
+                                    return item.loaithongbao == 5;
+                                });
+                                for (let i = 0, size = listData.length; i < size; i++) {
+                                    let temp = {
+                                        id: i,
+                                        editable: false,
+                                        allowEditable: true,
+                                        image: {
+                                            src: {uri: listData[i].link_hinh},
+                                            width: 0,
+                                            height: 0,
+                                        },
+                                        data: {
+                                            title: listData[i].tieude,
+                                            description: listData[i].noidung,
+                                            time: moment(listData[i].ngay_tao).fromNow(),
+                                        }
+                                    };
+                                    arrayDataContent.push(temp);
+                                }
+                                this.setDataContent(arrayDataContent);
+                                this.saveScreen(name);
                             }).catch(function (error) {
                                 console.log(error);
                             })

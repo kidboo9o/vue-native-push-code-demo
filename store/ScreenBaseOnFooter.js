@@ -370,9 +370,9 @@ export default{
             if (typeof payload === "string" && payload !== "") {
                 if (state.listScreenSaved.indexOf(payload) === -1) {
                     state.listScreenSaved.push(payload);
-                   // localStorage.setItem(payload, state.screen);
+                   localStorage.setItem(payload, state.screen);
                 }
-                localStorage.setItem(payload, state.screen);
+                //localStorage.setItem(payload, state.screen);
             }
         },
         disableComponent: function (state, payload) {

@@ -8,7 +8,14 @@
                 <SpinnerEffectLottie :todo="loadGuide"></SpinnerEffectLottie>
             </modal>
         </view>
-        <ItemContent v-for="todo in todoContents.data" :key="todo.id" :todo="todo"></ItemContent>
+        <view v-if="todoContents.data.length > 0">
+            <ItemContent v-for="todo in todoContents.data" :key="todo.id" :todo="todo"></ItemContent>
+        </view>
+        <view v-else>
+           <nb-content padder>
+               <nb-text>Không có thông báo</nb-text>
+           </nb-content>
+        </view>
     </view>
 </template>
 <script>

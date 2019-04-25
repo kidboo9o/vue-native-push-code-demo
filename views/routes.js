@@ -22,6 +22,7 @@ import ModalRegister from "./ModalRegister.vue";
 // the is the navigation stack for the main application after authentication
 // or account creation is completed. The stackNavigator is the basic master=detail UX
 // that is seen in most mobile applications
+import DeckSwipeImageCamera from "../components/DeckSwipeImageCamera.vue";
 const Drawer = DrawerNavigator(
     {
         Home: {
@@ -39,6 +40,9 @@ const Drawer = DrawerNavigator(
         ModalRegister: {
             screen: ModalRegister
         },
+        DeckSwipeImageCamera: {
+            screen: DeckSwipeImageCamera
+        }
     },
     {
         initialRouteName: "Home",

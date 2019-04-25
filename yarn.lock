@@ -6174,9 +6174,9 @@ react-native-branch@2.0.0-beta.3:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
 
 react-native-calendars@^1.32.0:
-  version "1.38.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.38.0.tgz#c8735e0fd65d726c65f04930ca1f285e5ab9e4f6"
-  integrity sha512-dkDHPtnR74/0dh/dq+pzsH432Uc/gYedyWD/q+yBapMrIcHc6AEWLB/zZvJ1PwcvxgUvVDjIaQ30/3+PbanVbw==
+  version "1.66.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.66.0.tgz#16b17657be14423cb87c9fec3f2fba4af4ae59f6"
+  integrity sha512-ecmwwhacF+UAolXBJymAkG25dG5dkxWBqvkUxkXCLaP+2+EmXkdT753av3efNPm8ehORUcSPXnre03crQ94j2A==
   dependencies:
     lodash.get "^4.4.2"
     lodash.isequal "^4.5.0"
@@ -7222,9 +7222,9 @@ spdx-license-ids@^3.0.0:
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.1.tgz#e2a303236cac54b04031fa7a5a79c7e701df852f"
 
 split-on-first@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.0.0.tgz#648af4ce9a28fbcaadd43274455f298b55025fc6"
-  integrity sha512-mjA57TQtdWztVZ9THAjGNpgbuIrNfsNrGa5IyK94NoPaT4N14M+GI4jD7t4arLjFkYRQWdETC5RxFzLWouoB3A==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"
+  integrity sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==
 
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"
