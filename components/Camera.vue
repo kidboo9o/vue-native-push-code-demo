@@ -21,19 +21,23 @@
                         </view>
                         <view class="col-3 offset-1 text-center" v-else>
                             <touchable-opacity :on-press="showListImage">
-                                <image
+                                <AutoHeightImage
                                         :source="getImageCurrent.src"
-                                        :style="{resizeMode: 'cover', width: getImageCurrent.width, height: getImageCurrent.height}"
-                                >
-                                </image>
+                                        :width="viewScreen(12, 'vw')"
+                                ></AutoHeightImage>
                             </touchable-opacity>
-
                         </view>
-                        <view class="col-3 offset-1 text-center">
+                        <view class="col-3 offset-1 text-center" v-if="isValidateSnapShot === true">
                                 <touchable-opacity :on-press="takeSnapshop">
                                     <nb-icon name="camera" :style="{fontSize: scaleFontSize(60)}" class="text-light"
                                              type="MaterialIcons"/>
                                 </touchable-opacity>
+                        </view>
+                        <view class="col-3 offset-1 text-center" v-else-if="isValidateSnapShot === false">
+                            <touchable-without-feedback>
+                                <nb-icon name="camera" :style="{fontSize: scaleFontSize(60)}" class="text-disable"
+                                         type="MaterialIcons"/>
+                            </touchable-without-feedback>
                         </view>
                         <view class="col-3 offset-1 text-center">
                                 <touchable-opacity :on-press="handleClick">
@@ -53,6 +57,7 @@
     import LibCustom from '../library/custom';
     import {mapGetters, mapActions} from 'vuex';
     import DeckSwipeImageCamera from "./DeckSwipeImageCamera.vue";
+    import AutoHeightImage from 'react-native-auto-height-image';
     export default {
         props: {
             navigation: {
@@ -69,6 +74,7 @@
                     height: 0,
                 },
                 imageCurrent: null,
+
             };
         },
         mounted: function () {
@@ -88,17 +94,19 @@
             getImageCurrent: function () {
                 if(this.getListImage().length > 0 ){
                     this.imageCurrent = this.getListImage()[this.getListImage().length-1];
-                    let temp = this.imageCurrent.width / this.imageCurrent.height;
-                    this.imageCurrent.height = LibCustom.viewScreen(10, 'vh');
-                    this.imageCurrent.width = this.imageCurrent.height / temp;
                 }
                 return this.imageCurrent;
-
             },
+            isValidateSnapShot: function(){
+                if(this.getListImage().length >= 4){
+                    return false;
+                }
+                return true;
+            }
         },
         methods: {
             ...mapGetters("storeCamera", ['getListImage']),
-            ...mapActions("storeCamera", ["setShow", "setAddImage"]),
+            ...mapActions("storeCamera", ["setShow", "setAddImage", "setShowListImageStartByIndexSelected"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
@@ -133,16 +141,17 @@
                 this.setShow(false);
             },
             showListImage: function(){
+                this.setShowListImageStartByIndexSelected(this.imageCurrent.id);
                 this.navigation.navigate("DeckSwipeImageCamera");
             }
         },
-        components: {Camera, DeckSwipeImageCamera},
+        components: {Camera, DeckSwipeImageCamera, AutoHeightImage},
     };
 </script>
 <style>
     .container {
         flex: 1;
-        margin-top: 24;
+        /*margin-top: 24;*/
     }
 
     .header {
@@ -184,5 +193,8 @@
     .text-center{
         justify-content: center;
         align-items: center;
+    }
+    .text-disable{
+        color: rgba(255,255,255, 0.1);
     }
 </style>

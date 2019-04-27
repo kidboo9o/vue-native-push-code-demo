@@ -48,8 +48,6 @@
         created: function () {
             let arr = this.getListStep();
             let size = arr.length;
-            console.log("in thu duong di")
-            console.log(arr);
             if(arr[size-1] && arr[size-1] === "ThongBaoChung"){
                 this.showModal = true;
                 setTimeout(() => {

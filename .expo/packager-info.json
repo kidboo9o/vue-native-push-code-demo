@@ -1,8 +1,9 @@
 {
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
   "packagerPort": null,
-  "packagerPid": null
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://f4-txd.kidboo9o.vue-native-firstone.exp.direct",
+  "packagerNgrokUrl": "https://packager.f4-txd.kidboo9o.vue-native-firstone.exp.direct",
+  "ngrokPid": 12304,
+  "expoServerPort": null,
+  "devToolsPort": 19002
 }

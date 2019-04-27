@@ -159,15 +159,12 @@
         },
         computed: {
             getInforUser: function () {
-//                return this.dataModel;
                 return this.getUser().data;
             },
             getAmount: function () {
-//                return this.dataModel.length;
                 return this.getUser().data.length;
             },
             getUserDefault: function () {
-//                return this.dataModel;
                 return this.getIndexSelected();
             },
             getType: function () {

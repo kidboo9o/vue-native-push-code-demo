@@ -7,11 +7,11 @@
                 </touchable-opacity>
             </nb-button>
         </view>
-        <view :style="{flex: 1, padding: 12}">
+        <view :style="{flex: 1,padding: 12}">
             <nb-deck-swiper :key="getListImageItem"
-                    :dataSource="getListImageItem"
-                    :looping="isLoopingRequired"
-                    :renderItem="handleCardRendering"
+                            :dataSource="getListImageItem"
+                            :looping="isLoopingRequired"
+                            :renderItem="handleCardRendering"
             />
         </view>
     </nb-container>
@@ -43,28 +43,22 @@
             this.screen = LibCustom.getSizeScreen();
         },
         computed: {
-            getListImageItem: function(){
-                console.log("co chay vao day ne");
-                this.getListImage().forEach( (item) => {
-                    let temp = item.width / item.height;
-                    item.width = LibCustom.viewScreen(90, 'vw');
-                    item.height = item.width / temp;
-                });
-                return this.getListImage();
+            getListImageItem: function () {
+                return this.getShowListImageStartByIndexSelected();
             },
         },
         methods: {
-            ...mapGetters("storeCamera", ['getListImage']),
+            ...mapGetters("storeCamera", ['getShowListImageStartByIndexSelected']),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
             },
             viewScreen: function (percent, type, minus = 0) {
                 return LibCustom.viewScreen(percent, type, minus);
             },
-            handleCardRendering: function(item) {
-                return <CardComponent item={item} />;
+            handleCardRendering: function (item) {
+                return <CardComponent item = {item} />;
             },
-            handleBack: function(){
+            handleBack: function () {
                 this.navigation.goBack();
             }
 
@@ -77,6 +71,7 @@
         justify-content: flex-start;
         background-color: black;
     }
+
     .text-light {
         color: white;
     }

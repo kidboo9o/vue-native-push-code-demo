@@ -37,7 +37,7 @@
     import React, {Component} from 'react';
     import {Dimensions, Animated, Easing, AppRegistry, NetInfo, Text, View} from 'react-native';
     import AutoHeightImage from 'react-native-auto-height-image';
-    import {Constants, MapView, Permissions, Location} from "expo";
+    import { SQLite } from "expo";
     import LibCustom from '../library/custom';
     import SvgUri from 'react-native-svg-uri';
     import {mapGetters, mapActions} from 'vuex';
@@ -78,9 +78,6 @@
                 return this.getNavbar();
             },
             isLogin: function () {
-//                return function(){
-//                    return true;
-//                }
                 return this.checkLogin;
             },
             getBackground: function () {
@@ -379,7 +376,7 @@
                                         arrayDataContent.push(temp);
                                     }
                                     this.setDataContent(arrayDataContent);
-                                    this.saveScreen(name);
+                                     this.saveScreen(name);
                                     let temp = this.getScreenCurrent();
                                     localDeviceStorage.writeFile(name, temp);
                                 }).catch(function (error) {

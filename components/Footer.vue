@@ -80,9 +80,6 @@
         },
         computed: {
             isLogin: function () {
-//                return function () {
-//                    return true;
-//                };
                 return this.checkLogin;
             },
             listScreenSave: function () {

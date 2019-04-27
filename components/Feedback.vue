@@ -145,7 +145,12 @@
                              }"
                     >{{showErrorNoiDung}}</nb-text>
                 </nb-item>
-                <nb-button :on-press="takeSnapShop" class="mt-3" :style="{backgroundColor: '#3868D9'}"><nb-text>Chụp ảnh</nb-text></nb-button>
+                <view class="mt-6" v-if="getShowListImage.length > 0" :style="{height: viewScreen(15, 'vh')}">
+                        <!-- show list Image -->
+                        <list-image-camera :todos="getShowListImage" :navigation="navigation"></list-image-camera>
+                </view>
+                <nb-button :on-press="takeSnapShop" class="mt-3" :style="{backgroundColor: '#3868D9', height: viewScreen(7, 'vh')}"><nb-text>Chụp ảnh</nb-text></nb-button>
+                <nb-text class="text-danger mt-3">Lưu ý: Hiện tại chúng tôi chỉ hỗ trợ tối đa chụp 4 hình ảnh để gửi lên</nb-text>
                 <view v-if="getShowCamera">
                     <modal :transparent="true" :animationType="'slide'">
                         <camera-component :navigation="navigation"></camera-component>
@@ -161,6 +166,7 @@
 </template>
 <script>
     import storeCamera from "../store/storeCamera";
+    import ListImageCamera from "./ListImageCamera.vue";
     import {mapGetters, mapActions} from 'vuex';
     import LibCustom from '../library/custom';
     import axios from "axios";
@@ -213,7 +219,8 @@
             }
         },
         components: {
-            CameraComponent
+            CameraComponent,
+            ListImageCamera,
         },
         computed: {
             getUserSelected: function(){
@@ -221,6 +228,9 @@
             },
             getShowCamera: function(){
                 return this.getShow();
+            },
+            getShowListImage: function(){
+                return this.getListImage();
             }
         },
         mounted: function () {
@@ -235,7 +245,7 @@
         },
         methods: {
             ...mapGetters("login", ['getIndexSelected']),
-            ...mapGetters("storeCamera", ['getShow']),
+            ...mapGetters("storeCamera", ['getShow', 'getListImage']),
             ...mapActions("storeCamera", ["setShow"]),
             scaleFontSize: function (size) {
                 return LibCustom.scaleFontSize(size);
@@ -384,6 +394,9 @@
 
     .mt-3 {
         margin-top: 3%;
+    }
+    .mt-6{
+        margin-top: 6%;
     }
 
     .pl-3 {

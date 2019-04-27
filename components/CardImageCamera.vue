@@ -1,5 +1,5 @@
 <template>
-    <nb-card :style="{ elevation: 3, width: viewScreen(90, 'vw') }">
+    <nb-card :style="{ elevation: 3, width: viewScreen(90, 'vw'), height: viewScreen(80, 'vh') }">
         <nb-cardItem>
             <nb-left>
                 <nb-thumbnail :source="item.src"/>
@@ -15,11 +15,11 @@
                 </touchable-opacity>
             </nb-right>
         </nb-cardItem>
-        <nb-cardItem cardBody>
-            <image
-                    :style="{resizeMode: 'cover', width: item.width, height: item.height}"
-                    :source="item.src"
-            />
+        <nb-cardItem cardBody class="text-center">
+                <AutoHeightImage
+                        :source="item.src"
+                        :width="viewScreen(67.5, 'vw')"
+                ></AutoHeightImage>
         </nb-cardItem>
     </nb-card>
 </template>
@@ -29,11 +29,15 @@
     import React, {Component} from 'react';
     import {Text, View, StyleSheet, TouchableOpacity, Alert, Platform, AlertIOS} from 'react-native';
     import {mapGetters, mapActions} from 'vuex';
+    import AutoHeightImage from 'react-native-auto-height-image';
     export default {
         props: {
             item: {
                 type: Object
             }
+        },
+        components: {
+            AutoHeightImage
         },
         data: function () {
             return {
@@ -42,6 +46,8 @@
                     height: 0,
                 },
             };
+        },
+        created: function(){
         },
         mounted: function () {
             this.screen = LibCustom.getSizeScreen();
@@ -85,7 +91,6 @@
                 }
             },
             handleClickYes: function (id) {
-                alert("xoa ne : "+id);
                 this.setRemoveImage(id);
             },
             handleClickNo: function (id) {
@@ -97,5 +102,9 @@
 <style>
     .text-danger {
         color: red;
+    }
+    .text-center{
+        justify-content: center;
+        align-items: center;
     }
 </style>
