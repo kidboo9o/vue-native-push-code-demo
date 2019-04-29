@@ -68,6 +68,7 @@
                                 this.setListStep("ThongBao");
                                 break;
                             case "ChiTietThongBao":
+                                console.log(arr);
                                 for (let i = size - 1; i >= 0; i--) {
                                     if (arr[i] === "ChiTietThongBao") {
                                         if (arr[i - 1] === "ChiTietThongBao") {

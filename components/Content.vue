@@ -23,7 +23,6 @@
     import ItemContent from './ItemContent.vue';
     import {mapGetters, mapActions} from 'vuex';
     import SpinnerEffectLottie from "../components/SpinnerEffectLottie.vue";
-    import LocalDeviceStorage from "../library/localStorage";
     export default {
         props: {},
         data: function () {
@@ -62,16 +61,6 @@
         },
         computed: {
             todoContents: function(){
-                if (this.getContent().data.length > 0) {
-                    let urlFile;
-                    let arrContentData = this.getContent().data;
-                    arrContentData.forEach((dataContent) => {
-                        urlFile = dataContent.image.src.uri;
-                        if (urlFile) {
-                            this.handleUrlFile(urlFile);
-                        }
-                    });
-                }
                 return this.getContent();
             },
             getShowModal: function(){
@@ -89,35 +78,6 @@
             viewScreen: function (percent, type, minus = 0) {
                 return LibCustom.viewScreen(percent, type, minus);
             },
-            handleUrlFile: function(urlFile){
-                let result, listPath, nameFile, options, type;
-                result = LibCustom.searchWebsiteToString(urlFile);
-                listPath = urlFile.split(result[0])[1].split("/").filter((item) => item !== "");
-                nameFile = listPath.pop();
-                options = {
-                    intermediates: true,
-                };
-                type = "cache";
-                listPath = listPath.join("/") + "/";
-                LocalDeviceStorage.checkFileOrDirectoryExists(listPath, type).then((value) => {
-                    if (value.exists && value.isDirectory) {
-                        LocalDeviceStorage.checkFileOrDirectoryExists(listPath + nameFile, type).then((checkFile) => {
-                            if (checkFile.exists) {
-                                let temp = LocalDeviceStorage.getPathFileImage(listPath + nameFile);
-                                const obj = {
-                                    isStatic: true,
-                                    uri: temp,
-                                };
-                                dataContent.image.src = Object.assign({}, obj);
-                            } else {
-                                LocalDeviceStorage.saveFileImage(urlFile, listPath + nameFile);
-                            }
-                        })
-                    } else {
-                        LocalDeviceStorage.createDirectory(listPath, type, options);
-                    }
-                })
-            }
 
         },
 

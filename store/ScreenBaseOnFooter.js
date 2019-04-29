@@ -371,6 +371,10 @@ export default{
                 if (state.listScreenSaved.indexOf(payload) === -1) {
                     state.listScreenSaved.push(payload);
                    localStorage.setItem(payload, state.screen);
+                }else{
+                    if(payload === "ThongBaoChung"){
+                        localStorage.setItem(payload, state.screen);
+                    }
                 }
                 //localStorage.setItem(payload, state.screen);
             }

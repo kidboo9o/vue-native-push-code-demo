@@ -1,6 +1,8 @@
 import {FileSystem} from 'expo';
-const rootPath = FileSystem.documentDirectory;
-const cachePath = FileSystem.cacheDirectory;
+import Constants from "../GLOBAL_VARIABLES/Constants";
+const cachePath = Constants.CACHE_PATH;
+const rootPath = Constants.ROOT_PATH;
+const dbPath = Constants.DB_PATH;
 export default{
     checkFileOrDirectoryExists: function (name, type = "root") {
         if (type === "cache") {
@@ -10,19 +12,22 @@ export default{
         }
 
     },
-    readFile: function (name, type = "utf8", position = 0, length = 0) {
+    readFile: function (name, typeFile = "root", typeEncode = "utf8", position = 0, length = 0) {
         let options = {};
-        if (type === "utf8") {
-            return FileSystem.readAsStringAsync(rootPath + "/" + name);
-        } else if (type === "base64") {
+        let path = (typeFile === "cache") ? cachePath : (typeFile === "database") ? dbPath : rootPath;
+        console.log("in ra path : "+path);
+        if (typeEncode === "utf8") {
+            return FileSystem.readAsStringAsync(path + "/" + name);
+        } else if (typeEncode === "base64") {
             options["encoding"] = FileSystem.EncodingTypes.Base64;
             options["length"] = length;
             options["position"] = position;
-            return FileSystem.readAsStringAsync(rootPath + "/" + name, options)
+            return FileSystem.readAsStringAsync(path + "/" + name, options)
         }
     },
-    writeFile: function (name, contents, type = "utf8") {
+    writeFile: function (name, contents, type = "utf8", typeFile="root") {
         let options = {};
+        let path = (typeFile === "cache") ? cachePath : (typeFile === "database") ? dbPath : rootPath;
         if (typeof contents === "object") {
             if (Array.isArray(contents)) {
                 contents = contents.join();
@@ -38,8 +43,9 @@ export default{
         }
 
     },
-    removeFile: function (name) {
-        return FileSystem.deleteAsync(rootPath + "/" + name);
+    removeFile: function (name, typeFile="root") {
+        let path = (typeFile === "cache") ? cachePath : (typeFile === "database") ? dbPath : rootPath;
+        return FileSystem.deleteAsync(path + "/" + name);
     },
     createDirectory: function (name, type = "cache", options) {
         if (type === "cache") {
@@ -76,5 +82,5 @@ export default{
             result = rootPath + "/" + name;
         }
         return result;
-    }
+    },
 }

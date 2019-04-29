@@ -15,8 +15,10 @@
     import RootNavigation from "./views/Root.vue";
     import Reactotron from 'reactotron-react-native';
     import moment from "moment";
-    import localStorage from "./library/localStorage";
     import {mapGetters, mapActions} from 'vuex';
+    import tbl_taikhoan_chitiet from "./database/taikhoan_chitiet";
+    import tbl_thongbao from "./database/thongbao";
+    import localStorage from "./library/localStorage";
     Reactotron
         .configure({host: '192.168.1.10'}) // controls connection & communication settings
         .useReactNative() // add all built-in react native plugins
@@ -46,7 +48,9 @@
         },
         created: function () {
             this.loadAll();
-            this.loadInfoUserIfExists("user");
+            this.removeFileDatabase();
+            this.loadDatabase();
+            this.check_login();
         },
         methods: {
             ...mapActions("login", ["saveInforUser"]),
@@ -121,19 +125,26 @@
                     this.isAppReady = true;
                 }
             },
-            loadInfoUserIfExists: function(name){
-                localStorage.checkFileOrDirectoryExists(name).then((value) => {
-                    if(value.exists === true){
-                        localStorage.readFile(name).then((ObjInforUser) => {
-                            if(ObjInforUser){
-                                this.saveInforUser(JSON.parse(ObjInforUser));
+            removeFileDatabase: function(){
+                localStorage.removeFile('', 'database');
+                localStorage.removeFile('/public/UNGDUNGCSKH/hinh_thongbao/no-image-icon.png', 'cache');
+            },
+            loadDatabase: function(){
+                tbl_taikhoan_chitiet.create();
+                tbl_thongbao.create();
+            },
+            check_login: function(){
+                tbl_taikhoan_chitiet.count().then(value => {
+                    if(value > 0){
+                        tbl_taikhoan_chitiet.select().then(response => {
+                            let objUser = {
+                                data: response,
                             }
-                        });
+                            this.saveInforUser(objUser);
+                        })
                     }else{
-                        console.log("chưa có file user được ghi vào local");
+
                     }
-                }).catch((error) => {
-                    console.log("co loi phat sinh "+ error);
                 })
             }
         }

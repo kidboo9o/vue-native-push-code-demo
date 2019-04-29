@@ -35,6 +35,10 @@
 </template>
 <script>
     import React, {Component} from 'react';
+    import tbl_taikhoan_chitiet from "../database/taikhoan_chitiet";
+    import tbl_thongbao from "../database/thongbao";
+    import localDeviceStorage from "../library/localStorage";
+    import Constants from "../GLOBAL_VARIABLES/Constants";
     import {Dimensions, Animated, Easing, AppRegistry, NetInfo, Text, View} from 'react-native';
     import AutoHeightImage from 'react-native-auto-height-image';
     import { SQLite } from "expo";
@@ -52,7 +56,6 @@
             'Content-Type': 'application/x-www-form-urlencoded',
         }
     };
-    import localDeviceStorage from "../library/localStorage";
     export default {
         props: {
             navigation:{
@@ -357,45 +360,54 @@
                                     let listData = response.data.data.filter((item) => {
                                         return item.loaithongbao == 1;
                                     });
-                                    for (let i = 0, size = listData.length; i < size; i++) {
-                                        let temp = {
-                                            id: i,
-                                            editable: false,
-                                            allowEditable: true,
-                                            image: {
-                                                src: {uri: listData[i].link_hinh},
-                                                width: 0,
-                                                height: 0,
-                                            },
-                                            data: {
-                                                title: listData[i].tieude,
-                                                description: listData[i].noidung,
-                                                time: moment(listData[i].ngay_tao).fromNow(),
-                                            }
-                                        };
-                                        arrayDataContent.push(temp);
-                                    }
-                                    this.setDataContent(arrayDataContent);
-                                     this.saveScreen(name);
-                                    let temp = this.getScreenCurrent();
-                                    localDeviceStorage.writeFile(name, temp);
+                                    let urlFile;
+                                    listData.forEach((item, index) => {
+                                        let data = Object.values(item);
+                                        urlFile = item.link_hinh;
+                                        if (urlFile) {
+                                            this.handleUrlFile(urlFile).then(value => {
+                                                data.push(value);
+                                                let temp = {
+                                                    id: index,
+                                                    editable: false,
+                                                    allowEditable: true,
+                                                    image: {
+                                                        src: {uri: localDeviceStorage.getPathFileImage(value)},
+                                                        width: 0,
+                                                        height: 0,
+                                                    },
+                                                    data: {
+                                                        title: item.tieude,
+                                                        description: item.noidung,
+                                                        time: moment(item.ngay_tao).fromNow(),
+                                                    }
+                                                };
+                                                arrayDataContent.push(temp);
+                                                this.setDataContent(arrayDataContent);
+                                                this.saveScreen(name);
+                                                tbl_thongbao.insert(data);
+                                            })
+                                        }
+                                    })
+
+
                                 }).catch(function (error) {
                                     console.log(error);
                                 })
                             }else{ // Offline
-                                if (this.listScreenSave.indexOf(name) !== -1) {
-                                    this.setScreen(name);
-                                }else{
-                                    localDeviceStorage.checkFileOrDirectoryExists(name).then((value) => {
-                                        if(value.exists){
-                                            localDeviceStorage.readFile(name).then( (objData) => {
-                                                this.setScreenByLocalFile(objData);
-                                            })
-                                        }else{
-                                            console.log("không tồn tại file "+name+" ở local");
-                                        }
-                                    })
-                                }
+//                                if (this.listScreenSave.indexOf(name) !== -1) {
+//                                    this.setScreen(name);
+//                                }else{
+//                                    localDeviceStorage.checkFileOrDirectoryExists(name).then((value) => {
+//                                        if(value.exists){
+//                                            localDeviceStorage.readFile(name).then( (objData) => {
+//                                                this.setScreenByLocalFile(objData);
+//                                            })
+//                                        }else{
+//                                            console.log("không tồn tại file "+name+" ở local");
+//                                        }
+//                                    })
+//                                }
                             }
 
                         } else {
@@ -673,12 +685,41 @@
                     case "dang-xuat":
                         if (this.isLogin()) {
                             this.removeUser();
+                            tbl_taikhoan_chitiet.delete();
                             this.setScreen("Home");
                         } else {
                             this.navigation.navigate("Login");
                         }
                         break;
                 }
+            },
+            handleUrlFile: function(urlFile){
+                return new Promise((resolve, reject) => {
+                    let result, listPath, nameFile, options, type;
+                    result = LibCustom.searchWebsiteToString(urlFile);
+                    listPath = urlFile.split(result[0])[1].split("/").filter((item) => item !== "");
+                    nameFile = listPath.pop();
+                    options = {
+                        intermediates: true,
+                    };
+                    type = "cache";
+                    listPath = listPath.join("/") + "/";
+                    localDeviceStorage.checkFileOrDirectoryExists(listPath, type).then((value) => {
+                        if (value.exists && value.isDirectory) {
+                            localDeviceStorage.checkFileOrDirectoryExists(listPath + nameFile, type).then((checkFile) => {
+                                if (checkFile.exists) {
+                                    localDeviceStorage.removeFile(listPath + nameFile, "cache");
+                                }
+                                localDeviceStorage.saveFileImage(urlFile, listPath + nameFile);
+                                resolve(listPath+nameFile);
+
+                            })
+                        } else {
+                            localDeviceStorage.createDirectory(listPath, type, options);
+                        }
+                    })
+                })
+
             }
         },
         beforeDestroy: function() {

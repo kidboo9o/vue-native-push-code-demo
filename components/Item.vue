@@ -11,6 +11,7 @@
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex';
+    import tbl_taikhoan_chitiet from "../database/taikhoan_chitiet";
     export default {
         props: {
             todo: Object,
@@ -51,6 +52,7 @@
                     switch(this.todo.name){
                         case "logout":
                             this.removeUser();
+                            tbl_taikhoan_chitiet.delete();
                             this.setScreen("Home");
                             this.navigation.navigate("DrawerClose");
                             break;
