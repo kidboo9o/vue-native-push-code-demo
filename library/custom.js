@@ -77,5 +77,13 @@ export default{
         let regexTemplate = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/g;
         let result = str.match(regexTemplate);
         return result;
+    },
+    isEmpty: function(obj){
+        for(var key in obj){
+            if(obj.hasOwnProperty(key)){
+                return false;
+            }
+        }
+        return true;
     }
 }

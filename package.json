@@ -23,6 +23,9 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "appcenter": "1.13.0",
+    "appcenter-analytics": "1.13.0",
+    "appcenter-crashes": "1.13.0",
     "expo": "^27.0.1",
     "firebase": "^5.9.2",
     "lottie-react-native": "2.5.11",

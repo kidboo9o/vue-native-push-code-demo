@@ -5,16 +5,12 @@ import {
 } from "vue-native-router";
 import React from "react";
 import HomeVue from "./Home.vue";
-import LoginVue from "./Login.vue";
 import SideBar from '../components/SideBar.vue';
-import RegisterVue from './Register.vue';
 import { Dimensions } from 'react-native'
 const { width, height } = Dimensions.get('screen');
 
 
 
-import AnimationDemo from "./AnimationDemo.vue";
-import ModalRegister from "./ModalRegister.vue";
 // ----------------------------------------------------------------------------
 // THIS IS THE REACT NAVIGATION STUFF THAT IS WAY DIFFERENT FROM THE
 // VUE-ROUTER WE ALL KNOW AND LOVE
@@ -22,27 +18,11 @@ import ModalRegister from "./ModalRegister.vue";
 // the is the navigation stack for the main application after authentication
 // or account creation is completed. The stackNavigator is the basic master=detail UX
 // that is seen in most mobile applications
-import DeckSwipeImageCamera from "../components/DeckSwipeImageCamera.vue";
 const Drawer = DrawerNavigator(
     {
         Home: {
             screen: HomeVue
         },
-        Login: {
-            screen: LoginVue
-        },
-        Register: {
-          screen: RegisterVue
-        },
-        AnimationDemo: {
-            screen: AnimationDemo
-        },
-        ModalRegister: {
-            screen: ModalRegister
-        },
-        DeckSwipeImageCamera: {
-            screen: DeckSwipeImageCamera
-        }
     },
     {
         initialRouteName: "Home",
