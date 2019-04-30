@@ -2,64 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f975a422-83b2-438b-b3fd-07e4ab2b9097" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/BUCK" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/proguard-rules.pro" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/appcenter-config.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/AntDesign.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Entypo.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/EvilIcons.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Feather.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/FontAwesome.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/FontAwesome5_Brands.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/FontAwesome5_Regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/FontAwesome5_Solid.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Foundation.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Ionicons.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/MaterialIcons.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Octicons.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Roboto.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Roboto_medium.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/SimpleLineIcons.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Zocial.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/rubicon-icon-font.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/java/com/firstone/MainActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/java/com/firstone/MainApplication.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/gradle.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/gradlew" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/gradlew.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/keystores/BUCK" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/keystores/debug.keystore.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/settings.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne-tvOS/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne-tvOSTests/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne.xcodeproj/xcshareddata/xcschemes/firstOne-tvOS.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne.xcodeproj/xcshareddata/xcschemes/firstOne.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne/AppCenter-Config.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne/AppDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne/AppDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne/Base.lproj/LaunchScreen.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne/Images.xcassets/AppIcon.appiconset/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne/Images.xcassets/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOne/main.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOneTests/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ios/firstOneTests/firstOneTests.m" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yarn.lock" afterPath="$PROJECT_DIR$/yarn.lock" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -137,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="12" column="33" lean-forward="false" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+            <state relative-caret-position="425">
+              <caret line="41" column="34" lean-forward="false" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -152,16 +96,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="350">
               <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="yarn.lock" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/yarn.lock">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10710">
-              <caret line="8219" column="0" lean-forward="false" selection-start-line="8219" selection-start-column="0" selection-end-line="8219" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -267,8 +201,8 @@
         <option value="$PROJECT_DIR$/views/routes.js" />
         <option value="$PROJECT_DIR$/components/SideBar.vue" />
         <option value="$PROJECT_DIR$/views/Home.vue" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/yarn.lock" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -285,9 +219,6 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
@@ -567,12 +498,12 @@
       <workItem from="1556514896178" duration="3029000" />
       <workItem from="1556542637076" duration="11517000" />
       <workItem from="1556608064499" duration="1807000" />
-      <workItem from="1556611959619" duration="3450000" />
+      <workItem from="1556611959619" duration="4112000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="914274000" />
+    <option name="totallyTimeSpent" value="914936000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -585,10 +516,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
-    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985932" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.190625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.190625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1002,10 +932,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/yarn.lock">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" column="33" lean-forward="false" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        <state relative-caret-position="11460">
+          <caret line="8219" column="0" lean-forward="false" selection-start-line="8219" selection-start-column="0" selection-end-line="8219" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1018,10 +948,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yarn.lock">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10710">
-          <caret line="8219" column="0" lean-forward="false" selection-start-line="8219" selection-start-column="0" selection-end-line="8219" selection-end-column="0" />
+        <state relative-caret-position="425">
+          <caret line="41" column="34" lean-forward="false" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
           <folding />
         </state>
       </provider>
