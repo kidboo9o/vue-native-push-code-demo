@@ -1,21 +1,4 @@
 {
-  "expo": {
-    "name": "App-Demo-Push-Code",
-    "slug": "app-demo-push-code",
-    "sdkVersion": "27.0.0",
-    "orientation": "portrait",
-    "assetBundlePatterns": [
-      "assets/*"
-    ],
-    "ios": {
-      "bundleIdentifier": "com.venus.appvenus"
-    },
-    "android": {
-      "package": "com.venus.appvenus"
-    },
-    "packagerOpts": {
-      "assetExts": ["db"]
-    }
-  }
-
+  "name": "firstOne",
+  "displayName": "firstOne"
 }
