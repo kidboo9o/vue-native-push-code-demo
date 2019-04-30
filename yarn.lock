@@ -6034,9 +6034,9 @@ qs@^6.7.0:
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
 query-string@^6.4.2:
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.4.2.tgz#8be1dbd105306aebf86022144f575a29d516b713"
-  integrity sha512-DfJqAen17LfLA3rQ+H5S4uXphrF+ANU1lT2ijds4V/Tj4gZxA3gx5/tg1bz7kYCmwna7LyJNCYqO7jNRzo3aLw==
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.5.0.tgz#2e1a70125af01f6f04573692d02c09302a1d8bfc"
+  integrity sha512-TYC4hDjZSvVxLMEucDMySkuAS9UIzSbAiYGyA9GWCjLKB8fQpviFbjd20fD7uejCDxZS+ftSdBKE6DS+xucJFg==
   dependencies:
     decode-uri-component "^0.2.0"
     split-on-first "^1.0.0"
@@ -6174,9 +6174,9 @@ react-native-branch@2.0.0-beta.3:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
 
 react-native-calendars@^1.32.0:
-  version "1.66.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.66.0.tgz#16b17657be14423cb87c9fec3f2fba4af4ae59f6"
-  integrity sha512-ecmwwhacF+UAolXBJymAkG25dG5dkxWBqvkUxkXCLaP+2+EmXkdT753av3efNPm8ehORUcSPXnre03crQ94j2A==
+  version "1.68.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.68.0.tgz#2d00957c123a33af073fc4476d18accf2c3a73ed"
+  integrity sha512-C3t1AziQ2ldJzogV2YWr+oFJ0UHR+Mlrp9g0eGpoisFNPGV5WKSrlbdFn5g9nm4nTcLBU1mln/xPVikjnclYJg==
   dependencies:
     lodash.get "^4.4.2"
     lodash.isequal "^4.5.0"
